@@ -1,9 +1,8 @@
 import 'package:citta_admin_panel/widgets/product_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../consts/constants.dart';
-import '../controllers/MenuController.dart';
+import '../services/utils.dart';
 import '../widgets/header.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -11,6 +10,8 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = Utils(context).getScreenSize;
+
     return SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(defaultPadding),
@@ -33,10 +34,9 @@ class DashboardScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: 4,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 1,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: size.width < 650 ? 2 : 4,
+                          childAspectRatio: size.width < 1400 ? 0.9 : 1.8,
                           crossAxisSpacing: defaultPadding,
                           mainAxisSpacing: defaultPadding,
                         ),
