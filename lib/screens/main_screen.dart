@@ -1,3 +1,4 @@
+import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: getScaffoldKey,
       // key: context.read<MenuController>().getScaffoldKey,
       drawer: const SideMenu(),
       body: SafeArea(

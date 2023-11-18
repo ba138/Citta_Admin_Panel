@@ -1,3 +1,4 @@
+import 'package:citta_admin_panel/inner_screen/all_poducts.dart';
 import 'package:flutter/material.dart';
 
 import 'package:iconly/iconly.dart';
@@ -44,12 +45,28 @@ class _SideMenuState extends State<SideMenu> {
             icon: Icons.home_filled,
           ),
           DrawerListTile(
-            title: "View all product",
-            press: () {},
+            title: "Product",
+            press: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const AllProducts(),
+                ),
+              );
+            },
             icon: Icons.store,
           ),
           DrawerListTile(
-            title: "View all order",
+            title: "Popular Packs",
+            press: () {},
+            icon: Icons.move_down_outlined,
+          ),
+          DrawerListTile(
+            title: "Fashion",
+            press: () {},
+            icon: Icons.style_outlined,
+          ),
+          DrawerListTile(
+            title: "Orders",
             press: () {},
             icon: IconlyBold.bag_2,
           ),
