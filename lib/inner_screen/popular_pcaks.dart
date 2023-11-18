@@ -1,3 +1,4 @@
+import 'package:citta_admin_panel/consts/constants.dart';
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/screens/dashboard_screen.dart';
@@ -39,26 +40,29 @@ class _PopularPacksState extends State<PopularPacks> {
               // It takes 5/6 part of the screen
               flex: 5,
               child: SingleChildScrollView(
-                  child: Column(
-                children: [
-                  Header(
-                    fct: () {
-                      controlProductsMenu();
-                      // context.read<MenuController>().controlDashboarkMenu();
-                    },
-                  ),
-                  Responsive(
-                    mobile: PopularPacksGride(
-                      crossAxisCount: size.width < 650 ? 2 : 4,
-                      childAspectRatio:
-                          size.width < 650 && size.width > 350 ? 1.1 : 0.8,
+                  child: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: Column(
+                  children: [
+                    Header(
+                      fct: () {
+                        controlProductsMenu();
+                        // context.read<MenuController>().controlDashboarkMenu();
+                      },
                     ),
-                    desktop: PopularPacksGride(
-                      childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
-                      isInMain: false,
+                    Responsive(
+                      mobile: PopularPacksGride(
+                        crossAxisCount: size.width < 650 ? 2 : 4,
+                        childAspectRatio:
+                            size.width < 650 && size.width > 350 ? 1.1 : 0.8,
+                      ),
+                      desktop: PopularPacksGride(
+                        childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
+                        isInMain: false,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )),
             ),
           ],

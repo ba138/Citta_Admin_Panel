@@ -5,6 +5,7 @@ import 'package:citta_admin_panel/widgets/header.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
+import '../consts/constants.dart';
 import '../services/utils.dart';
 import '../widgets/gride_product.dart';
 
@@ -37,28 +38,31 @@ class _AllProductsState extends State<AllProducts> {
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: SingleChildScrollView(
-                  child: Column(
-                children: [
-                  Header(
-                    fct: () {
-                      controlProductsMenu();
-                      // context.read<MenuController>().controlDashboarkMenu();
-                    },
-                  ),
-                  Responsive(
-                    mobile: ProductGrid(
-                      crossAxisCount: size.width < 650 ? 2 : 4,
-                      childAspectRatio:
-                          size.width < 650 && size.width > 350 ? 1.1 : 0.8,
+              child: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    Header(
+                      fct: () {
+                        controlProductsMenu();
+                        // context.read<MenuController>().controlDashboarkMenu();
+                      },
                     ),
-                    desktop: ProductGrid(
-                      childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
-                      isInMain: false,
+                    Responsive(
+                      mobile: ProductGrid(
+                        crossAxisCount: size.width < 650 ? 2 : 4,
+                        childAspectRatio:
+                            size.width < 650 && size.width > 350 ? 1.1 : 0.8,
+                      ),
+                      desktop: ProductGrid(
+                        childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
+                        isInMain: false,
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                  ],
+                )),
+              ),
             ),
           ],
         ),
