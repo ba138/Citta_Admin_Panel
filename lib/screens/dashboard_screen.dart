@@ -1,3 +1,5 @@
+import 'package:citta_admin_panel/responsive.dart';
+import 'package:citta_admin_panel/widgets/gride_product.dart';
 import 'package:citta_admin_panel/widgets/product_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -30,20 +32,16 @@ class DashboardScreen extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                      GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 4,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      Responsive(
+                        mobile: ProductGrid(
                           crossAxisCount: size.width < 650 ? 2 : 4,
-                          childAspectRatio: size.width < 1400 ? 0.9 : 1.8,
-                          crossAxisSpacing: defaultPadding,
-                          mainAxisSpacing: defaultPadding,
+                          childAspectRatio:
+                              size.width < 650 && size.width > 350 ? 1.1 : 0.8,
                         ),
-                        itemBuilder: (context, index) {
-                          return ProductWidget(); // Return the widget for each item
-                        },
-                      )
+                        desktop: ProductGrid(
+                          childAspectRatio: size.width < 1400 ? 0.8 : 1.08,
+                        ),
+                      ),
                       // MyProductsHome(),
                       // SizedBox(height: defaultPadding),
                       // OrdersScreen(),
