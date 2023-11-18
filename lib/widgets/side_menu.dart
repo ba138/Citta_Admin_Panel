@@ -1,4 +1,5 @@
 import 'package:citta_admin_panel/inner_screen/all_poducts.dart';
+import 'package:citta_admin_panel/inner_screen/popular_pcaks.dart';
 import 'package:flutter/material.dart';
 
 import 'package:iconly/iconly.dart';
@@ -57,7 +58,13 @@ class _SideMenuState extends State<SideMenu> {
           ),
           DrawerListTile(
             title: "Popular Packs",
-            press: () {},
+            press: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const PopularPacks(),
+                ),
+              );
+            },
             icon: Icons.move_down_outlined,
           ),
           DrawerListTile(
