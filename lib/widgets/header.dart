@@ -43,7 +43,6 @@ class Header extends StatelessWidget {
               filled: true,
               border: const OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               suffixIcon: InkWell(
                 onTap: () {},
@@ -52,8 +51,7 @@ class Header extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(
                       horizontal: defaultPadding / 2),
                   decoration: const BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Colors.transparent,
                   ),
                   child: const Icon(
                     Icons.search,

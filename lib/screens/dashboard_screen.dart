@@ -1,6 +1,5 @@
 import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/widgets/gride_product.dart';
-import 'package:citta_admin_panel/widgets/product_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
@@ -39,7 +38,7 @@ class DashboardScreen extends StatelessWidget {
                               size.width < 650 && size.width > 350 ? 1.1 : 0.8,
                         ),
                         desktop: ProductGrid(
-                          childAspectRatio: size.width < 1400 ? 0.8 : 1.08,
+                          childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
                         ),
                       ),
                       // MyProductsHome(),
