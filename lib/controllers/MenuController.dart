@@ -32,3 +32,9 @@ void controlAddProductsMenu() {
     _addProductScaffoldKey.currentState!.openDrawer();
   }
 }
+
+void controlOrderScreen() {
+  if (!_orderScaffoldKey.currentState!.isDrawerOpen) {
+    _orderScaffoldKey.currentState!.openDrawer();
+  }
+}
