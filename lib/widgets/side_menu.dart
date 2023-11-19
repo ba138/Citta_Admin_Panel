@@ -1,5 +1,6 @@
 import 'package:citta_admin_panel/inner_screen/all_poducts.dart';
 import 'package:citta_admin_panel/inner_screen/fashion.dart';
+import 'package:citta_admin_panel/inner_screen/order_screen.dart';
 import 'package:citta_admin_panel/inner_screen/popular_pcaks.dart';
 import 'package:flutter/material.dart';
 
@@ -81,7 +82,13 @@ class _SideMenuState extends State<SideMenu> {
           ),
           DrawerListTile(
             title: "Orders",
-            press: () {},
+            press: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const OrderScreen(),
+                ),
+              );
+            },
             icon: IconlyBold.bag_2,
           ),
           SwitchListTile(
