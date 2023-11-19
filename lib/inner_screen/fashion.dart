@@ -1,8 +1,10 @@
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/responsive.dart';
+import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/fashion_gride.dart';
 import 'package:citta_admin_panel/widgets/header.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
+import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
@@ -19,6 +21,7 @@ class _FashionViewState extends State<FashionView> {
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
+    final color = Utils(context).color;
 
     return Scaffold(
       key: getgridscaffoldKey,
@@ -47,6 +50,24 @@ class _FashionViewState extends State<FashionView> {
                         controlProductsMenu();
                         // context.read<MenuController>().controlDashboarkMenu();
                       },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        TextWidget(
+                          text: 'All Fashion',
+                          color: color,
+                          textSize: 18,
+                          isTitle: true,
+                        ),
+                        const Spacer(),
+                        ButtonsWidget(onPressed: () {}, text: "Add")
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     Responsive(
                       mobile: FashionGrid(

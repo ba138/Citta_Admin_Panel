@@ -92,7 +92,7 @@ class _FashionWidgetState extends State<FashionWidget> {
                 TextWidget(
                   text: 'Lather jacket',
                   color: color,
-                  textSize: 20,
+                  textSize: 18,
                   isTitle: true,
                 ),
               ],

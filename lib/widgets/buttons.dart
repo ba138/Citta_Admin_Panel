@@ -1,38 +1,26 @@
+import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-
-import '../consts/constants.dart';
-import '../responsive.dart';
 
 class ButtonsWidget extends StatelessWidget {
   const ButtonsWidget({
     Key? key,
     required this.onPressed,
     required this.text,
-    required this.icon,
-    required this.backgroundColor,
   }) : super(key: key);
   final VoidCallback onPressed;
   final String text;
-  final IconData icon;
-  final Color backgroundColor;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      style: TextButton.styleFrom(
-        backgroundColor: backgroundColor,
-        padding: EdgeInsets.symmetric(
-          horizontal: defaultPadding * 1.5,
-          vertical: defaultPadding / (Responsive.isDesktop(context) ? 1 : 2),
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        height: 40,
+        width: 100,
+        color: const Color(0xFFCB0166),
+        child: Center(
+          child: TextWidget(text: text, color: Colors.white),
         ),
       ),
-      onPressed: () {
-        onPressed();
-      },
-      icon: Icon(
-        icon,
-        size: 20,
-      ),
-      label: Text(text),
     );
   }
 }

@@ -101,69 +101,71 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                   textSize: 20,
                   isTitle: true,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/cabbage.jpg",
+                Expanded(
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              "assets/images/cabbage.jpg",
+                            ),
+                            fit: BoxFit.contain,
                           ),
-                          fit: BoxFit.contain,
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/pepper.jpg",
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              "assets/images/pepper.jpg",
+                            ),
+                            fit: BoxFit.contain,
                           ),
-                          fit: BoxFit.contain,
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/cabbage.jpg",
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              "assets/images/cabbage.jpg",
+                            ),
+                            fit: BoxFit.contain,
                           ),
-                          fit: BoxFit.contain,
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/molo.jpeg",
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              "assets/images/molo.jpeg",
+                            ),
+                            fit: BoxFit.contain,
                           ),
-                          fit: BoxFit.contain,
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/images/Tomato.jpg",
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              "assets/images/Tomato.jpg",
+                            ),
+                            fit: BoxFit.contain,
                           ),
-                          fit: BoxFit.contain,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )
               ],
             ),

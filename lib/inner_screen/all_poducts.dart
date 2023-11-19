@@ -1,5 +1,6 @@
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/responsive.dart';
+import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/header.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../consts/constants.dart';
 import '../services/utils.dart';
 import '../widgets/gride_product.dart';
+import '../widgets/text_widget.dart';
 
 class AllProducts extends StatefulWidget {
   const AllProducts({super.key});
@@ -19,6 +21,7 @@ class _AllProductsState extends State<AllProducts> {
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
+    final color = Utils(context).color;
 
     return Scaffold(
       key: getgridscaffoldKey,
@@ -47,6 +50,24 @@ class _AllProductsState extends State<AllProducts> {
                         controlProductsMenu();
                         // context.read<MenuController>().controlDashboarkMenu();
                       },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        TextWidget(
+                          text: 'All Products',
+                          color: color,
+                          textSize: 18,
+                          isTitle: true,
+                        ),
+                        const Spacer(),
+                        ButtonsWidget(onPressed: () {}, text: "Add")
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     Responsive(
                       mobile: ProductGrid(
