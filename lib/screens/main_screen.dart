@@ -2,8 +2,6 @@ import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-
 import '../responsive.dart';
 import 'dashboard_screen.dart';
 

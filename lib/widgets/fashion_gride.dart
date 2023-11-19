@@ -2,7 +2,6 @@ import 'package:citta_admin_panel/widgets/fashion_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
-import 'product_widgets.dart';
 
 class FashionGrid extends StatelessWidget {
   const FashionGrid({

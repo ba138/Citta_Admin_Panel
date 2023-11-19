@@ -1,14 +1,12 @@
 import 'package:citta_admin_panel/consts/constants.dart';
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/responsive.dart';
-import 'package:citta_admin_panel/screens/dashboard_screen.dart';
 import 'package:citta_admin_panel/widgets/header.dart';
 import 'package:citta_admin_panel/widgets/populr_packs_gride.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
 import '../services/utils.dart';
-import '../widgets/gride_product.dart';
 
 class PopularPacks extends StatefulWidget {
   const PopularPacks({super.key});

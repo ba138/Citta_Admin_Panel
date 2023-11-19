@@ -2,7 +2,6 @@ import 'package:citta_admin_panel/widgets/popular_packs.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
-import 'product_widgets.dart';
 
 class PopularPacksGride extends StatelessWidget {
   const PopularPacksGride({
