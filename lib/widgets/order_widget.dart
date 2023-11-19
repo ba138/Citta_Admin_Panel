@@ -35,7 +35,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
               Flexible(
                 flex: size.width < 650 ? 3 : 1,
                 child: Image.network(
-                  'https://www.lifepng.com/wp-content/uploads/2020/11/Apricot-Large-Single-png-hd.png',
+                  'https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJzdHJhd2JlcnJ5X3JlZF9kZWxpY2lvdXNfc3dlZXQtaW1hZ2Utam9iNjIxXzEucG5n.png',
 
                   fit: BoxFit.fill,
                   // height: screenWidth * 0.15,
@@ -126,7 +126,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                     color: const Color(0xFFCB0166),
                     child: Center(
                       child: TextWidget(
-                        text: 'Send Order',
+                        text: 'View Detail',
                         color: Colors.white,
                         textSize: 14,
                         isTitle: true,
