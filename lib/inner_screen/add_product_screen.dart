@@ -72,6 +72,14 @@ class _UploadProductFormState extends State<UploadProductForm> {
                   // Header(fct: () {
                   //   controlAddProductsMenu();
                   // }),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: TextWidget(
+                      text: 'Add Product Details',
+                      color: color,
+                      isTitle: true,
+                    ),
+                  ),
                   Container(
                     width: size.width > 650 ? 650 : size.width,
                     color: Theme.of(context).cardColor,
