@@ -229,10 +229,18 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               ),
                               // Image to be picked code is here
                               Expanded(
-                                  flex: 4,
+                                flex: 4,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14),
                                   child: Container(
-                                    color: Colors.red,
-                                  )),
+                                    height: size.width > 650
+                                        ? 350
+                                        : size.width * 0.45,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                                ),
+                              ),
                               Expanded(
                                   flex: 1,
                                   child: FittedBox(
