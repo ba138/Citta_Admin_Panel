@@ -312,6 +312,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
               color: color,
               size: 50,
             ),
+            const SizedBox(
+              height: 20,
+            ),
             TextButton(
               onPressed: () {},
               child: TextWidget(
