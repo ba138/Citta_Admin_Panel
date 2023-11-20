@@ -46,20 +46,6 @@ class _OrderScreenState extends State<OrderScreen> {
                         controlOrderScreen();
                       },
                     ),
-                    ButtonsWidget(
-                      onPressed: () {},
-                      text: 'Check',
-                    ), // Responsive(
-                    //   mobile: PopularPacksGride(
-                    //     crossAxisCount: size.width < 650 ? 2 : 4,
-                    //     childAspectRatio:
-                    //         size.width < 650 && size.width > 350 ? 1.1 : 0.8,
-                    //   ),
-                    //   desktop: PopularPacksGride(
-                    //     childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
-                    //     isInMain: false,
-                    //   ),
-                    // ),
                     const SizedBox(
                       height: 20,
                     ),
