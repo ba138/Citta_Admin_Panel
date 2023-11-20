@@ -39,6 +39,7 @@ dependencies:
   iconly: ^1.0.1
   shared_preferences_web: ^2.2.1
   dotted_border: ^2.1.0
+  image_picker: ^1.0.4
 
 dev_dependencies:
   flutter_test:

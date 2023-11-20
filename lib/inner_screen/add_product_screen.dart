@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
@@ -24,7 +26,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
-
+  File? roductImage;
+  Uint8List webImage = Uint8List(8);
   @override
   void dispose() {
     _priceController.dispose();
