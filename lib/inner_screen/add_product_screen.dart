@@ -4,6 +4,7 @@ import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/header.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../responsive.dart';
@@ -238,6 +239,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         : size.width * 0.45,
                                     color: Theme.of(context)
                                         .scaffoldBackgroundColor,
+                                    child: dottedBorder(color),
                                   ),
                                 ),
                               ),
@@ -293,6 +295,33 @@ class _UploadProductFormState extends State<UploadProductForm> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget dottedBorder(Color color) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DottedBorder(
+          child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.image_outlined,
+              color: color,
+              size: 50,
+            ),
+            TextButton(
+              onPressed: () {},
+              child: TextWidget(
+                text: "Chose an Image",
+                color: const Color(0xFFCB0166),
+              ),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }
