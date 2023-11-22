@@ -261,7 +261,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         : size.width * 0.45,
                                     color: Theme.of(context)
                                         .scaffoldBackgroundColor,
-                                    child: dottedBorder(color, pickImage),
+                                    child: dottedBorder(
+                                      color,
+                                      pickImage,
+                                      previewImage,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -320,33 +324,34 @@ class _UploadProductFormState extends State<UploadProductForm> {
     );
   }
 
-  Widget dottedBorder(Color color, Function tap) {
+  Widget dottedBorder(Color color, Function tap, Image? previewImage) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DottedBorder(
           child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.image_outlined,
-              color: color,
-              size: 50,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextButton(
-              onPressed: tap(),
-              child: TextWidget(
-                text: "Chose an Image",
-                color: const Color(0xFFCB0166),
-              ),
-            ),
-          ],
-        ),
-      )),
+              child: previewImage == null
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.image_outlined,
+                          color: color,
+                          size: 50,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextButton(
+                          onPressed: tap(),
+                          child: TextWidget(
+                            text: "Chose an Image",
+                            color: const Color(0xFFCB0166),
+                          ),
+                        ),
+                      ],
+                    )
+                  : previewImage)),
     );
   }
 }
