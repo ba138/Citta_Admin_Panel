@@ -4,12 +4,15 @@ import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/header.dart';
+import 'package:citta_admin_panel/widgets/image_picker.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import '../responsive.dart';
+import 'dart:html' as html;
 
 class UploadProductForm extends StatefulWidget {
   static const routeName = '/UploadProductForm';
@@ -28,6 +31,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _detailController = TextEditingController();
   File? roductImage;
   Uint8List webImage = Uint8List(8);
+  html.File? imageFile;
+  Image? previewImage;
   @override
   void dispose() {
     _priceController.dispose();
@@ -38,6 +43,20 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
+  }
+
+  Future<void> pickImage(ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        imageFile = pickedFile as html.File?;
+        previewImage = image;
+      });
+    }
   }
 
   @override
@@ -153,7 +172,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                       TextWidget(
                                         text: 'Price in \$*',
                                         color: color,
-                                        isTitle: true,
+                                        isTitle: false,
                                       ),
                                       const SizedBox(
                                         height: 10,
@@ -181,7 +200,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                       TextWidget(
                                         text: 'Amount ',
                                         color: color,
-                                        isTitle: true,
+                                        isTitle: false,
                                       ),
                                       const SizedBox(
                                         height: 10,
@@ -242,7 +261,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         : size.width * 0.45,
                                     color: Theme.of(context)
                                         .scaffoldBackgroundColor,
-                                    child: dottedBorder(color),
+                                    child: dottedBorder(color, pickImage),
                                   ),
                                 ),
                               ),
@@ -301,7 +320,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     );
   }
 
-  Widget dottedBorder(Color color) {
+  Widget dottedBorder(Color color, Function tap) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DottedBorder(
@@ -319,7 +338,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
               height: 20,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: tap(),
               child: TextWidget(
                 text: "Chose an Image",
                 color: const Color(0xFFCB0166),
