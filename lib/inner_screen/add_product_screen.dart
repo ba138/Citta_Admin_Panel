@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
-import 'package:citta_admin_panel/widgets/header.dart';
-import 'package:citta_admin_panel/widgets/image_picker.dart';
+
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -45,15 +44,17 @@ class _UploadProductFormState extends State<UploadProductForm> {
     final isValid = _formKey.currentState!.validate();
   }
 
-  Future<void> pickImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
     if (pickedFile != null) {
       final bytes = await pickedFile.readAsBytes();
+
       final image = Image.memory(Uint8List.fromList(bytes));
 
       setState(() {
-        imageFile = pickedFile as html.File?;
         previewImage = image;
       });
     }
@@ -328,30 +329,32 @@ class _UploadProductFormState extends State<UploadProductForm> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DottedBorder(
-          child: Center(
-              child: previewImage == null
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.image_outlined,
-                          color: color,
-                          size: 50,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextButton(
-                          onPressed: tap(),
-                          child: TextWidget(
-                            text: "Chose an Image",
-                            color: const Color(0xFFCB0166),
-                          ),
-                        ),
-                      ],
-                    )
-                  : previewImage)),
+        child: Center(
+          child: previewImage == null
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.image_outlined,
+                      color: color,
+                      size: 50,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextButton(
+                      onPressed: () => tap(),
+                      child: TextWidget(
+                        text: "Choose an Image",
+                        color: const Color(0xFFCB0166),
+                      ),
+                    ),
+                  ],
+                )
+              : previewImage,
+        ),
+      ),
     );
   }
 }
