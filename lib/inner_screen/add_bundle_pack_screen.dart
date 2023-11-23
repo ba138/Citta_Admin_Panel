@@ -69,7 +69,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
 
     var inputDecoration = InputDecoration(
       filled: true,
-      hintText: "write detials about product",
       fillColor: scaffoldColor,
       border: InputBorder.none,
       focusedBorder: OutlineInputBorder(
@@ -156,7 +155,18 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               }
                               return null;
                             },
-                            decoration: inputDecoration,
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "write detials about product",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -171,10 +181,16 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      TextWidget(
-                                        text: 'Price in \$*',
-                                        color: color,
-                                        isTitle: false,
+                                      // TextWidget(
+                                      //   text: 'Product Detail*',
+                                      //   color: color,
+                                      //   isTitle: true,
+                                      // ),
+                                      Text(
+                                        "Price",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                       const SizedBox(
                                         height: 10,
@@ -195,7 +211,17 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                             FilteringTextInputFormatter.allow(
                                                 RegExp(r'[0-9.]')),
                                           ],
-                                          decoration: inputDecoration,
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: scaffoldColor,
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: color,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(height: 20),
