@@ -1,5 +1,6 @@
 import 'package:citta_admin_panel/consts/constants.dart';
 import 'package:citta_admin_panel/controllers/MenuController.dart';
+import 'package:citta_admin_panel/inner_screen/add_bundle_pack_screen.dart';
 import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/header.dart';
@@ -63,7 +64,16 @@ class _PopularPacksState extends State<PopularPacks> {
                           isTitle: true,
                         ),
                         const Spacer(),
-                        ButtonsWidget(onPressed: () {}, text: "Add")
+                        ButtonsWidget(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AddBundlpackScreen(),
+                                ),
+                              );
+                            },
+                            text: "Add")
                       ],
                     ),
                     const SizedBox(
