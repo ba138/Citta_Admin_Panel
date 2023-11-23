@@ -19,10 +19,11 @@ class UploadFashionProduct extends StatefulWidget {
   const UploadFashionProduct({Key? key}) : super(key: key);
 
   @override
-  _UploadProductFormState createState() => _UploadProductFormState();
+  _UploadFashionProductFormState createState() =>
+      _UploadFashionProductFormState();
 }
 
-class _UploadProductFormState extends State<UploadFashionProduct> {
+class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _titleController = TextEditingController();
@@ -99,7 +100,7 @@ class _UploadProductFormState extends State<UploadFashionProduct> {
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: TextWidget(
-                      text: 'Add Product Details',
+                      text: 'Add Fashion Product',
                       color: color,
                       isTitle: true,
                     ),

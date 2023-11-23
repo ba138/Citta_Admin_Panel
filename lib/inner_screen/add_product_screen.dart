@@ -99,7 +99,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                   Padding(
                     padding: const EdgeInsets.all(20),
                     child: TextWidget(
-                      text: 'Add Product Details',
+                      text: 'Add Fashion Product Details',
                       color: color,
                       isTitle: true,
                     ),
@@ -197,37 +197,37 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                           decoration: inputDecoration,
                                         ),
                                       ),
-                                      const SizedBox(height: 20),
-                                      TextWidget(
-                                        text: 'Amount ',
-                                        color: color,
-                                        isTitle: false,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SizedBox(
-                                        width: 100,
-                                        child: TextFormField(
-                                          controller: _priceController,
-                                          key: const ValueKey('Amount'),
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Amount is missed';
-                                            }
-                                            return null;
-                                          },
-                                          inputFormatters: <TextInputFormatter>[
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[0-9.]')),
-                                          ],
-                                          decoration: inputDecoration,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
+                                      // const SizedBox(height: 20),
+                                      // TextWidget(
+                                      //   text: 'Amount ',
+                                      //   color: color,
+                                      //   isTitle: false,
+                                      // ),
+                                      // const SizedBox(
+                                      //   height: 10,
+                                      // ),
+                                      // SizedBox(
+                                      //   width: 100,
+                                      //   child: TextFormField(
+                                      //     controller: _priceController,
+                                      //     key: const ValueKey('Amount'),
+                                      //     keyboardType: TextInputType.number,
+                                      //     validator: (value) {
+                                      //       if (value!.isEmpty) {
+                                      //         return 'Amount is missed';
+                                      //       }
+                                      //       return null;
+                                      //     },
+                                      //     inputFormatters: <TextInputFormatter>[
+                                      //       FilteringTextInputFormatter.allow(
+                                      //           RegExp(r'[0-9.]')),
+                                      //     ],
+                                      //     decoration: inputDecoration,
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(
+                                      //   height: 20,
+                                      // ),
                                       // TextWidget(
                                       //   text: 'Porduct category*',
                                       //   color: color,
