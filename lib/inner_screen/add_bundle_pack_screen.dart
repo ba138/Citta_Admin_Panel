@@ -116,6 +116,19 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
+                          ),
                           TextWidget(
                             text: 'Product title*',
                             color: color,
@@ -171,127 +184,124 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: FittedBox(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      // TextWidget(
-                                      //   text: 'Product Detail*',
-                                      //   color: color,
-                                      //   isTitle: true,
-                                      // ),
-                                      Text(
-                                        "Price",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SizedBox(
-                                        width: 100,
-                                        child: TextFormField(
-                                          controller: _priceController,
-                                          key: const ValueKey('Price \$'),
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Price is missed';
-                                            }
-                                            return null;
-                                          },
-                                          inputFormatters: <TextInputFormatter>[
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[0-9.]')),
-                                          ],
-                                          decoration: InputDecoration(
-                                            filled: true,
-                                            fillColor: scaffoldColor,
-                                            border: InputBorder.none,
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: color,
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 20),
-
-                                      // TextWidget(
-                                      //   text: 'Porduct category*',
-                                      //   color: color,
-                                      //   isTitle: true,
-                                      // ),
-                                      // const SizedBox(height: 10),
-                                      // // Drop down menu code here
-                                      // const SizedBox(
-                                      //   height: 20,
-                                      // ),
-                                      // TextWidget(
-                                      //   text: 'Measure unit*',
-                                      //   color: color,
-                                      //   isTitle: true,
-                                      // ),
-                                      // const SizedBox(
-                                      //   height: 10,
-                                      // ),
-                                      // Radio button code here
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              // Image to be picked code is here
-                              Expanded(
-                                flex: 4,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(14),
-                                  child: Container(
-                                    height: size.width > 650
-                                        ? 350
-                                        : size.width * 0.45,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    child: dottedBorder(
-                                      color,
-                                      pickImage,
-                                      previewImage,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: FittedBox(
-                                    child: Column(
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: TextWidget(
-                                            text: 'Clear',
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: TextWidget(
-                                            text: 'Update image',
-                                            color: Colors.blue,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ],
+                          TextWidget(
+                            text: 'Product Detail*',
+                            color: color,
+                            isTitle: true,
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Price'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Price';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Price Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          // Row(
+                          //   children: [
+                          //     Expanded(
+                          //       flex: 2,
+                          //       child: FittedBox(
+                          //         child: Column(
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           mainAxisAlignment: MainAxisAlignment.start,
+                          //           children: [
+                          //             // TextWidget(
+                          //             //   text: 'Product Detail*',
+                          //             //   color: color,
+                          //             //   isTitle: true,
+                          //             // ),
+                          //             const Text(
+                          //               "Price",
+                          //               style: TextStyle(
+                          //                 fontSize: 14,
+                          //                 fontWeight: FontWeight.w500,
+                          //               ),
+                          //             ),
+                          //             const SizedBox(
+                          //               height: 10,
+                          //             ),
+                          //             SizedBox(
+                          //               width: 100,
+                          //               child: TextFormField(
+                          //                 controller: _priceController,
+                          //                 key: const ValueKey('Price \$'),
+                          //                 keyboardType: TextInputType.number,
+                          //                 validator: (value) {
+                          //                   if (value!.isEmpty) {
+                          //                     return 'Price is missed';
+                          //                   }
+                          //                   return null;
+                          //                 },
+                          //                 inputFormatters: <TextInputFormatter>[
+                          //                   FilteringTextInputFormatter.allow(
+                          //                       RegExp(r'[0-9.]')),
+                          //                 ],
+                          //                 decoration: InputDecoration(
+                          //                   filled: true,
+                          //                   fillColor: scaffoldColor,
+                          //                   border: InputBorder.none,
+                          //                   focusedBorder: OutlineInputBorder(
+                          //                     borderSide: BorderSide(
+                          //                       color: color,
+                          //                       width: 1.0,
+                          //                     ),
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //             const SizedBox(height: 20),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     // Image to be picked code is here
+
+                          //     Expanded(
+                          //         flex: 1,
+                          //         child: FittedBox(
+                          //           child: Column(
+                          //             children: [
+                          //               TextButton(
+                          //                 onPressed: () {},
+                          //                 child: TextWidget(
+                          //                   text: 'Clear',
+                          //                   color: Colors.red,
+                          //                 ),
+                          //               ),
+                          //               TextButton(
+                          //                 onPressed: () {},
+                          //                 child: TextWidget(
+                          //                   text: 'Update image',
+                          //                   color: Colors.blue,
+                          //                 ),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         )),
+                          //   ],
+                          // ),
                           Padding(
                             padding: const EdgeInsets.all(18.0),
                             child: Row(
