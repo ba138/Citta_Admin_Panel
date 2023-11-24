@@ -31,7 +31,17 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   File? roductImage;
   Uint8List webImage = Uint8List(8);
   html.File? imageFile;
-  Image? previewImage;
+  Image? coverImage;
+
+  Image? previewImage1;
+  Image? previewImage2;
+
+  Image? previewImage3;
+
+  Image? previewImage4;
+
+  Image? previewImage5;
+
   @override
   void dispose() {
     _priceController.dispose();
@@ -44,7 +54,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     final isValid = _formKey.currentState!.validate();
   }
 
-  Future<void> pickImage() async {
+  Future<void> pickImage(Image? previewImage) async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -155,7 +165,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage,
+                                coverImage,
                               ),
                             ),
                           ),
@@ -273,7 +283,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage,
+                                previewImage1,
                               ),
                             ),
                           ),
@@ -300,39 +310,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 color: color,
                               ),
                               hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Price*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _detailController,
-                            key: const ValueKey('Price1'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Price';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              hintText: "Enter The Price Of Bundle Pack",
-                              fillColor: scaffoldColor,
                               border: InputBorder.none,
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -371,6 +348,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 ),
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           Center(
                             child: TextWidget(
@@ -418,7 +398,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage,
+                                previewImage2,
                               ),
                             ),
                           ),
@@ -445,39 +425,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 color: color,
                               ),
                               hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Price*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _detailController,
-                            key: const ValueKey('Price2'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Price';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              hintText: "Enter The Price Of Bundle Pack",
-                              fillColor: scaffoldColor,
                               border: InputBorder.none,
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -516,6 +463,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 ),
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           Center(
                             child: TextWidget(
@@ -563,7 +513,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage,
+                                previewImage3,
                               ),
                             ),
                           ),
@@ -590,39 +540,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 color: color,
                               ),
                               hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Price*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _detailController,
-                            key: const ValueKey('Price3'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Price';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              hintText: "Enter The Price Of Bundle Pack",
-                              fillColor: scaffoldColor,
                               border: InputBorder.none,
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -661,6 +578,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 ),
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           Center(
                             child: TextWidget(
@@ -708,7 +628,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage,
+                                previewImage4,
                               ),
                             ),
                           ),
@@ -752,31 +672,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             color: color,
                             isTitle: true,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _detailController,
-                            key: const ValueKey('Price4'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Price';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              hintText: "Enter The Price Of Bundle Pack",
-                              fillColor: scaffoldColor,
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
                           TextWidget(
                             text: 'Amount*',
                             color: color,
@@ -806,6 +701,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 ),
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                           Center(
                             child: TextWidget(
@@ -853,7 +751,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage,
+                                previewImage5,
                               ),
                             ),
                           ),
@@ -880,39 +778,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                 color: color,
                               ),
                               hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Price*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _detailController,
-                            key: const ValueKey('Price5'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Price';
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              filled: true,
-                              hintText: "Enter The Price Of Product",
-                              fillColor: scaffoldColor,
                               border: InputBorder.none,
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
