@@ -47,7 +47,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     final isValid = _formKey.currentState!.validate();
   }
 
-  Future<void> pickImage() async {
+  Future<void> pickImage({required Image? source}) async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );

@@ -28,13 +28,16 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
-  File? roductImage;
-  Uint8List webImage = Uint8List(8);
-  html.File? imageFile;
   Image? coverImage;
 
-  Image? previewImage;
+  Image? previewImage1;
+  Image? previewImage2;
 
+  Image? previewImage3;
+
+  Image? previewImage4;
+
+  Image? previewImage5;
   @override
   void dispose() {
     _priceController.dispose();
@@ -58,7 +61,87 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       final image = Image.memory(Uint8List.fromList(bytes));
 
       setState(() {
-        previewImage = image;
+        coverImage = image;
+      });
+    }
+  }
+
+  Future<void> pickImage1() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage1 = image;
+      });
+    }
+  }
+
+  Future<void> pickImage2() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage2 = image;
+      });
+    }
+  }
+
+  Future<void> pickImage3() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage3 = image;
+      });
+    }
+  }
+
+  Future<void> pickImage4() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage4 = image;
+      });
+    }
+  }
+
+  Future<void> pickImage5() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage5 = image;
       });
     }
   }
@@ -158,7 +241,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage,
+                                coverImage,
                               ),
                             ),
                           ),
@@ -275,42 +358,13 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: dottedBorder(
                                 color,
-                                pickImage,
-                                previewImage,
+                                pickImage1,
+                                previewImage1,
                               ),
                             ),
                           ),
                           const SizedBox(
                             height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Product Detail*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: scaffoldColor,
-                              alignLabelWithHint: true,
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: color,
-                              ),
-                              hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
                           ),
                           TextWidget(
                             text: 'Amount*',
@@ -390,8 +444,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: dottedBorder(
                                 color,
-                                pickImage,
-                                previewImage,
+                                pickImage2,
+                                previewImage2,
                               ),
                             ),
                           ),
@@ -505,8 +559,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: dottedBorder(
                                 color,
-                                pickImage,
-                                previewImage,
+                                pickImage3,
+                                previewImage3,
                               ),
                             ),
                           ),
@@ -620,8 +674,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: dottedBorder(
                                 color,
-                                pickImage,
-                                previewImage,
+                                pickImage4,
+                                previewImage4,
                               ),
                             ),
                           ),
@@ -743,8 +797,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: dottedBorder(
                                 color,
-                                pickImage,
-                                previewImage,
+                                pickImage5,
+                                previewImage5,
                               ),
                             ),
                           ),
