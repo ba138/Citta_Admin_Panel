@@ -1,4 +1,4 @@
-import 'dart:io';
+// ignore_for_file: unused_local_variable
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/services/utils.dart';
@@ -6,12 +6,10 @@ import 'package:citta_admin_panel/widgets/buttons.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import '../responsive.dart';
-import 'dart:html' as html;
 
 class AddBundlpackScreen extends StatefulWidget {
   static const routeName = '/UploadProductForm';
@@ -28,6 +26,16 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
+  final TextEditingController _titleController1 = TextEditingController();
+  final TextEditingController _detailController1 = TextEditingController();
+  final TextEditingController _titleController2 = TextEditingController();
+  final TextEditingController _detailController2 = TextEditingController();
+  final TextEditingController _titleController3 = TextEditingController();
+  final TextEditingController _detailController3 = TextEditingController();
+  final TextEditingController _titleController4 = TextEditingController();
+  final TextEditingController _detailController4 = TextEditingController();
+  final TextEditingController _titleController5 = TextEditingController();
+  final TextEditingController _detailController5 = TextEditingController();
   Image? coverImage;
 
   Image? previewImage1;
@@ -43,11 +51,50 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _priceController.dispose();
     _titleController.dispose();
     _detailController.dispose();
+    _titleController2.dispose();
+    _detailController2.dispose();
+    _titleController3.dispose();
+    _detailController3.dispose();
+    _titleController4.dispose();
+    _detailController4.dispose();
+    _titleController5.dispose();
+    _detailController5.dispose();
+    _titleController1.dispose();
+    _detailController1.dispose();
+
     super.dispose();
   }
 
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
+  }
+
+  void clearForm() {
+    _detailController.clear();
+    _detailController1.clear();
+    _detailController2.clear();
+    _detailController3.clear();
+    _detailController4.clear();
+    _detailController5.clear();
+    _titleController.clear();
+    _titleController1.clear();
+    _titleController2.clear();
+    _titleController3.clear();
+    _titleController4.clear();
+    _titleController5.clear();
+    _priceController.clear();
+
+    setState(() {
+      coverImage = null;
+      previewImage1 = null;
+      previewImage2 = null;
+
+      previewImage3 = null;
+
+      previewImage4 = null;
+
+      previewImage5 = null;
+    });
   }
 
   Future<void> pickImage() async {
@@ -258,6 +305,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           ),
                           TextField(
                             maxLines: 4,
+                            controller: _detailController,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: scaffoldColor,
@@ -289,7 +337,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _detailController,
+                            controller: _priceController,
                             key: const ValueKey('Price'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -329,7 +377,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _titleController,
+                            controller: _titleController1,
                             key: const ValueKey('Title1'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -375,7 +423,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _detailController,
+                            controller: _detailController1,
                             key: const ValueKey('Amount'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -385,7 +433,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             },
                             decoration: InputDecoration(
                               filled: true,
-                              hintText: "Enter The Price Of Product",
+                              hintText: "Enter The Amount Of Product",
                               fillColor: scaffoldColor,
                               border: InputBorder.none,
                               focusedBorder: OutlineInputBorder(
@@ -415,7 +463,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _titleController,
+                            controller: _titleController2,
                             key: const ValueKey('Title2'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -461,7 +509,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _detailController,
+                            controller: _detailController2,
                             key: const ValueKey('Amount2'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -501,7 +549,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _titleController,
+                            controller: _titleController3,
                             key: const ValueKey('Title3'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -547,7 +595,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _detailController,
+                            controller: _detailController3,
                             key: const ValueKey('Amount3'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -587,7 +635,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _titleController,
+                            controller: _titleController4,
                             key: const ValueKey('Title4'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -624,9 +672,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
                           TextWidget(
                             text: 'Amount*',
                             color: color,
@@ -636,7 +681,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _detailController,
+                            controller: _detailController4,
                             key: const ValueKey('Amount4'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -676,7 +721,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _titleController,
+                            controller: _titleController5,
                             key: const ValueKey('Title5'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -722,7 +767,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 10,
                           ),
                           TextFormField(
-                            controller: _detailController,
+                            controller: _detailController5,
                             key: const ValueKey('Amount5'),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -752,7 +797,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ButtonsWidget(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    clearForm();
+                                  },
                                   text: 'Clear form',
                                 ),
                                 ButtonsWidget(
