@@ -28,6 +28,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+
   File? roductImage;
   Uint8List webImage = Uint8List(8);
   html.File? imageFile;
@@ -37,6 +39,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _priceController.dispose();
     _titleController.dispose();
     _detailController.dispose();
+    _amountController.dispose();
     super.dispose();
   }
 
@@ -135,8 +138,19 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             },
                             decoration: inputDecoration,
                           ),
-                          const SizedBox(
-                            height: 20,
+
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
                           ),
                           TextWidget(
                             text: 'Product Detail*',
@@ -146,154 +160,198 @@ class _UploadProductFormState extends State<UploadProductForm> {
                           const SizedBox(
                             height: 10,
                           ),
+                          TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                              ),
+                              hintText: 'Write details about Product....',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color, // Use the desired color here
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Product Price*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           TextFormField(
-                            controller: _detailController,
-                            key: const ValueKey('Detail'),
+                            controller: _priceController,
+                            key: const ValueKey('Price'),
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter a Detail';
+                                return 'Please enter a Price';
                               }
                               return null;
                             },
                             decoration: inputDecoration,
                           ),
+                          TextWidget(
+                            text: 'Product Amount*',
+                            color: color,
+                            isTitle: true,
+                          ),
                           const SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: FittedBox(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextWidget(
-                                        text: 'Price in \$*',
-                                        color: color,
-                                        isTitle: false,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SizedBox(
-                                        width: 100,
-                                        child: TextFormField(
-                                          controller: _priceController,
-                                          key: const ValueKey('Price \$'),
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Price is missed';
-                                            }
-                                            return null;
-                                          },
-                                          inputFormatters: <TextInputFormatter>[
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[0-9.]')),
-                                          ],
-                                          decoration: inputDecoration,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 20),
-                                      TextWidget(
-                                        text: 'Amount ',
-                                        color: color,
-                                        isTitle: false,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SizedBox(
-                                        width: 100,
-                                        child: TextFormField(
-                                          controller: _priceController,
-                                          key: const ValueKey('Amount'),
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Amount is missed';
-                                            }
-                                            return null;
-                                          },
-                                          inputFormatters: <TextInputFormatter>[
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[0-9.]')),
-                                          ],
-                                          decoration: inputDecoration,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      // TextWidget(
-                                      //   text: 'Porduct category*',
-                                      //   color: color,
-                                      //   isTitle: true,
-                                      // ),
-                                      // const SizedBox(height: 10),
-                                      // // Drop down menu code here
-                                      // const SizedBox(
-                                      //   height: 20,
-                                      // ),
-                                      // TextWidget(
-                                      //   text: 'Measure unit*',
-                                      //   color: color,
-                                      //   isTitle: true,
-                                      // ),
-                                      // const SizedBox(
-                                      //   height: 10,
-                                      // ),
-                                      // Radio button code here
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              // Image to be picked code is here
-                              Expanded(
-                                flex: 4,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(14),
-                                  child: Container(
-                                    height: size.width > 650
-                                        ? 350
-                                        : size.width * 0.45,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    child: dottedBorder(
-                                      color,
-                                      pickImage,
-                                      previewImage,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: FittedBox(
-                                    child: Column(
-                                      children: [
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: TextWidget(
-                                            text: 'Clear',
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {},
-                                          child: TextWidget(
-                                            text: 'Update image',
-                                            color: Colors.blue,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ],
+                          TextFormField(
+                            controller: _amountController,
+                            key: const ValueKey('Amount'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Amount';
+                              }
+                              return null;
+                            },
+                            decoration: inputDecoration,
                           ),
+                          // Row(
+                          //   children: [
+                          //     Expanded(
+                          //       flex: 2,
+                          //       child: FittedBox(
+                          //         child: Column(
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           mainAxisAlignment: MainAxisAlignment.start,
+                          //           children: [
+                          //             TextWidget(
+                          //               text: 'Price in \$*',
+                          //               color: color,
+                          //               isTitle: false,
+                          //             ),
+                          //             const SizedBox(
+                          //               height: 10,
+                          //             ),
+                          //             SizedBox(
+                          //               width: 100,
+                          //               child: TextFormField(
+                          //                 controller: _priceController,
+                          //                 key: const ValueKey('Price \$'),
+                          //                 keyboardType: TextInputType.number,
+                          //                 validator: (value) {
+                          //                   if (value!.isEmpty) {
+                          //                     return 'Price is missed';
+                          //                   }
+                          //                   return null;
+                          //                 },
+                          //                 inputFormatters: <TextInputFormatter>[
+                          //                   FilteringTextInputFormatter.allow(
+                          //                       RegExp(r'[0-9.]')),
+                          //                 ],
+                          //                 decoration: inputDecoration,
+                          //               ),
+                          //             ),
+                          //             const SizedBox(height: 20),
+                          //             TextWidget(
+                          //               text: 'Amount ',
+                          //               color: color,
+                          //               isTitle: false,
+                          //             ),
+                          //             const SizedBox(
+                          //               height: 10,
+                          //             ),
+                          //             SizedBox(
+                          //               width: 100,
+                          //               child: TextFormField(
+                          //                 controller: _priceController,
+                          //                 key: const ValueKey('Amount'),
+                          //                 keyboardType: TextInputType.number,
+                          //                 validator: (value) {
+                          //                   if (value!.isEmpty) {
+                          //                     return 'Amount is missed';
+                          //                   }
+                          //                   return null;
+                          //                 },
+                          //                 inputFormatters: <TextInputFormatter>[
+                          //                   FilteringTextInputFormatter.allow(
+                          //                       RegExp(r'[0-9.]')),
+                          //                 ],
+                          //                 decoration: inputDecoration,
+                          //               ),
+                          //             ),
+                          //             const SizedBox(
+                          //               height: 20,
+                          //             ),
+                          //             // TextWidget(
+                          //             //   text: 'Porduct category*',
+                          //             //   color: color,
+                          //             //   isTitle: true,
+                          //             // ),
+                          //             // const SizedBox(height: 10),
+                          //             // // Drop down menu code here
+                          //             // const SizedBox(
+                          //             //   height: 20,
+                          //             // ),
+                          //             // TextWidget(
+                          //             //   text: 'Measure unit*',
+                          //             //   color: color,
+                          //             //   isTitle: true,
+                          //             // ),
+                          //             // const SizedBox(
+                          //             //   height: 10,
+                          //             // ),
+                          //             // Radio button code here
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     // Image to be picked code is here
+                          //     // Expanded(
+                          //     //   flex: 4,
+                          //     //   child: Padding(
+                          //     //     padding: const EdgeInsets.all(14),
+                          //     //     child: Container(
+                          //     //       height: size.width > 650
+                          //     //           ? 350
+                          //     //           : size.width * 0.45,
+                          //     //       color: Theme.of(context)
+                          //     //           .scaffoldBackgroundColor,
+                          //     //       child: dottedBorder(
+                          //     //         color,
+                          //     //         pickImage,
+                          //     //         previewImage,
+                          //     //       ),
+                          //     //     ),
+                          //     //   ),
+                          //     // ),
+                          //     Expanded(
+                          //         flex: 1,
+                          //         child: FittedBox(
+                          //           child: Column(
+                          //             children: [
+                          //               TextButton(
+                          //                 onPressed: () {},
+                          //                 child: TextWidget(
+                          //                   text: 'Clear',
+                          //                   color: Colors.red,
+                          //                 ),
+                          //               ),
+                          //               TextButton(
+                          //                 onPressed: () {},
+                          //                 child: TextWidget(
+                          //                   text: 'Update image',
+                          //                   color: Colors.blue,
+                          //                 ),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         )),
+                          //   ],
+                          // ),
                           Padding(
                             padding: const EdgeInsets.all(18.0),
                             child: Row(
@@ -328,32 +386,30 @@ class _UploadProductFormState extends State<UploadProductForm> {
   Widget dottedBorder(Color color, Function tap, Image? previewImage) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: DottedBorder(
-        child: Center(
-          child: previewImage == null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.image_outlined,
-                      color: color,
-                      size: 50,
+      child: Center(
+        child: previewImage == null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.image_outlined,
+                    color: color,
+                    size: 50,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                    onPressed: () => tap(),
+                    child: TextWidget(
+                      text: "Choose an Image",
+                      color: const Color(0xFFCB0166),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextButton(
-                      onPressed: () => tap(),
-                      child: TextWidget(
-                        text: "Choose an Image",
-                        color: const Color(0xFFCB0166),
-                      ),
-                    ),
-                  ],
-                )
-              : previewImage,
-        ),
+                  ),
+                ],
+              )
+            : previewImage,
       ),
     );
   }

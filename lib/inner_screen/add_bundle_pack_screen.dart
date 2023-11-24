@@ -116,19 +116,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(14),
-                            child: Container(
-                              height:
-                                  size.width > 650 ? 350 : size.width * 0.45,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage,
-                                previewImage,
-                              ),
-                            ),
-                          ),
                           TextWidget(
                             text: 'Product title*',
                             color: color,
@@ -146,8 +133,33 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               }
                               return null;
                             },
-                            decoration: inputDecoration,
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Name Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
+                          ),
+
                           const SizedBox(
                             height: 20,
                           ),
@@ -159,24 +171,19 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          TextFormField(
-                            controller: _detailController,
-                            key: const ValueKey('Detail'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Detail';
-                              }
-                              return null;
-                            },
+                          TextField(
+                            maxLines: 4,
                             decoration: InputDecoration(
-                              filled: true,
-                              hintText: "write detials about product",
-                              fillColor: scaffoldColor,
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                              ),
+                              hintText: 'Write details about bundle pack....',
+                              border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
+                                  color: color, // Use the desired color here
                                 ),
                               ),
                             ),
@@ -185,7 +192,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 20,
                           ),
                           TextWidget(
-                            text: 'Product Detail*',
+                            text: 'Price*',
                             color: color,
                             isTitle: true,
                           ),
@@ -336,32 +343,30 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   Widget dottedBorder(Color color, Function tap, Image? previewImage) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: DottedBorder(
-        child: Center(
-          child: previewImage == null
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.image_outlined,
-                      color: color,
-                      size: 50,
+      child: Center(
+        child: previewImage == null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.image_outlined,
+                    color: color,
+                    size: 50,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                    onPressed: () => tap(),
+                    child: TextWidget(
+                      text: "Choose an Image",
+                      color: const Color(0xFFCB0166),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextButton(
-                      onPressed: () => tap(),
-                      child: TextWidget(
-                        text: "Choose an Image",
-                        color: const Color(0xFFCB0166),
-                      ),
-                    ),
-                  ],
-                )
-              : previewImage,
-        ),
+                  ),
+                ],
+              )
+            : previewImage,
       ),
     );
   }
