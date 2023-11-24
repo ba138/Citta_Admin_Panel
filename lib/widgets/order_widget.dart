@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:citta_admin_panel/inner_screen/order_detail_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -122,16 +123,25 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                       ),
                     ],
                   ),
-                  Container(
-                    height: 40,
-                    width: 80,
-                    color: const Color(0xFFCB0166),
-                    child: Center(
-                      child: TextWidget(
-                        text: 'View Detail',
-                        color: Colors.white,
-                        textSize: 14,
-                        isTitle: true,
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const OrderDetailScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 80,
+                      color: const Color(0xFFCB0166),
+                      child: Center(
+                        child: TextWidget(
+                          text: 'View Detail',
+                          color: Colors.white,
+                          textSize: 14,
+                          isTitle: true,
+                        ),
                       ),
                     ),
                   )
