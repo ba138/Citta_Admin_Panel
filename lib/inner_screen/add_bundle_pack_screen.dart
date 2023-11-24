@@ -33,14 +33,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   html.File? imageFile;
   Image? coverImage;
 
-  Image? previewImage1;
-  Image? previewImage2;
-
-  Image? previewImage3;
-
-  Image? previewImage4;
-
-  Image? previewImage5;
+  Image? previewImage;
 
   @override
   void dispose() {
@@ -54,7 +47,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     final isValid = _formKey.currentState!.validate();
   }
 
-  Future<void> pickImage(Image? previewImage) async {
+  Future<void> pickImage() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -165,7 +158,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                coverImage,
+                                previewImage,
                               ),
                             ),
                           ),
@@ -283,7 +276,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage1,
+                                previewImage,
                               ),
                             ),
                           ),
@@ -398,7 +391,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage2,
+                                previewImage,
                               ),
                             ),
                           ),
@@ -513,7 +506,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage3,
+                                previewImage,
                               ),
                             ),
                           ),
@@ -628,7 +621,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage4,
+                                previewImage,
                               ),
                             ),
                           ),
@@ -751,7 +744,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               child: dottedBorder(
                                 color,
                                 pickImage,
-                                previewImage5,
+                                previewImage,
                               ),
                             ),
                           ),
