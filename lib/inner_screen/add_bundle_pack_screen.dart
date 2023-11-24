@@ -781,29 +781,28 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Center(
-        child: previewImage == null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.image_outlined,
-                    color: color,
-                    size: 50,
+        child: previewImage ??
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.image_outlined,
+                  color: color,
+                  size: 50,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  onPressed: () => tap(),
+                  child: TextWidget(
+                    text: "Choose an Image",
+                    color: const Color(0xFFCB0166),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextButton(
-                    onPressed: () => tap(),
-                    child: TextWidget(
-                      text: "Choose an Image",
-                      color: const Color(0xFFCB0166),
-                    ),
-                  ),
-                ],
-              )
-            : previewImage,
+                ),
+              ],
+            ),
       ),
     );
   }
