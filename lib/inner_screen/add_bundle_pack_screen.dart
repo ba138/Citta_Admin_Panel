@@ -453,35 +453,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             height: 20,
                           ),
                           TextWidget(
-                            text: 'Product Detail*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: scaffoldColor,
-                              alignLabelWithHint: true,
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: color,
-                              ),
-                              hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          TextWidget(
                             text: 'Amount*',
                             color: color,
                             isTitle: true,
@@ -566,35 +537,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           ),
                           const SizedBox(
                             height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Product Detail*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: scaffoldColor,
-                              alignLabelWithHint: true,
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: color,
-                              ),
-                              hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
                           ),
                           TextWidget(
                             text: 'Amount*',
@@ -682,42 +624,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          TextWidget(
-                            text: 'Product Detail*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: scaffoldColor,
-                              alignLabelWithHint: true,
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: color,
-                              ),
-                              hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
                           const SizedBox(
                             height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Price*',
-                            color: color,
-                            isTitle: true,
                           ),
                           TextWidget(
                             text: 'Amount*',
@@ -804,35 +712,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           ),
                           const SizedBox(
                             height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Product Detail*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: scaffoldColor,
-                              alignLabelWithHint: true,
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: color,
-                              ),
-                              hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
                           ),
                           TextWidget(
                             text: 'Amount*',
