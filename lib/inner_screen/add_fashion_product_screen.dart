@@ -173,11 +173,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                               ),
                               hintText: 'Write details about Product....',
                               border: InputBorder.none,
-                              // border: OutlineInputBorder(
-                              //   borderSide: BorderSide(
-                              //     color: color, // Use the desired color here
-                              //   ),
-                              // ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: color,

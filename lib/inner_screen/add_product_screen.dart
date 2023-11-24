@@ -162,6 +162,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                           TextField(
                             maxLines: 4,
                             decoration: InputDecoration(
+                              filled: true,
+                              fillColor: scaffoldColor,
                               alignLabelWithHint: true,
                               hintStyle: TextStyle(
                                 fontSize: 14,
@@ -169,9 +171,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 color: color,
                               ),
                               hintText: 'Write details about Product....',
-                              border: OutlineInputBorder(
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: color, // Use the desired color here
+                                  color: color,
+                                  width: 1.0,
                                 ),
                               ),
                             ),

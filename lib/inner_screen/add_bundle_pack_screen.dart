@@ -159,7 +159,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               ),
                             ),
                           ),
-
                           const SizedBox(
                             height: 20,
                           ),
@@ -174,16 +173,20 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           TextField(
                             maxLines: 4,
                             decoration: InputDecoration(
+                              filled: true,
+                              fillColor: scaffoldColor,
                               alignLabelWithHint: true,
                               hintStyle: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: color,
                               ),
-                              hintText: 'Write details about bundle pack....',
-                              border: OutlineInputBorder(
+                              hintText: 'Write details about Product....',
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: color, // Use the desired color here
+                                  color: color,
+                                  width: 1.0,
                                 ),
                               ),
                             ),
@@ -224,91 +227,734 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          // Row(
-                          //   children: [
-                          //     Expanded(
-                          //       flex: 2,
-                          //       child: FittedBox(
-                          //         child: Column(
-                          //           crossAxisAlignment:
-                          //               CrossAxisAlignment.start,
-                          //           mainAxisAlignment: MainAxisAlignment.start,
-                          //           children: [
-                          //             // TextWidget(
-                          //             //   text: 'Product Detail*',
-                          //             //   color: color,
-                          //             //   isTitle: true,
-                          //             // ),
-                          //             const Text(
-                          //               "Price",
-                          //               style: TextStyle(
-                          //                 fontSize: 14,
-                          //                 fontWeight: FontWeight.w500,
-                          //               ),
-                          //             ),
-                          //             const SizedBox(
-                          //               height: 10,
-                          //             ),
-                          //             SizedBox(
-                          //               width: 100,
-                          //               child: TextFormField(
-                          //                 controller: _priceController,
-                          //                 key: const ValueKey('Price \$'),
-                          //                 keyboardType: TextInputType.number,
-                          //                 validator: (value) {
-                          //                   if (value!.isEmpty) {
-                          //                     return 'Price is missed';
-                          //                   }
-                          //                   return null;
-                          //                 },
-                          //                 inputFormatters: <TextInputFormatter>[
-                          //                   FilteringTextInputFormatter.allow(
-                          //                       RegExp(r'[0-9.]')),
-                          //                 ],
-                          //                 decoration: InputDecoration(
-                          //                   filled: true,
-                          //                   fillColor: scaffoldColor,
-                          //                   border: InputBorder.none,
-                          //                   focusedBorder: OutlineInputBorder(
-                          //                     borderSide: BorderSide(
-                          //                       color: color,
-                          //                       width: 1.0,
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //             const SizedBox(height: 20),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     // Image to be picked code is here
-
-                          //     Expanded(
-                          //         flex: 1,
-                          //         child: FittedBox(
-                          //           child: Column(
-                          //             children: [
-                          //               TextButton(
-                          //                 onPressed: () {},
-                          //                 child: TextWidget(
-                          //                   text: 'Clear',
-                          //                   color: Colors.red,
-                          //                 ),
-                          //               ),
-                          //               TextButton(
-                          //                 onPressed: () {},
-                          //                 child: TextWidget(
-                          //                   text: 'Update image',
-                          //                   color: Colors.blue,
-                          //                 ),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         )),
-                          //   ],
-                          // ),
+                          Center(
+                            child: TextWidget(
+                              text: 'First Product*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Product title*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _titleController,
+                            key: const ValueKey('Title1'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Title';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Name Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Product Detail*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: scaffoldColor,
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                              ),
+                              hintText: 'Write details about Product....',
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Price*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Price1'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Price';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Price Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Amount*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Amount'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Amount';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Price Of Product",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: TextWidget(
+                              text: 'Second Product*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Product title*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _titleController,
+                            key: const ValueKey('Title2'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Title';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Name Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Product Detail*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: scaffoldColor,
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                              ),
+                              hintText: 'Write details about Product....',
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Price*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Price2'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Price';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Price Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Amount*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Amount2'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Amount';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Amount Of Product",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: TextWidget(
+                              text: 'Third Product*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Product title*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _titleController,
+                            key: const ValueKey('Title3'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Title';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Name Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Product Detail*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: scaffoldColor,
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                              ),
+                              hintText: 'Write details about Product....',
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Price*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Price3'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Price';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Price Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Amount*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Amount3'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Amount';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Amount Of Product",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: TextWidget(
+                              text: 'Fourth Product*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Product title*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _titleController,
+                            key: const ValueKey('Title4'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Title';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Name Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Product Detail*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: scaffoldColor,
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                              ),
+                              hintText: 'Write details about Product....',
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Price*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Price4'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Price';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Price Of Bundle Pack",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Amount*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Amount4'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Amount';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Amount Of Product",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: TextWidget(
+                              text: 'Fifth Product*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Product title*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _titleController,
+                            key: const ValueKey('Title5'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Title';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Name Of Product ",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(14),
+                            child: Container(
+                              height:
+                                  size.width > 650 ? 350 : size.width * 0.45,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: dottedBorder(
+                                color,
+                                pickImage,
+                                previewImage,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Product Detail*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: scaffoldColor,
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: color,
+                              ),
+                              hintText: 'Write details about Product....',
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Price*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Price5'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Price';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Price Of Product",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'Amount*',
+                            color: color,
+                            isTitle: true,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            controller: _detailController,
+                            key: const ValueKey('Amount5'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a Amount';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: "Enter The Amount Of Product",
+                              fillColor: scaffoldColor,
+                              border: InputBorder.none,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: color,
+                                  width: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Padding(
                             padding: const EdgeInsets.all(18.0),
                             child: Row(
