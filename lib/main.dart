@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
   }
+
+  final Future<FirebaseApp> initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {

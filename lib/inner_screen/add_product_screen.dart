@@ -98,7 +98,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     }
   }
 
-  Future<void> pickImage({required Image? source}) async {
+  Future<void> pickImage5() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -116,7 +116,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Utils(context).getTheme;
+    // final theme = Utils(context).getTheme;
     final color = Utils(context).color;
     final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
@@ -306,6 +306,22 @@ class _UploadProductFormState extends State<UploadProductForm> {
         ),
       ),
     );
+  }
+
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage = image;
+      });
+    }
   }
 
   Widget dottedBorder(Color color, Function tap, Image? previewImage) {
