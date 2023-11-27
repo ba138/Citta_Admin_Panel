@@ -1,15 +1,20 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
+import 'package:citta_admin_panel/services/global_method.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 import '../responsive.dart';
 import 'dart:html' as html;
 
@@ -43,8 +48,53 @@ class _UploadProductFormState extends State<UploadProductForm> {
     super.dispose();
   }
 
+  bool _isLoading = false;
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    setState(() {
+      _isLoading = true;
+    });
+    if (isValid) {
+      _formKey.currentState!.save();
+      final _uuid = const Uuid().v1();
+      try {
+        await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
+          'id': _uuid,
+          'title': _titleController.text,
+          'price': _priceController.text,
+          'detail': _detailController.text,
+          "sale": 0.1,
+          'imageUrl': '',
+          'isOnSale': false,
+          'createdAt': Timestamp.now(),
+        });
+        // clearForm();
+        Fluttertoast.showToast(
+          msg: "Product uploaded succefully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          // backgroundColor: ,
+          // textColor: ,
+          // fontSize: 16.0
+        );
+      } on FirebaseException catch (error) {
+        errorDialog(subtitle: '${error.message}', context: context);
+        setState(() {
+          _isLoading = false;
+        });
+      } catch (error) {
+        errorDialog(subtitle: '$error', context: context);
+        setState(() {
+          _isLoading = false;
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   Future<void> pickImage({required Image? source}) async {
@@ -281,5 +331,42 @@ class _UploadProductFormState extends State<UploadProductForm> {
             : previewImage,
       ),
     );
+  }
+
+  static Future<void> errorDialog({
+    required String subtitle,
+    required BuildContext context,
+  }) async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Image.asset(
+                  "assets/images/warning-sign.png",
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text("An Error occured"),
+              ],
+            ),
+            content: Text(subtitle),
+            actions: [
+              TextButton(
+                onPressed: () {},
+                child: TextWidget(
+                  text: "ok",
+                  color: Colors.cyan,
+                  textSize: 18,
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
