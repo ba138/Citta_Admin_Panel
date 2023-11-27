@@ -20,14 +20,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
-  // void getCurrentAppTheme() async {
-  //   themeChangeProvider.setDarkTheme =
-  //       await themeChangeProvider.darkThemePreference.getTheme();
-  // }
-
   @override
   void initState() {
-    // getCurrentAppTheme();
     super.initState();
   }
 
@@ -35,9 +29,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider(
-        //   create: (_) => MenuController(),
-        // ),
         ChangeNotifierProvider(
           create: (_) {
             return themeChangeProvider;
