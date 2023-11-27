@@ -6,8 +6,9 @@ import 'consts/theme_data.dart';
 import 'providers/dark_theme_provider.dart';
 import 'screens/main_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -25,8 +26,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
   }
-
-  final Future<FirebaseApp> initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
