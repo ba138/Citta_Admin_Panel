@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,9 +7,21 @@ import 'consts/theme_data.dart';
 import 'providers/dark_theme_provider.dart';
 import 'screens/main_screen.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyDnfN9Ewo1r0_5XqoZ6SqdwgUD2IurbICE",
+        authDomain: "citta-23-2b5be.firebaseapp.com",
+        projectId: "citta-23-2b5be",
+        storageBucket: "citta-23-2b5be.appspot.com",
+        messagingSenderId: "1098406014436",
+        appId: "1:1098406014436:web:2da9b291fd9d9386b86bf1",
+        measurementId: "G-541Q4GM7Q7",
+      ),
+    );
+  }
   runApp(const MyApp());
 }
 
