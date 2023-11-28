@@ -1,14 +1,18 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
+import 'package:citta_admin_panel/widgets/dotted_border.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 import '../responsive.dart';
 
 class AddBundlpackScreen extends StatefulWidget {
@@ -65,10 +69,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     super.dispose();
   }
 
-  void _uploadForm() async {
-    final isValid = _formKey.currentState!.validate();
-  }
-
   void clearForm() {
     _detailController.clear();
     _detailController1.clear();
@@ -95,6 +95,80 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
 
       previewImage5 = null;
     });
+  }
+
+  bool isLoading = false;
+  void _uploadForm() async {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    setState(() {
+      isLoading = true;
+    });
+    if (isValid) {
+      _formKey.currentState!.save();
+      final uuid = const Uuid().v1();
+      try {
+        await FirebaseFirestore.instance.collection('fashion').doc(uuid).set({
+          'id': uuid,
+          'title': _titleController.text,
+          'price': _priceController.text,
+          'detail': _detailController.text,
+          "sale": 0.1,
+          'imageUrl': '',
+          'isOnSale': false,
+          'createdAt': Timestamp.now(),
+          'product1': {
+            "title": _titleController1,
+            'image': "previewImage1",
+            'price': _detailController1,
+          },
+          'product2': {
+            "title": _titleController2,
+            'image': "previewImage2",
+            'price': _detailController2,
+          },
+          'product3': {
+            "title": _titleController3,
+            'image': "previewImage3",
+            'price': _detailController3,
+          },
+          'product4': {
+            "title": _titleController4,
+            'image': "previewImage4",
+            'price': _detailController4,
+          },
+          'product5': {
+            "title": _titleController5,
+            'image': "previewImage5",
+            'price': _detailController5,
+          },
+        });
+        clearForm();
+        Fluttertoast.showToast(
+          msg: "Fashion Product uploaded succefully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          // backgroundColor: ,
+          // textColor: ,
+          // fontSize: 16.0
+        );
+      } on FirebaseException catch (error) {
+        errorDialog(subtitle: '${error.message}', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } catch (error) {
+        errorDialog(subtitle: '$error', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 
   Future<void> pickImage() async {
@@ -285,10 +359,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage,
-                                coverImage,
+                              child: DottedBor(
+                                color: color,
+                                tap: pickImage,
+                                previewImage: coverImage,
                               ),
                             ),
                           ),
@@ -404,10 +478,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage1,
-                                previewImage1,
+                              child: DottedBor(
+                                color: color,
+                                tap: pickImage1,
+                                previewImage: previewImage1,
                               ),
                             ),
                           ),
@@ -490,10 +564,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage2,
-                                previewImage2,
+                              child: DottedBor(
+                                color: color,
+                                tap: pickImage2,
+                                previewImage: previewImage2,
                               ),
                             ),
                           ),
@@ -576,10 +650,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage3,
-                                previewImage3,
+                              child: DottedBor(
+                                color: color,
+                                tap: pickImage3,
+                                previewImage: previewImage3,
                               ),
                             ),
                           ),
@@ -662,10 +736,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage4,
-                                previewImage4,
+                              child: DottedBor(
+                                color: color,
+                                tap: pickImage4,
+                                previewImage: previewImage4,
                               ),
                             ),
                           ),
@@ -748,10 +822,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage5,
-                                previewImage5,
+                              child: DottedBor(
+                                color: color,
+                                tap: pickImage5,
+                                previewImage: previewImage5,
                               ),
                             ),
                           ),
@@ -852,5 +926,42 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
             ),
       ),
     );
+  }
+
+  static Future<void> errorDialog({
+    required String subtitle,
+    required BuildContext context,
+  }) async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Image.asset(
+                  "assets/images/warning-sign.png",
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text("An Error occured"),
+              ],
+            ),
+            content: Text(subtitle),
+            actions: [
+              TextButton(
+                onPressed: () {},
+                child: TextWidget(
+                  text: "ok",
+                  color: Colors.cyan,
+                  textSize: 18,
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
