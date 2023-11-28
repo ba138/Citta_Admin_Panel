@@ -123,27 +123,27 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'product1': {
             "title": _titleController1.text,
             'image': "previewImage1",
-            'price': _detailController1.text,
+            'amount': _detailController1.text,
           },
           'product2': {
             "title": _titleController2.text,
             'image': "previewImage2",
-            'price': _detailController2.text,
+            'amount': _detailController2.text,
           },
           'product3': {
             "title": _titleController3.text,
             'image': "previewImage3",
-            'price': _detailController3.text,
+            'amount': _detailController3.text,
           },
           'product4': {
             "title": _titleController4.text,
             'image': "previewImage4",
-            'price': _detailController4.text,
+            'amount': _detailController4.text,
           },
           'product5': {
             "title": _titleController5.text,
             'image': "previewImage5",
-            'price': _detailController5.text,
+            'amount': _detailController5.text,
           },
         });
         clearForm();
