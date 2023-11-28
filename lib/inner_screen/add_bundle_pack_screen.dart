@@ -108,7 +108,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
       try {
-        await FirebaseFirestore.instance.collection('fashion').doc(uuid).set({
+        await FirebaseFirestore.instance
+            .collection('bundle pack')
+            .doc(uuid)
+            .set({
           'id': uuid,
           'title': _titleController.text,
           'price': _priceController.text,
