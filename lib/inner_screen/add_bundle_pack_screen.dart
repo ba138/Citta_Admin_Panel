@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, use_build_context_synchronously
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, library_private_types_in_public_api
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/services/utils.dart';
@@ -121,29 +121,29 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'isOnSale': false,
           'createdAt': Timestamp.now(),
           'product1': {
-            "title": _titleController1,
+            "title": _titleController1.text,
             'image': "previewImage1",
-            'price': _detailController1,
+            'price': _detailController1.text,
           },
           'product2': {
-            "title": _titleController2,
+            "title": _titleController2.text,
             'image': "previewImage2",
-            'price': _detailController2,
+            'price': _detailController2.text,
           },
           'product3': {
-            "title": _titleController3,
+            "title": _titleController3.text,
             'image': "previewImage3",
-            'price': _detailController3,
+            'price': _detailController3.text,
           },
           'product4': {
-            "title": _titleController4,
+            "title": _titleController4.text,
             'image': "previewImage4",
-            'price': _detailController4,
+            'price': _detailController4.text,
           },
           'product5': {
-            "title": _titleController5,
+            "title": _titleController5.text,
             'image': "previewImage5",
-            'price': _detailController5,
+            'price': _detailController5.text,
           },
         });
         clearForm();
