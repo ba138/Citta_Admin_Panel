@@ -1,17 +1,21 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
 import 'dart:io';
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
+import 'package:citta_admin_panel/widgets/dotted_border.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 import '../responsive.dart';
-import 'dart:html' as html;
 
 class UploadFashionProduct extends StatefulWidget {
   static const routeName = '/UploadProductForm';
@@ -31,9 +35,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   final TextEditingController _detailController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
 
-  File? roductImage;
-  Uint8List webImage = Uint8List(8);
-  html.File? imageFile;
   Image? previewImage;
   @override
   void dispose() {
@@ -44,8 +45,16 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     super.dispose();
   }
 
-  void _uploadForm() async {
-    final isValid = _formKey.currentState!.validate();
+  void clearForm() {
+    _detailController.clear();
+
+    _titleController.clear();
+    _amountController.clear();
+    _priceController.clear();
+
+    setState(() {
+      previewImage = null;
+    });
   }
 
   Future<void> pickImage() async {
@@ -64,9 +73,58 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     }
   }
 
+  bool isLoading = false;
+  void _uploadForm() async {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    setState(() {
+      isLoading = true;
+    });
+    if (isValid) {
+      _formKey.currentState!.save();
+      final uuid = const Uuid().v1();
+      try {
+        await FirebaseFirestore.instance.collection('fashion').doc(uuid).set({
+          'id': uuid,
+          'title': _titleController.text,
+          'price': _priceController.text,
+          'detail': _detailController.text,
+          "sale": 0.1,
+          'imageUrl': '',
+          'isOnSale': false,
+          'createdAt': Timestamp.now(),
+        });
+        clearForm();
+        Fluttertoast.showToast(
+          msg: "Fashion Product uploaded succefully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          // backgroundColor: ,
+          // textColor: ,
+          // fontSize: 16.0
+        );
+      } on FirebaseException catch (error) {
+        errorDialog(subtitle: '${error.message}', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } catch (error) {
+        errorDialog(subtitle: '$error', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final theme = Utils(context).getTheme;
+    // final theme = Utils(context).getTheme;
     final color = Utils(context).color;
     final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
@@ -145,10 +203,10 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: dottedBorder(
-                                color,
-                                pickImage,
-                                previewImage,
+                              child: DottedBor(
+                                color: color,
+                                tap: pickImage,
+                                previewImage: previewImage,
                               ),
                             ),
                           ),
@@ -162,6 +220,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                           ),
                           TextField(
                             maxLines: 4,
+                            controller: _detailController,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: scaffoldColor,
@@ -209,7 +268,9 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 ButtonsWidget(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    clearForm();
+                                  },
                                   text: 'Clear form',
                                 ),
                                 ButtonsWidget(
@@ -234,34 +295,40 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     );
   }
 
-  Widget dottedBorder(Color color, Function tap, Image? previewImage) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: previewImage == null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.image_outlined,
-                    color: color,
-                    size: 50,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextButton(
-                    onPressed: () => tap(),
-                    child: TextWidget(
-                      text: "Choose an Image For Cover",
-                      color: const Color(0xFFCB0166),
-                    ),
-                  ),
-                ],
-              )
-            : previewImage,
-      ),
-    );
+  static Future<void> errorDialog({
+    required String subtitle,
+    required BuildContext context,
+  }) async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Image.asset(
+                  "assets/images/warning-sign.png",
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text("An Error occured"),
+              ],
+            ),
+            content: Text(subtitle),
+            actions: [
+              TextButton(
+                onPressed: () {},
+                child: TextWidget(
+                  text: "ok",
+                  color: Colors.cyan,
+                  textSize: 18,
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
