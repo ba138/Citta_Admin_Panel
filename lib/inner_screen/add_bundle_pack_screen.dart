@@ -145,7 +145,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         });
         clearForm();
         Fluttertoast.showToast(
-          msg: "Fashion Product uploaded succefully",
+          msg: "Bundle Pack uploaded succefully",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -894,36 +894,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget dottedBorder(Color color, Function tap, Image? previewImage) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: previewImage ??
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.image_outlined,
-                  color: color,
-                  size: 50,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextButton(
-                  onPressed: () => tap(),
-                  child: TextWidget(
-                    text: "Choose an Image",
-                    color: const Color(0xFFCB0166),
-                  ),
-                ),
-              ],
-            ),
       ),
     );
   }
