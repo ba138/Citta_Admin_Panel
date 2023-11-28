@@ -49,6 +49,18 @@ class _UploadProductFormState extends State<UploadProductForm> {
     super.dispose();
   }
 
+  void clearForm() {
+    _detailController.clear();
+
+    _titleController.clear();
+    _amountController.clear();
+    _priceController.clear();
+
+    setState(() {
+      previewImage = null;
+    });
+  }
+
   bool isLoading = false;
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
@@ -70,7 +82,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'isOnSale': false,
           'createdAt': Timestamp.now(),
         });
-        // clearForm();
+        clearForm();
         Fluttertoast.showToast(
           msg: "Product uploaded succefully",
           toastLength: Toast.LENGTH_LONG,
@@ -215,6 +227,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             ),
                             TextField(
                               maxLines: 4,
+                              controller: _detailController,
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: scaffoldColor,
@@ -255,6 +268,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 return null;
                               },
                               decoration: inputDecoration,
+                            ),
+                            const SizedBox(
+                              height: 20,
                             ),
                             TextWidget(
                               text: 'Product Amount*',
