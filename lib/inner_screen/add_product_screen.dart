@@ -82,6 +82,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'imageUrl': '',
           'isOnSale': false,
           'createdAt': Timestamp.now(),
+          'salePrice': '1000',
         });
         clearForm();
         Fluttertoast.showToast(
