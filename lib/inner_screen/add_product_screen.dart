@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
-import 'package:citta_admin_panel/services/global_method.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/dotted_border.dart';
