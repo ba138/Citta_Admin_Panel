@@ -12,6 +12,7 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -62,6 +63,22 @@ class _UploadProductFormState extends State<UploadProductForm> {
     });
   }
 
+  Future<String> _uploadImageToStorage(String uuid, Image? imageFile) async {
+    try {
+      final storage =
+          FirebaseStorage.instance.ref().child('product_images').child(uuid);
+
+      await storage.putFile(imageFile as File);
+
+      // Get download URL
+      String imageUrl = await storage.getDownloadURL();
+      return imageUrl;
+    } catch (error) {
+      // Handle the error
+      return "";
+    }
+  }
+
   bool isLoading = false;
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
@@ -73,13 +90,14 @@ class _UploadProductFormState extends State<UploadProductForm> {
       _formKey.currentState!.save();
       final _uuid = const Uuid().v1();
       try {
+        final imageUrl = await _uploadImageToStorage(_uuid, previewImage);
         await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
           'id': _uuid,
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
           "sale": 0.1,
-          'imageUrl': '',
+          'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
           'salePrice': '1000',
