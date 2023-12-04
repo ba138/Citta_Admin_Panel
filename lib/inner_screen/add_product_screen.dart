@@ -270,11 +270,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                               fit: BoxFit.fill,
                                             ),
                                           ),
-                                //  dottedBorder(
-                                //   color,
-                                //   pickImage,
-                                //   previewImage,
-                                // ),
                               ),
                             ),
                             TextWidget(

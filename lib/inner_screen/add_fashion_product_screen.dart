@@ -10,7 +10,6 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +34,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
-  final TextEditingController _amountController = TextEditingController();
+
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
   @override
@@ -43,7 +42,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     _priceController.dispose();
     _titleController.dispose();
     _detailController.dispose();
-    _amountController.dispose();
     super.dispose();
   }
 
@@ -51,90 +49,11 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     _detailController.clear();
 
     _titleController.clear();
-    _amountController.clear();
     _priceController.clear();
 
     setState(() {
       _pickedImage = null;
     });
-  }
-
-  bool isLoading = false;
-  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
-    try {
-      final storage = FirebaseStorage.instance
-          .ref()
-          .child('product_images')
-          .child("${uuid}jpg");
-      if (kIsWeb) {
-        await storage.putData(webImage);
-      } else {
-        await storage.putFile(_pickedImage!);
-      }
-
-      // Get download URL
-      String imageUrl = await storage.getDownloadURL();
-      return imageUrl;
-    } catch (error) {
-      // Handle the error
-      return "";
-    }
-  }
-
-  void _uploadForm() async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-
-    if (isValid) {
-      _formKey.currentState!.save();
-      final _uuid = const Uuid().v1();
-      if (_pickedImage == null) {
-        errorDialog(subtitle: 'Please pick up an image', context: context);
-        return;
-      }
-      try {
-        setState(() {
-          isLoading = true;
-        });
-
-        final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
-        await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
-          'id': _uuid,
-          'title': _titleController.text,
-          'price': _priceController.text,
-          'detail': _detailController.text,
-          "sale": 0.1,
-          'imageUrl': imageUrl,
-          'isOnSale': false,
-          'createdAt': Timestamp.now(),
-          'salePrice': '1000',
-        });
-        clearForm();
-        Fluttertoast.showToast(
-          msg: "Product uploaded succefully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          // backgroundColor: ,
-          // textColor: ,
-          // fontSize: 16.0
-        );
-      } on FirebaseException catch (error) {
-        errorDialog(subtitle: '${error.message}', context: context);
-        setState(() {
-          isLoading = false;
-        });
-      } catch (error) {
-        errorDialog(subtitle: '$error', context: context);
-        setState(() {
-          isLoading = false;
-        });
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
   }
 
   Future<void> _pickImage() async {
@@ -164,6 +83,55 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
       }
     } else {
       Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  bool isLoading = false;
+  void _uploadForm() async {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    setState(() {
+      isLoading = true;
+    });
+    if (isValid) {
+      _formKey.currentState!.save();
+      final uuid = const Uuid().v1();
+      try {
+        await FirebaseFirestore.instance.collection('fashion').doc(uuid).set({
+          'id': uuid,
+          'title': _titleController.text,
+          'price': _priceController.text,
+          'detail': _detailController.text,
+          "sale": 0.1,
+          'imageUrl': '',
+          'isOnSale': false,
+          'createdAt': Timestamp.now(),
+        });
+        clearForm();
+        Fluttertoast.showToast(
+          msg: "Fashion Product uploaded succefully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          // backgroundColor: ,
+          // textColor: ,
+          // fontSize: 16.0
+        );
+      } on FirebaseException catch (error) {
+        errorDialog(subtitle: '${error.message}', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } catch (error) {
+        errorDialog(subtitle: '$error', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
 
@@ -248,10 +216,24 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                               height:
                                   size.width > 650 ? 350 : size.width * 0.45,
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              child: DottedBor(
-                                color: color,
-                                tap: _pickImage,
-                              ),
+                              child: _pickedImage == null
+                                  ? DottedBor(
+                                      color: color,
+                                      tap: _pickImage,
+                                    )
+                                  : kIsWeb
+                                      ? Center(
+                                          child: Image.memory(
+                                            webImage,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )
+                                      : Center(
+                                          child: Image.file(
+                                            _pickedImage!,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
                             ),
                           ),
                           TextWidget(
