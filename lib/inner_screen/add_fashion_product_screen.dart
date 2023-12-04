@@ -10,6 +10,8 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -34,8 +36,8 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
-
-  Image? previewImage;
+  File? _pickedImage;
+  Uint8List webImage = Uint8List(8);
   @override
   void dispose() {
     _priceController.dispose();
@@ -53,50 +55,63 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     _priceController.clear();
 
     setState(() {
-      previewImage = null;
+      _pickedImage = null;
     });
-  }
-
-  Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
-
-      final image = Image.memory(Uint8List.fromList(bytes));
-
-      setState(() {
-        previewImage = image;
-      });
-    }
   }
 
   bool isLoading = false;
+  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
+    try {
+      final storage = FirebaseStorage.instance
+          .ref()
+          .child('product_images')
+          .child("${uuid}jpg");
+      if (kIsWeb) {
+        await storage.putData(webImage);
+      } else {
+        await storage.putFile(_pickedImage!);
+      }
+
+      // Get download URL
+      String imageUrl = await storage.getDownloadURL();
+      return imageUrl;
+    } catch (error) {
+      // Handle the error
+      return "";
+    }
+  }
+
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() {
-      isLoading = true;
-    });
+
     if (isValid) {
       _formKey.currentState!.save();
-      final uuid = const Uuid().v1();
+      final _uuid = const Uuid().v1();
+      if (_pickedImage == null) {
+        errorDialog(subtitle: 'Please pick up an image', context: context);
+        return;
+      }
       try {
-        await FirebaseFirestore.instance.collection('fashion').doc(uuid).set({
-          'id': uuid,
+        setState(() {
+          isLoading = true;
+        });
+
+        final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
+        await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
+          'id': _uuid,
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
           "sale": 0.1,
-          'imageUrl': '',
+          'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
+          'salePrice': '1000',
         });
         clearForm();
         Fluttertoast.showToast(
-          msg: "Fashion Product uploaded succefully",
+          msg: "Product uploaded succefully",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -119,6 +134,36 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           isLoading = false;
         });
       }
+    }
+  }
+
+  Future<void> _pickImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _pickedImage = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage = f;
+          _pickedImage = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
 
@@ -205,8 +250,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: DottedBor(
                                 color: color,
-                                tap: pickImage,
-                                previewImage: previewImage,
+                                tap: _pickImage,
                               ),
                             ),
                           ),

@@ -37,7 +37,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _detailController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
 
-  Image? previewImage;
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
   @override
@@ -256,7 +255,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: _pickedImage == null
                                     ? DottedBor(
                                         color: color,
-                                        previewImage: previewImage,
                                         tap: _pickImage,
                                       )
                                     : kIsWeb
@@ -393,22 +391,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
         ),
       ),
     );
-  }
-
-  Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
-
-      final image = Image.memory(Uint8List.fromList(bytes));
-
-      setState(() {
-        previewImage = image;
-      });
-    }
   }
 
   static Future<void> errorDialog({
