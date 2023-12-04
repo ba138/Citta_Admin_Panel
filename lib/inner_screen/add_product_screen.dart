@@ -12,6 +12,7 @@ import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -37,6 +38,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _amountController = TextEditingController();
 
   Image? previewImage;
+  File? _pickedImage;
+  Uint8List webImage = Uint8List(8);
   @override
   void dispose() {
     _priceController.dispose();
@@ -78,13 +81,18 @@ class _UploadProductFormState extends State<UploadProductForm> {
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() {
-      isLoading = true;
-    });
+
     if (isValid) {
       _formKey.currentState!.save();
       final _uuid = const Uuid().v1();
+      if (_pickedImage == null) {
+        errorDialog(subtitle: 'Please pick up an image', context: context);
+        return;
+      }
       try {
+        setState(() {
+          isLoading = true;
+        });
         final imageUrl = await _uploadImageToStorage(_uuid, previewImage);
         await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
           'id': _uuid,
@@ -122,6 +130,36 @@ class _UploadProductFormState extends State<UploadProductForm> {
           isLoading = false;
         });
       }
+    }
+  }
+
+  Future<void> _pickImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _pickedImage = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage = f;
+          _pickedImage = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
 
@@ -209,11 +247,25 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: DottedBor(
-                                  color: color,
-                                  previewImage: previewImage,
-                                  tap: pickImage,
-                                ),
+                                child: _pickedImage == null
+                                    ? DottedBor(
+                                        color: color,
+                                        previewImage: previewImage,
+                                        tap: _pickImage,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              _pickedImage!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                                 //  dottedBorder(
                                 //   color,
                                 //   pickImage,
@@ -229,8 +281,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             const SizedBox(
                               height: 10,
                             ),
-                            TextField(
+                            TextFormField(
                               maxLines: 4,
+                              key: const ValueKey('Detail'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Detail';
+                                }
+                                return null;
+                              },
                               controller: _detailController,
                               decoration: InputDecoration(
                                 filled: true,
@@ -302,7 +361,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   ButtonsWidget(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      clearForm();
+                                    },
                                     text: 'Clear form',
                                   ),
                                   ButtonsWidget(
@@ -369,7 +430,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
             content: Text(subtitle),
             actions: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: TextWidget(
                   text: "ok",
                   color: Colors.cyan,
