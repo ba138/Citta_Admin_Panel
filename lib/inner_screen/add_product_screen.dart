@@ -19,7 +19,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import '../responsive.dart';
-import 'dart:html' as html;
 
 class UploadProductForm extends StatefulWidget {
   static const routeName = '/UploadProductForm';
@@ -38,9 +37,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _detailController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
 
-  File? roductImage;
-  Uint8List webImage = Uint8List(8);
-  html.File? imageFile;
   Image? previewImage;
   @override
   void dispose() {
