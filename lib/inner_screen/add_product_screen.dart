@@ -57,16 +57,21 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _priceController.clear();
 
     setState(() {
-      previewImage = null;
+      _pickedImage = null;
     });
   }
 
-  Future<String> _uploadImageToStorage(String uuid, Image? imageFile) async {
+  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
     try {
-      final storage =
-          FirebaseStorage.instance.ref().child('product_images').child(uuid);
-
-      await storage.putFile(imageFile as File);
+      final storage = FirebaseStorage.instance
+          .ref()
+          .child('product_images')
+          .child("${uuid}jpg");
+      if (kIsWeb) {
+        await storage.putData(webImage);
+      } else {
+        await storage.putFile(_pickedImage!);
+      }
 
       // Get download URL
       String imageUrl = await storage.getDownloadURL();
@@ -93,7 +98,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
         setState(() {
           isLoading = true;
         });
-        final imageUrl = await _uploadImageToStorage(_uuid, previewImage);
+
+        final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
         await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
           'id': _uuid,
           'title': _titleController.text,
@@ -286,7 +292,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               key: const ValueKey('Detail'),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter a Detail';
+                                  return 'Please enter a Detail ';
                                 }
                                 return null;
                               },
