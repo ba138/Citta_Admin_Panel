@@ -395,10 +395,24 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: DottedBor(
-                                  color: color,
-                                  tap: () {},
-                                ),
+                                child: _coverImage == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              _coverImage!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                               ),
                             ),
                             const SizedBox(
