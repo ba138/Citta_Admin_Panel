@@ -184,8 +184,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
 
   Future<void> pickImage() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -195,8 +195,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         Fluttertoast.showToast(msg: "No Image has been Picked");
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
 
@@ -211,25 +211,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
-  // Future<void> pickImage() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       coverImage = image;
-  //     });
-  //   }
-  // }
   Future<void> pickImage1() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -239,8 +225,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         Fluttertoast.showToast(msg: "No Image has been Picked");
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
 
@@ -255,25 +241,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
-  // Future<void> pickImage1() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage1 = image;
-  //     });
-  //   }
-  // }
   Future<void> pickImage2() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -283,8 +255,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         Fluttertoast.showToast(msg: "No Image has been Picked");
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
 
@@ -299,25 +271,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
-  // Future<void> pickImage2() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage2 = image;
-  //     });
-  //   }
-  // }
   Future<void> pickImage3() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -327,8 +285,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         Fluttertoast.showToast(msg: "No Image has been Picked");
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
 
@@ -343,25 +301,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
-  // Future<void> pickImage3() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage3 = image;
-  //     });
-  //   }
-  // }
   Future<void> pickImage4() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -371,8 +315,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         Fluttertoast.showToast(msg: "No Image has been Picked");
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
 
@@ -387,25 +331,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
-  // Future<void> pickImage4() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage4 = image;
-  //     });
-  //   }
-  // }
   Future<void> pickImage5() async {
     if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var selected = File(image.path);
         setState(() {
@@ -415,8 +345,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         Fluttertoast.showToast(msg: "No Image has been Picked");
       }
     } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      final ImagePicker picker = ImagePicker();
+      XFile? image = await picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         var f = await image.readAsBytes();
 
@@ -467,9 +397,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                 controller: ScrollController(),
                 child: Column(
                   children: [
-                    // Header(fct: () {
-                    //   controlAddProductsMenu();
-                    // }),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: TextWidget(
@@ -660,7 +587,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: coverImage == null
+                                child: previewImage1 == null
                                     ? DottedBor(
                                         color: color,
                                         tap: pickImage1,
@@ -760,7 +687,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: coverImage == null
+                                child: previewImage2 == null
                                     ? DottedBor(
                                         color: color,
                                         tap: pickImage2,
@@ -860,7 +787,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: coverImage == null
+                                child: previewImage3 == null
                                     ? DottedBor(
                                         color: color,
                                         tap: pickImage3,
@@ -960,7 +887,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: coverImage == null
+                                child: previewImage4 == null
                                     ? DottedBor(
                                         color: color,
                                         tap: pickImage4,
@@ -1060,7 +987,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: coverImage == null
+                                child: previewImage5 == null
                                     ? DottedBor(
                                         color: color,
                                         tap: pickImage5,
