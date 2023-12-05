@@ -1,7 +1,5 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, library_private_types_in_public_api
 
-import 'dart:io';
-
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/services/utils.dart';
@@ -11,7 +9,6 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -44,24 +41,16 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final TextEditingController _detailController4 = TextEditingController();
   final TextEditingController _titleController5 = TextEditingController();
   final TextEditingController _detailController5 = TextEditingController();
-  File? coverImage;
-  Uint8List webImageCover = Uint8List(8);
+  Image? coverImage;
 
-  File? previewImage1;
-  Uint8List webImageImage1 = Uint8List(8);
+  Image? previewImage1;
+  Image? previewImage2;
 
-  File? previewImage2;
-  Uint8List webImageImage2 = Uint8List(8);
+  Image? previewImage3;
 
-  File? previewImage3;
-  Uint8List webImageImage3 = Uint8List(8);
+  Image? previewImage4;
 
-  File? previewImage4;
-  Uint8List webImageImage4 = Uint8List(8);
-
-  File? previewImage5;
-  Uint8List webImageImage5 = Uint8List(8);
-
+  Image? previewImage5;
   @override
   void dispose() {
     _priceController.dispose();
@@ -183,182 +172,98 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   }
 
   Future<void> pickImage() async {
-    if (!kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          coverImage = selected;
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-        setState(() {
-          webImageCover = f;
-          coverImage = File("a");
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Something went wrong");
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        coverImage = image;
+      });
     }
   }
 
   Future<void> pickImage1() async {
-    if (!kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          previewImage1 = selected;
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-        setState(() {
-          webImageImage1 = f;
-          previewImage1 = File("a");
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Something went wrong");
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage1 = image;
+      });
     }
   }
 
   Future<void> pickImage2() async {
-    if (!kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          previewImage2 = selected;
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-        setState(() {
-          webImageImage2 = f;
-          previewImage2 = File("a");
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Something went wrong");
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage2 = image;
+      });
     }
   }
 
   Future<void> pickImage3() async {
-    if (!kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          previewImage3 = selected;
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-        setState(() {
-          webImageImage3 = f;
-          previewImage3 = File("a");
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Something went wrong");
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage3 = image;
+      });
     }
   }
 
   Future<void> pickImage4() async {
-    if (!kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          previewImage4 = selected;
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-        setState(() {
-          webImageImage4 = f;
-          previewImage4 = File("a");
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Something went wrong");
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage4 = image;
+      });
     }
   }
 
   Future<void> pickImage5() async {
-    if (!kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          previewImage5 = selected;
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker picker = ImagePicker();
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-        setState(() {
-          webImageImage5 = f;
-          previewImage5 = File("a");
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Something went wrong");
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+
+      final image = Image.memory(Uint8List.fromList(bytes));
+
+      setState(() {
+        previewImage5 = image;
+      });
     }
   }
 
@@ -397,6 +302,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                 controller: ScrollController(),
                 child: Column(
                   children: [
+                    // Header(fct: () {
+                    //   controlAddProductsMenu();
+                    // }),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: TextWidget(
@@ -454,24 +362,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: coverImage == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: pickImage,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImageCover,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              coverImage!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                child: DottedBor(
+                                  color: color,
+                                  tap: pickImage,
+                                  previewImage: coverImage,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -587,24 +482,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage1 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: pickImage1,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImageImage1,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage1!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                child: DottedBor(
+                                  color: color,
+                                  tap: pickImage1,
+                                  previewImage: previewImage1,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -687,24 +569,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage2 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: pickImage2,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImageImage2,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage2!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                child: DottedBor(
+                                  color: color,
+                                  tap: pickImage2,
+                                  previewImage: previewImage2,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -787,24 +656,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage3 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: pickImage3,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImageImage3,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage3!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                child: DottedBor(
+                                  color: color,
+                                  tap: pickImage3,
+                                  previewImage: previewImage3,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -887,24 +743,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage4 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: pickImage4,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImageImage4,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage4!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                child: DottedBor(
+                                  color: color,
+                                  tap: pickImage4,
+                                  previewImage: previewImage4,
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -987,24 +830,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage5 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: pickImage5,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImageImage5,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage5!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                child: DottedBor(
+                                  color: color,
+                                  tap: pickImage5,
+                                  previewImage: previewImage5,
+                                ),
                               ),
                             ),
                             const SizedBox(
