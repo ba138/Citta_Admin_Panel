@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
+import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/dotted_border.dart';
@@ -10,6 +11,7 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,6 +58,27 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     });
   }
 
+  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
+    try {
+      final storage = FirebaseStorage.instance
+          .ref()
+          .child('Fashion_product')
+          .child("${uuid}jpg");
+      if (kIsWeb) {
+        await storage.putData(webImage);
+      } else {
+        await storage.putFile(_pickedImage!);
+      }
+
+      // Get download URL
+      String imageUrl = await storage.getDownloadURL();
+      return imageUrl;
+    } catch (error) {
+      // Handle the error
+      return "";
+    }
+  }
+
   Future<void> _pickImage() async {
     if (!kIsWeb) {
       final ImagePicker _picker = ImagePicker();
@@ -90,20 +113,27 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() {
-      isLoading = true;
-    });
+
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
+      if (_pickedImage == null) {
+        errorDialog(subtitle: 'Please pick up an image', context: context);
+        return;
+      }
       try {
+        setState(() {
+          isLoading = true;
+        });
+        final imageUrl = await _uploadImageToStorage(uuid, _pickedImage!);
+
         await FirebaseFirestore.instance.collection('fashion').doc(uuid).set({
           'id': uuid,
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
           "sale": 0.1,
-          'imageUrl': '',
+          'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
         });
@@ -156,167 +186,172 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     return Scaffold(
       key: getAddProductscaffoldKey,
       drawer: const SideMenu(),
-      body: Row(
-        children: [
-          if (Responsive.isDesktop(context))
-            const Expanded(
-              child: SideMenu(),
-            ),
-          Expanded(
-            flex: 5,
-            child: SingleChildScrollView(
-              controller: ScrollController(),
-              child: Column(
-                children: [
-                  // Header(fct: () {
-                  //   controlAddProductsMenu();
-                  // }),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: TextWidget(
-                      text: 'Add Fashion Product Details',
-                      color: color,
-                      isTitle: true,
-                    ),
-                  ),
-                  Container(
-                    width: size.width > 650 ? 650 : size.width,
-                    color: Theme.of(context).cardColor,
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.all(16),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          TextWidget(
-                            text: 'Product title*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _titleController,
-                            key: const ValueKey('Title'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Title';
-                              }
-                              return null;
-                            },
-                            decoration: inputDecoration,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(14),
-                            child: Container(
-                              height:
-                                  size.width > 650 ? 350 : size.width * 0.45,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              child: _pickedImage == null
-                                  ? DottedBor(
-                                      color: color,
-                                      tap: _pickImage,
-                                    )
-                                  : kIsWeb
-                                      ? Center(
-                                          child: Image.memory(
-                                            webImage,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        )
-                                      : Center(
-                                          child: Image.file(
-                                            _pickedImage!,
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                            ),
-                          ),
-                          TextWidget(
-                            text: 'Product Detail*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextField(
-                            maxLines: 4,
-                            controller: _detailController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: scaffoldColor,
-                              alignLabelWithHint: true,
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: color,
-                              ),
-                              hintText: 'Write details about Product....',
-                              border: InputBorder.none,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: color,
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextWidget(
-                            text: 'Product Price*',
-                            color: color,
-                            isTitle: true,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFormField(
-                            controller: _priceController,
-                            key: const ValueKey('Price'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a Price';
-                              }
-                              return null;
-                            },
-                            decoration: inputDecoration,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(18.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ButtonsWidget(
-                                  onPressed: () {
-                                    clearForm();
-                                  },
-                                  text: 'Clear form',
-                                ),
-                                ButtonsWidget(
-                                  onPressed: () {
-                                    _uploadForm();
-                                  },
-                                  text: 'Upload',
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+      body: LoadingManager(
+        isLoading: isLoading,
+        child: Row(
+          children: [
+            if (Responsive.isDesktop(context))
+              const Expanded(
+                child: SideMenu(),
+              ),
+            Expanded(
+              flex: 5,
+              child: SingleChildScrollView(
+                controller: ScrollController(),
+                child: Column(
+                  children: [
+                    // Header(fct: () {
+                    //   controlAddProductsMenu();
+                    // }),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: TextWidget(
+                        text: 'Add Fashion Product Details',
+                        color: color,
+                        isTitle: true,
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      width: size.width > 650 ? 650 : size.width,
+                      color: Theme.of(context).cardColor,
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.all(16),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            TextWidget(
+                              text: 'Product title*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _titleController,
+                              key: const ValueKey('Title'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Title';
+                                }
+                                return null;
+                              },
+                              decoration: inputDecoration,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(14),
+                              child: Container(
+                                height:
+                                    size.width > 650 ? 350 : size.width * 0.45,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                child: _pickedImage == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              _pickedImage!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                              ),
+                            ),
+                            TextWidget(
+                              text: 'Product Detail*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextField(
+                              maxLines: 4,
+                              controller: _detailController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: scaffoldColor,
+                                alignLabelWithHint: true,
+                                hintStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: color,
+                                ),
+                                hintText: 'Write details about Product....',
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextWidget(
+                              text: 'Product Price*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _priceController,
+                              key: const ValueKey('Price'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Price';
+                                }
+                                return null;
+                              },
+                              decoration: inputDecoration,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ButtonsWidget(
+                                    onPressed: () {
+                                      clearForm();
+                                    },
+                                    text: 'Clear form',
+                                  ),
+                                  ButtonsWidget(
+                                    onPressed: () {
+                                      _uploadForm();
+                                    },
+                                    text: 'Upload',
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
