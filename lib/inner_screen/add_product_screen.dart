@@ -104,7 +104,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
-          "sale": 0.1,
           'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),

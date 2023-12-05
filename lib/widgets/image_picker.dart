@@ -1,43 +1,31 @@
-// import 'dart:html' as html;
-// import 'dart:typed_data';
-
-// import 'package:flutter/material.dart';
-// import 'package:image_picker/image_picker.dart';
-
-// class ImagePick {
-//   static Future<void> pickImage(
-//       ImageSource source, html.File? imageFile, Image? previewImage) async {
-//     final pickedFile = await ImagePicker().pickImage(source: source);
-
-//     if (pickedFile != null) {
-//       final bytes = await pickedFile.readAsBytes();
-//       final image = Image.memory(Uint8List.fromList(bytes));
-
-//       imageFile = pickedFile as html.File?;
-//       previewImage = image;
-//     }
-//   }
-// }
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
-Future<File?> pickImageFromGallery(
-  BuildContext context,
-) async {
-  File? image;
-  try {
-    final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      image = File(
-        pickedImage.path,
-      );
+Future pickImageFromGellary(File? _pickedImage, Uint8List webImage) async {
+  if (!kIsWeb) {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      var selected = File(image.path);
+      _pickedImage = selected;
+    } else {
+      Fluttertoast.showToast(msg: "No Image has been Picked");
     }
-  } catch (e) {
-    Fluttertoast.showToast(msg: e.toString());
+  } else if (kIsWeb) {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      var f = await image.readAsBytes();
+
+      webImage = f;
+      _pickedImage = File("a");
+    } else {
+      Fluttertoast.showToast(msg: "No Image has been Picked");
+    }
+  } else {
+    Fluttertoast.showToast(msg: "Something went wrong");
   }
-  return image;
 }
