@@ -132,7 +132,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
-          "sale": 0.1,
           'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
@@ -143,9 +142,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          // backgroundColor: ,
-          // textColor: ,
-          // fontSize: 16.0
         );
       } on FirebaseException catch (error) {
         errorDialog(subtitle: '${error.message}', context: context);
@@ -167,7 +163,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Utils(context).getTheme;
     final color = Utils(context).color;
     final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
