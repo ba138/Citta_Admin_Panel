@@ -4,9 +4,7 @@ import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class DottedBor extends StatelessWidget {
-  DottedBor(
-      {super.key, this.previewImage, required this.color, required this.tap});
-  Image? previewImage;
+  DottedBor({super.key, required this.color, required this.tap});
   Color color;
   Function tap;
   @override

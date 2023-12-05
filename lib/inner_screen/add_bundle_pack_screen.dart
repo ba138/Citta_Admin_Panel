@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, library_private_types_in_public_api
 
+import 'dart:io';
+
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/services/utils.dart';
@@ -9,6 +11,7 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -41,7 +44,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final TextEditingController _detailController4 = TextEditingController();
   final TextEditingController _titleController5 = TextEditingController();
   final TextEditingController _detailController5 = TextEditingController();
-  Image? coverImage;
+  File? _coverImage;
+  Uint8List webImage = Uint8List(8);
 
   Image? previewImage1;
   Image? previewImage2;
@@ -86,7 +90,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _priceController.clear();
 
     setState(() {
-      coverImage = null;
+      _coverImage = null;
       previewImage1 = null;
       previewImage2 = null;
 
@@ -171,101 +175,130 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     }
   }
 
-  Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+  Future<void> _pickImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _coverImage = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
 
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
-
-      final image = Image.memory(Uint8List.fromList(bytes));
-
-      setState(() {
-        coverImage = image;
-      });
+        setState(() {
+          webImage = f;
+          _coverImage = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
+  // Future<void> pickImage() async {
+  //   final pickedFile = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-  Future<void> pickImage1() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+  //   if (pickedFile != null) {
+  //     final bytes = await pickedFile.readAsBytes();
 
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
+  //     final image = Image.memory(Uint8List.fromList(bytes));
 
-      final image = Image.memory(Uint8List.fromList(bytes));
+  //     setState(() {
+  //       coverImage = image;
+  //     });
+  //   }
+  // }
 
-      setState(() {
-        previewImage1 = image;
-      });
-    }
-  }
+  // Future<void> pickImage1() async {
+  //   final pickedFile = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-  Future<void> pickImage2() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+  //   if (pickedFile != null) {
+  //     final bytes = await pickedFile.readAsBytes();
 
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
+  //     final image = Image.memory(Uint8List.fromList(bytes));
 
-      final image = Image.memory(Uint8List.fromList(bytes));
+  //     setState(() {
+  //       previewImage1 = image;
+  //     });
+  //   }
+  // }
 
-      setState(() {
-        previewImage2 = image;
-      });
-    }
-  }
+  // Future<void> pickImage2() async {
+  //   final pickedFile = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-  Future<void> pickImage3() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+  //   if (pickedFile != null) {
+  //     final bytes = await pickedFile.readAsBytes();
 
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
+  //     final image = Image.memory(Uint8List.fromList(bytes));
 
-      final image = Image.memory(Uint8List.fromList(bytes));
+  //     setState(() {
+  //       previewImage2 = image;
+  //     });
+  //   }
+  // }
 
-      setState(() {
-        previewImage3 = image;
-      });
-    }
-  }
+  // Future<void> pickImage3() async {
+  //   final pickedFile = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-  Future<void> pickImage4() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+  //   if (pickedFile != null) {
+  //     final bytes = await pickedFile.readAsBytes();
 
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
+  //     final image = Image.memory(Uint8List.fromList(bytes));
 
-      final image = Image.memory(Uint8List.fromList(bytes));
+  //     setState(() {
+  //       previewImage3 = image;
+  //     });
+  //   }
+  // }
 
-      setState(() {
-        previewImage4 = image;
-      });
-    }
-  }
+  // Future<void> pickImage4() async {
+  //   final pickedFile = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-  Future<void> pickImage5() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+  //   if (pickedFile != null) {
+  //     final bytes = await pickedFile.readAsBytes();
 
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
+  //     final image = Image.memory(Uint8List.fromList(bytes));
 
-      final image = Image.memory(Uint8List.fromList(bytes));
+  //     setState(() {
+  //       previewImage4 = image;
+  //     });
+  //   }
+  // }
 
-      setState(() {
-        previewImage5 = image;
-      });
-    }
-  }
+  // Future<void> pickImage5() async {
+  //   final pickedFile = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //   );
+
+  //   if (pickedFile != null) {
+  //     final bytes = await pickedFile.readAsBytes();
+
+  //     final image = Image.memory(Uint8List.fromList(bytes));
+
+  //     setState(() {
+  //       previewImage5 = image;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -364,8 +397,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: DottedBor(
                                   color: color,
-                                  tap: pickImage,
-                                  previewImage: coverImage,
+                                  tap: () {},
                                 ),
                               ),
                             ),
@@ -484,8 +516,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: DottedBor(
                                   color: color,
-                                  tap: pickImage1,
-                                  previewImage: previewImage1,
+                                  tap: () {},
+                                  //pickImage1,
                                 ),
                               ),
                             ),
@@ -571,8 +603,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: DottedBor(
                                   color: color,
-                                  tap: pickImage2,
-                                  previewImage: previewImage2,
+                                  tap: () {},
+                                  // pickImage2,
                                 ),
                               ),
                             ),
@@ -658,8 +690,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: DottedBor(
                                   color: color,
-                                  tap: pickImage3,
-                                  previewImage: previewImage3,
+                                  tap: () {},
+                                  // pickImage3,
                                 ),
                               ),
                             ),
@@ -745,8 +777,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: DottedBor(
                                   color: color,
-                                  tap: pickImage4,
-                                  previewImage: previewImage4,
+                                  tap: () {},
+                                  // pickImage4,
                                 ),
                               ),
                             ),
@@ -832,8 +864,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: DottedBor(
                                   color: color,
-                                  tap: pickImage5,
-                                  previewImage: previewImage5,
+                                  tap: () {}, // pickImage5,
                                 ),
                               ),
                             ),
