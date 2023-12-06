@@ -107,6 +107,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _priceController.clear();
     _sizeController.clear();
     _weightController.clear();
+    _titleController6.clear();
+    _detailController6.clear();
 
     setState(() {
       _coverImage = null;
@@ -191,7 +193,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'imageUrl': coverImageUrl,
           "size": _sizeController.text,
           'weight': _weightController.text,
-          'salePrice': "2400",
+          'salePrice': "3200",
           'createdAt': Timestamp.now(),
           'product1': {
             "title": _titleController1.text,
