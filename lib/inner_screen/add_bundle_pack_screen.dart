@@ -114,14 +114,15 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     });
   }
 
-  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
+  Future<String> _uploadImageToStorage(
+      String uuid, File? imageFile, Uint8List webImageCover) async {
     try {
       final storage = FirebaseStorage.instance
           .ref()
           .child('bundle_pack')
           .child("${uuid}jpg");
       if (kIsWeb) {
-        await storage.putData(webImage);
+        await storage.putData(webImageCover);
       } else {
         await storage.putFile(imageFile!);
       }
@@ -157,17 +158,17 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           isLoading = true;
         });
         final coverImageUrl =
-            await _uploadImageToStorage("${uuid}cover", _coverImage!);
+            await _uploadImageToStorage("${uuid}cover", _coverImage!, webImage);
         final previewImageUrl1 =
-            await _uploadImageToStorage("${uuid}1", previewImage1!);
+            await _uploadImageToStorage("${uuid}1", previewImage1!, webImage1);
         final previewImageUrl2 =
-            await _uploadImageToStorage("${uuid}2", previewImage2!);
+            await _uploadImageToStorage("${uuid}2", previewImage2!, webImage2);
         final previewImageUrl3 =
-            await _uploadImageToStorage("${uuid}3", previewImage3!);
+            await _uploadImageToStorage("${uuid}3", previewImage3!, webImage3);
         final previewImageUrl4 =
-            await _uploadImageToStorage("${uuid}4", previewImage4!);
+            await _uploadImageToStorage("${uuid}4", previewImage4!, webImage4);
         final previewImageUrl5 =
-            await _uploadImageToStorage("${uuid}5", previewImage5!);
+            await _uploadImageToStorage("${uuid}5", previewImage5!, webImage5);
 
         await FirebaseFirestore.instance
             .collection('bundle pack')
@@ -178,8 +179,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'price': _priceController.text,
           'detail': _detailController.text,
           'imageUrl': coverImageUrl,
-          "size": _sizeController,
-          'weight': _weightController,
+          "size": _sizeController.text,
+          'weight': _weightController.text,
           'salePrice': "2400",
           'createdAt': Timestamp.now(),
           'product1': {
