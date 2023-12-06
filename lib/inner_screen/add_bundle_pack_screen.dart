@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, use_build_context_synchronously, library_private_types_in_public_api
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
 
 import 'dart:io';
 
