@@ -47,14 +47,17 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   File? _coverImage;
   Uint8List webImage = Uint8List(8);
 
-  Image? previewImage1;
-  Image? previewImage2;
+  File? previewImage1;
+  Uint8List webImage1 = Uint8List(8);
+  File? previewImage2;
+  Uint8List webImage2 = Uint8List(8);
 
-  Image? previewImage3;
-
-  Image? previewImage4;
-
-  Image? previewImage5;
+  File? previewImage3;
+  Uint8List webImage3 = Uint8List(8);
+  File? previewImage4;
+  Uint8List webImage4 = Uint8List(8);
+  File? previewImage5;
+  Uint8List webImage5 = Uint8List(8);
   @override
   void dispose() {
     _priceController.dispose();
@@ -122,7 +125,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'price': _priceController.text,
           'detail': _detailController.text,
           'imageUrl': '',
-          'isOnSale': false,
           'createdAt': Timestamp.now(),
           'product1': {
             "title": _titleController1.text,
@@ -204,101 +206,156 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
-  // Future<void> pickImage() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
+  Future<void> _pickImage1() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          previewImage1 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
 
-  //     final image = Image.memory(Uint8List.fromList(bytes));
+        setState(() {
+          webImage1 = f;
+          previewImage1 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
 
-  //     setState(() {
-  //       coverImage = image;
-  //     });
-  //   }
-  // }
+  Future<void> _pickImage2() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          previewImage2 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
 
-  // Future<void> pickImage1() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
+        setState(() {
+          webImage2 = f;
+          previewImage2 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
+  Future<void> _pickImage3() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          previewImage3 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
 
-  //     final image = Image.memory(Uint8List.fromList(bytes));
+        setState(() {
+          webImage3 = f;
+          previewImage3 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
 
-  //     setState(() {
-  //       previewImage1 = image;
-  //     });
-  //   }
-  // }
+  Future<void> _pickImage4() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          previewImage4 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
 
-  // Future<void> pickImage2() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
+        setState(() {
+          webImage4 = f;
+          previewImage4 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
 
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
+  Future<void> _pickImage5() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          previewImage5 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
 
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage2 = image;
-  //     });
-  //   }
-  // }
-
-  // Future<void> pickImage3() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
-
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage3 = image;
-  //     });
-  //   }
-  // }
-
-  // Future<void> pickImage4() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
-
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage4 = image;
-  //     });
-  //   }
-  // }
-
-  // Future<void> pickImage5() async {
-  //   final pickedFile = await ImagePicker().pickImage(
-  //     source: ImageSource.gallery,
-  //   );
-
-  //   if (pickedFile != null) {
-  //     final bytes = await pickedFile.readAsBytes();
-
-  //     final image = Image.memory(Uint8List.fromList(bytes));
-
-  //     setState(() {
-  //       previewImage5 = image;
-  //     });
-  //   }
-  // }
+        setState(() {
+          webImage5 = f;
+          previewImage5 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

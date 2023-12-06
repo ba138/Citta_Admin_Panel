@@ -25,7 +25,7 @@ class DottedBor extends StatelessWidget {
             height: 20,
           ),
           TextButton(
-            onPressed: tap(),
+            onPressed: () => tap(),
             child: TextWidget(
               text: "Choose an Image",
               color: const Color(0xFFCB0166),
