@@ -45,6 +45,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final TextEditingController _detailController4 = TextEditingController();
   final TextEditingController _titleController5 = TextEditingController();
   final TextEditingController _detailController5 = TextEditingController();
+  final TextEditingController _titleController6 = TextEditingController();
+
+  final TextEditingController _detailController6 = TextEditingController();
+
   final TextEditingController _weightController = TextEditingController();
 
   final TextEditingController _sizeController = TextEditingController();
@@ -63,9 +67,12 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   Uint8List webImage4 = Uint8List(8);
   File? previewImage5;
   Uint8List webImage5 = Uint8List(8);
+  File? previewImage6;
+  Uint8List webImage6 = Uint8List(8);
   @override
   void dispose() {
     _priceController.dispose();
+    _detailController6.dispose();
     _titleController.dispose();
     _detailController.dispose();
     _weightController.dispose();
@@ -111,6 +118,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       previewImage4 = null;
 
       previewImage5 = null;
+      previewImage6 = null;
     });
   }
 
@@ -149,7 +157,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           previewImage2 == null &&
           previewImage3 == null &&
           previewImage4 == null &&
-          previewImage5 == null) {
+          previewImage5 == null &&
+          previewImage6 == null) {
         errorDialog(subtitle: 'Please pick up all image', context: context);
         return;
       }
@@ -169,7 +178,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
             await _uploadImageToStorage("${uuid}4", previewImage4!, webImage4);
         final previewImageUrl5 =
             await _uploadImageToStorage("${uuid}5", previewImage5!, webImage5);
-
+        final previewImageUrl6 =
+            await _uploadImageToStorage("${uuid}6", previewImage6!, webImage6);
         await FirebaseFirestore.instance
             .collection('bundle pack')
             .doc(uuid)
@@ -207,6 +217,11 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
             "title": _titleController5.text,
             'image': previewImageUrl5,
             'amount': _detailController5.text,
+          },
+          'product6': {
+            "title": _titleController6.text,
+            'image': previewImageUrl6,
+            'amount': _detailController6.text,
           },
         });
         clearForm();
@@ -405,6 +420,36 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         setState(() {
           webImage5 = f;
           previewImage5 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _pickImage6() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          previewImage6 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage6 = f;
+          previewImage6 = File("a");
         });
       } else {
         Fluttertoast.showToast(msg: "No Image has been Picked");
@@ -1139,6 +1184,106 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             TextFormField(
                               controller: _detailController5,
                               key: const ValueKey('Amount5'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Amount';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                hintText: "Enter The Amount Of Product",
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: TextWidget(
+                                text: 'Sixth Product*',
+                                color: color,
+                                isTitle: true,
+                              ),
+                            ),
+                            TextWidget(
+                              text: 'Product title*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _titleController6,
+                              key: const ValueKey('Title6'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Title';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                hintText: "Enter The Name Of Bundle Pack",
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(14),
+                              child: Container(
+                                height:
+                                    size.width > 650 ? 350 : size.width * 0.45,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                child: previewImage6 == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage6,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage6,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              previewImage6!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextWidget(
+                              text: 'Amount*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _detailController6,
+                              key: const ValueKey('Amount6'),
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Please enter a Amount';
