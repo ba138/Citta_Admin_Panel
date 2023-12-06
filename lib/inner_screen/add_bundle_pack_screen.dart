@@ -45,6 +45,10 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final TextEditingController _detailController4 = TextEditingController();
   final TextEditingController _titleController5 = TextEditingController();
   final TextEditingController _detailController5 = TextEditingController();
+  final TextEditingController _weightController = TextEditingController();
+
+  final TextEditingController _sizeController = TextEditingController();
+
   File? _coverImage;
   Uint8List webImage = Uint8List(8);
 
@@ -64,6 +68,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _priceController.dispose();
     _titleController.dispose();
     _detailController.dispose();
+    _weightController.dispose();
+    _sizeController.dispose();
     _titleController2.dispose();
     _detailController2.dispose();
     _titleController3.dispose();
@@ -92,6 +98,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _titleController4.clear();
     _titleController5.clear();
     _priceController.clear();
+    _sizeController.clear();
+    _weightController.clear();
 
     setState(() {
       _coverImage = null;
@@ -170,6 +178,8 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'price': _priceController.text,
           'detail': _detailController.text,
           'imageUrl': coverImageUrl,
+          "size": _sizeController,
+          'weight': _weightController,
           'salePrice': "2400",
           'createdAt': Timestamp.now(),
           'product1': {
