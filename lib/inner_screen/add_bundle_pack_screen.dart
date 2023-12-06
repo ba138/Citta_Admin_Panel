@@ -11,6 +11,7 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -105,17 +106,60 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     });
   }
 
+  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
+    try {
+      final storage = FirebaseStorage.instance
+          .ref()
+          .child('bundle_pack')
+          .child("${uuid}jpg");
+      if (kIsWeb) {
+        await storage.putData(webImage);
+      } else {
+        await storage.putFile(imageFile!);
+      }
+
+      // Get download URL
+      String imageUrl = await storage.getDownloadURL();
+      return imageUrl;
+    } catch (error) {
+      // Handle the error
+      return "";
+    }
+  }
+
   bool isLoading = false;
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() {
-      isLoading = true;
-    });
+
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
+      if (_coverImage == null &&
+          previewImage1 == null &&
+          previewImage2 == null &&
+          previewImage3 == null &&
+          previewImage4 == null &&
+          previewImage5 == null) {
+        errorDialog(subtitle: 'Please pick up all image', context: context);
+        return;
+      }
       try {
+        setState(() {
+          isLoading = true;
+        });
+        final coverImageUrl = await _uploadImageToStorage(uuid, _coverImage!);
+        final previewImageUrl1 =
+            await _uploadImageToStorage(uuid, previewImage1!);
+        final previewImageUrl2 =
+            await _uploadImageToStorage(uuid, previewImage2!);
+        final previewImageUrl3 =
+            await _uploadImageToStorage(uuid, previewImage3!);
+        final previewImageUrl4 =
+            await _uploadImageToStorage(uuid, previewImage4!);
+        final previewImageUrl5 =
+            await _uploadImageToStorage(uuid, previewImage5!);
+
         await FirebaseFirestore.instance
             .collection('bundle pack')
             .doc(uuid)
@@ -124,31 +168,31 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
-          'imageUrl': '',
+          'imageUrl': coverImageUrl,
           'createdAt': Timestamp.now(),
           'product1': {
             "title": _titleController1.text,
-            'image': "previewImage1",
+            'image': previewImageUrl1,
             'amount': _detailController1.text,
           },
           'product2': {
             "title": _titleController2.text,
-            'image': "previewImage2",
+            'image': previewImageUrl2,
             'amount': _detailController2.text,
           },
           'product3': {
             "title": _titleController3.text,
-            'image': "previewImage3",
+            'image': previewImageUrl3,
             'amount': _detailController3.text,
           },
           'product4': {
             "title": _titleController4.text,
-            'image': "previewImage4",
+            'image': previewImageUrl4,
             'amount': _detailController4.text,
           },
           'product5': {
             "title": _titleController5.text,
-            'image': "previewImage5",
+            'image': previewImageUrl5,
             'amount': _detailController5.text,
           },
         });
@@ -392,9 +436,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                 controller: ScrollController(),
                 child: Column(
                   children: [
-                    // Header(fct: () {
-                    //   controlAddProductsMenu();
-                    // }),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: TextWidget(
@@ -793,7 +834,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     : kIsWeb
                                         ? Center(
                                             child: Image.memory(
-                                              webImage1,
+                                              webImage3,
                                               fit: BoxFit.fill,
                                             ),
                                           )
