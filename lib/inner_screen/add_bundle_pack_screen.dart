@@ -585,11 +585,24 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: DottedBor(
-                                  color: color,
-                                  tap: () {},
-                                  //pickImage1,
-                                ),
+                                child: previewImage1 == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage1,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage1,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              previewImage1!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                               ),
                             ),
                             const SizedBox(
@@ -672,11 +685,24 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: DottedBor(
-                                  color: color,
-                                  tap: () {},
-                                  // pickImage2,
-                                ),
+                                child: previewImage2 == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage2,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage2,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              previewImage2!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                               ),
                             ),
                             const SizedBox(
@@ -759,11 +785,24 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: DottedBor(
-                                  color: color,
-                                  tap: () {},
-                                  // pickImage3,
-                                ),
+                                child: previewImage3 == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage3,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage1,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              previewImage3!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                               ),
                             ),
                             const SizedBox(
@@ -846,11 +885,24 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: DottedBor(
-                                  color: color,
-                                  tap: () {},
-                                  // pickImage4,
-                                ),
+                                child: previewImage4 == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage4,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage4,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              previewImage4!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                               ),
                             ),
                             const SizedBox(
@@ -933,10 +985,24 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                     size.width > 650 ? 350 : size.width * 0.45,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
-                                child: DottedBor(
-                                  color: color,
-                                  tap: () {}, // pickImage5,
-                                ),
+                                child: previewImage5 == null
+                                    ? DottedBor(
+                                        color: color,
+                                        tap: _pickImage5,
+                                      )
+                                    : kIsWeb
+                                        ? Center(
+                                            child: Image.memory(
+                                              webImage5,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          )
+                                        : Center(
+                                            child: Image.file(
+                                              previewImage5!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                               ),
                             ),
                             const SizedBox(
