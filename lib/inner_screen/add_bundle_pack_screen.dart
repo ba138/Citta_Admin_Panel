@@ -148,17 +148,18 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         setState(() {
           isLoading = true;
         });
-        final coverImageUrl = await _uploadImageToStorage(uuid, _coverImage!);
+        final coverImageUrl =
+            await _uploadImageToStorage("${uuid}cover", _coverImage!);
         final previewImageUrl1 =
-            await _uploadImageToStorage(uuid, previewImage1!);
+            await _uploadImageToStorage("${uuid}1", previewImage1!);
         final previewImageUrl2 =
-            await _uploadImageToStorage(uuid, previewImage2!);
+            await _uploadImageToStorage("${uuid}2", previewImage2!);
         final previewImageUrl3 =
-            await _uploadImageToStorage(uuid, previewImage3!);
+            await _uploadImageToStorage("${uuid}3", previewImage3!);
         final previewImageUrl4 =
-            await _uploadImageToStorage(uuid, previewImage4!);
+            await _uploadImageToStorage("${uuid}4", previewImage4!);
         final previewImageUrl5 =
-            await _uploadImageToStorage(uuid, previewImage5!);
+            await _uploadImageToStorage("${uuid}5", previewImage5!);
 
         await FirebaseFirestore.instance
             .collection('bundle pack')
@@ -169,6 +170,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'price': _priceController.text,
           'detail': _detailController.text,
           'imageUrl': coverImageUrl,
+          'salePrice': "2400",
           'createdAt': Timestamp.now(),
           'product1': {
             "title": _titleController1.text,
@@ -569,6 +571,72 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               decoration: InputDecoration(
                                 filled: true,
                                 hintText: "Enter The Price Of Bundle Pack",
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextWidget(
+                              text: 'Size*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _sizeController,
+                              key: const ValueKey('Size'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Size';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                hintText: "Small,Medim,Large",
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextWidget(
+                              text: 'Weight*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _weightController,
+                              key: const ValueKey('weight'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Weight';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                hintText: "Enter The weight Of Bundle Pack",
                                 fillColor: scaffoldColor,
                                 border: InputBorder.none,
                                 focusedBorder: OutlineInputBorder(
