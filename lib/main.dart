@@ -1,11 +1,11 @@
+import 'package:citta_admin_panel/auth/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'consts/theme_data.dart';
 import 'providers/dark_theme_provider.dart';
-import 'screens/main_screen.dart';
+// import 'screens/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Grocery',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
-            home: const MainScreen(),
+            home: LoginScreen(),
           );
         },
       ),
