@@ -1,5 +1,7 @@
+import 'package:citta_admin_panel/auth/screens/register_screen.dart';
 import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
+import 'package:citta_admin_panel/screens/main_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,7 @@ class LoginScreen extends StatelessWidget {
           children: [
             if (Responsive.isDesktop(context))
               Expanded(
-                flex: 5,
+                flex: 8,
                 child: SingleChildScrollView(
                   controller: ScrollController(),
                   child: Column(
@@ -93,6 +95,9 @@ class LoginScreen extends StatelessWidget {
                                 },
                                 decoration: inputDecoration,
                               ),
+                              const SizedBox(
+                                height: 20,
+                              ),
                               TextWidget(
                                 text: 'Password*',
                                 color: color,
@@ -118,35 +123,57 @@ class LoginScreen extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(18.0),
                                 child: Center(
-                                  child: Container(
-                                    height: 46,
-                                    width: 300,
-                                    color: const Color(0xFFCB0166),
-                                    child: const Center(
-                                      child: Text(
-                                        "Login",
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const MainScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 46,
+                                      width: 300,
+                                      color: const Color(0xFFCB0166),
+                                      child: const Center(
+                                        child: Text(
+                                          "Login",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.all(18.0),
+                              Padding(
+                                padding: const EdgeInsets.all(18.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Don't have account?",
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 6,
                                     ),
-                                    Text(
-                                      "Signup",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (c) =>
+                                                const RegisterScreen(),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        "Signup",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     )
                                   ],
