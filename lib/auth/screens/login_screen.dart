@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:citta_admin_panel/auth/screens/register_screen.dart';
 import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
@@ -23,6 +25,36 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   bool isLoading = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = result.user;
+      return user;
+    } catch (error) {
+      print(error.toString());
+      return null;
+    }
+  }
+
+  void signinUser() {
+    try {
+      FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: usernameController.text,
+        password: passwordController.text,
+      );
+      debugPrint("user loged in");
+    } catch (e) {
+      debugPrint(
+        e.toString(),
+      );
+    }
+  }
 
   void loginUser() async {
     final isValid = _formKey.currentState!.validate();
@@ -35,10 +67,27 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           isLoading = true;
         });
-        FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: usernameController.text,
-          password: passwordController.text,
-        );
+        User? user = await signInWithEmailAndPassword(
+            usernameController.text, passwordController.text);
+        if (user != null) {
+          // Navigate to the next screen or perform other actions on successful login.
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (c) => const MainScreen()),
+              (route) => false);
+          print('Login successful!');
+        } else {
+          // Handle login failure.
+          Fluttertoast.showToast(
+            msg: "InValid arguments",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            // backgroundColor: ,
+            // textColor: ,
+            // fontSize: 16.0
+          );
+        }
 
         Fluttertoast.showToast(
           msg: "LogIn succefully",
@@ -49,11 +98,6 @@ class _LoginScreenState extends State<LoginScreen> {
           // textColor: ,
           // fontSize: 16.0
         );
-
-        // Navigator.pushAndRemoveUntil(
-        //     context,
-        //     MaterialPageRoute(builder: (c) => const MainScreen()),
-        //     (route) => false);
       } on FirebaseException catch (error) {
         errorDialog(subtitle: '${error.message}', context: context);
         setState(() {
@@ -183,8 +227,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 padding: const EdgeInsets.all(18.0),
                                 child: Center(
                                   child: InkWell(
-                                    onTap: () {
+                                    onTap: () async {
                                       loginUser();
+                                      // signinUser();
                                     },
                                     child: Container(
                                       height: 46,
