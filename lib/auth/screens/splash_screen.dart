@@ -19,36 +19,33 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if (Responsive.isDesktop(context))
-            Expanded(
-              flex: 8,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: size.width > 650 ? 650 : size.width,
-                            padding: const EdgeInsets.all(16),
-                            decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage("assets/images/groceries.png"),
-                                  fit: BoxFit.contain),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Container(
+                        // width: size.width > 300 ? 300 : size.width,
+                        height: MediaQuery.of(context).size.height / 3,
+                        width: MediaQuery.of(context).size.width / 3,
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/groceries.png"),
+                              fit: BoxFit.contain),
+                        ),
+                      )
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
+          ),
         ],
       ),
     );
