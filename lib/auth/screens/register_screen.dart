@@ -26,6 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
   bool isLoading = false;
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
@@ -127,9 +129,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   radius: 60,
                                 ),
                               ),
-                              ButtonsWidget(
-                                onPressed: () {},
-                                text: "Select Image",
+                              const SizedBox(
+                                height: 12,
+                              ),
+                              Center(
+                                child: ButtonsWidget(
+                                  onPressed: _pickImage,
+                                  text: "Select Image",
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              TextWidget(
+                                text: 'Name*',
+                                color: color,
+                                isTitle: true,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                controller: usernameController,
+                                key: const ValueKey('Name'),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter user Name';
+                                  }
+                                  return null;
+                                },
+                                decoration: inputDecoration,
+                              ),
+                              const SizedBox(
+                                height: 20,
                               ),
                               TextWidget(
                                 text: 'Email*',
@@ -140,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 height: 10,
                               ),
                               TextFormField(
-                                controller: usernameController,
+                                controller: emailController,
                                 key: const ValueKey('Email'),
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -209,7 +241,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      "Don't have account?",
+                                      "Already have account?",
                                     ),
                                     const SizedBox(
                                       width: 6,
@@ -224,7 +256,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         );
                                       },
                                       child: const Text(
-                                        "Signup",
+                                        "Signin",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
