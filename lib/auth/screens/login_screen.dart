@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isLoading = false;
 
-  void createUser() async {
+  void loginUser() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
 
@@ -223,12 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Center(
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MainScreen(),
-                                        ),
-                                      );
+                                      loginUser();
                                     },
                                     child: Container(
                                       height: 46,
