@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:citta_admin_panel/auth/screens/login_screen.dart';
 import 'package:citta_admin_panel/responsive.dart';
+import 'package:citta_admin_panel/screens/main_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,6 +16,31 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    Timer(const Duration(seconds: 6), () async {
+      if (FirebaseAuth.instance.currentUser != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (c) => const MainScreen(),
+          ),
+          (route) => false,
+        );
+      } else {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (c) => const LoginScreen()),
+          (route) => false,
+        );
+      }
+    });
+  }
+
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
 
@@ -36,8 +66,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         decoration: const BoxDecoration(
                           color: Colors.transparent,
                           image: DecorationImage(
-                              image: AssetImage("assets/images/groceries.png"),
-                              fit: BoxFit.contain),
+                            image: AssetImage("assets/images/groceries.png"),
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       )
                     ],

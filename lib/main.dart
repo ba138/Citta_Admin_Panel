@@ -1,4 +1,3 @@
-import 'package:citta_admin_panel/auth/screens/login_screen.dart';
 import 'package:citta_admin_panel/auth/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';

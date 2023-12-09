@@ -11,6 +11,7 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -97,9 +98,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
         setState(() {
           isLoading = true;
         });
-
         final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
-        await FirebaseFirestore.instance.collection('products').doc(_uuid).set({
+
+        Map<String, dynamic> myProducts = {
           'id': _uuid,
           'title': _titleController.text,
           'price': _priceController.text,
@@ -109,7 +110,18 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'isOnSale': false,
           'createdAt': Timestamp.now(),
           'salePrice': '1000',
-        });
+        };
+        await FirebaseFirestore.instance
+            .collection('products')
+            .doc(_uuid)
+            .set(myProducts);
+        await FirebaseFirestore.instance
+            .collection('saller')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("my_products")
+            .doc(_uuid)
+            .set(myProducts);
+
         clearForm();
         Fluttertoast.showToast(
           msg: "Product uploaded succefully",
