@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Grocery',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
-            home: LoginScreen(),
+            home: const LoginScreen(),
           );
         },
       ),
