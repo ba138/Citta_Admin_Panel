@@ -42,20 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void signinUser() {
-    try {
-      FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: usernameController.text,
-        password: passwordController.text,
-      );
-      debugPrint("user loged in");
-    } catch (e) {
-      debugPrint(
-        e.toString(),
-      );
-    }
-  }
-
   void loginUser() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -88,16 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
             // fontSize: 16.0
           );
         }
-
-        Fluttertoast.showToast(
-          msg: "LogIn succefully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          // backgroundColor: ,
-          // textColor: ,
-          // fontSize: 16.0
-        );
       } on FirebaseException catch (error) {
         errorDialog(subtitle: '${error.message}', context: context);
         setState(() {
