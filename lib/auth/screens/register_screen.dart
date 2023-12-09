@@ -124,9 +124,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              const Center(
+                              Center(
                                 child: CircleAvatar(
                                   radius: 60,
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage: _pickedImage != null
+                                      ? MemoryImage(webImage)
+                                      : const NetworkImage(
+                                              'https://cdn-icons-png.flaticon.com/512/3106/3106773.png')
+                                          as ImageProvider<Object>?,
                                 ),
                               ),
                               const SizedBox(
