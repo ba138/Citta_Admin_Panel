@@ -1,4 +1,5 @@
 import 'package:citta_admin_panel/auth/screens/login_screen.dart';
+import 'package:citta_admin_panel/auth/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Grocery',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
-            home: const LoginScreen(),
+            home: const SplashScreen(),
           );
         },
       ),
