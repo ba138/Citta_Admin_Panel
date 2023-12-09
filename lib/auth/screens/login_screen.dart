@@ -4,14 +4,111 @@ import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/screens/main_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+
+  static Future<void> errorDialog({
+    required String subtitle,
+    required BuildContext context,
+  }) async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Image.asset(
+                  "assets/images/warning-sign.png",
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text("An Error occured"),
+              ],
+            ),
+            content: Text(subtitle),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: TextWidget(
+                  text: "ok",
+                  color: Colors.cyan,
+                  textSize: 18,
+                ),
+              ),
+            ],
+          );
+        });
+  }
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController usernameController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
+
   bool isLoading = false;
+
+  void createUser() async {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+
+    if (isValid) {
+      _formKey.currentState!.save();
+
+      try {
+        setState(() {
+          isLoading = true;
+        });
+        FirebaseAuth auth = FirebaseAuth.instance;
+        auth.signInWithEmailAndPassword(
+          email: usernameController.text,
+          password: passwordController.text,
+        );
+
+        Fluttertoast.showToast(
+          msg: "LogIn succefully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          // backgroundColor: ,
+          // textColor: ,
+          // fontSize: 16.0
+        );
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (c) => const MainScreen()),
+            (route) => false);
+      } on FirebaseException catch (error) {
+        LoginScreen.errorDialog(subtitle: '${error.message}', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } catch (error) {
+        LoginScreen.errorDialog(subtitle: '$error', context: context);
+        setState(() {
+          isLoading = false;
+        });
+      } finally {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
