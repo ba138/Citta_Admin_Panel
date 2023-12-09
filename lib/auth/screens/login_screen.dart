@@ -13,45 +13,6 @@ class LoginScreen extends StatefulWidget {
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
-
-  static Future<void> errorDialog({
-    required String subtitle,
-    required BuildContext context,
-  }) async {
-    await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Row(
-              children: [
-                Image.asset(
-                  "assets/images/warning-sign.png",
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const Text("An Error occured"),
-              ],
-            ),
-            content: Text(subtitle),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: TextWidget(
-                  text: "ok",
-                  color: Colors.cyan,
-                  textSize: 18,
-                ),
-              ),
-            ],
-          );
-        });
-  }
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -74,8 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
         setState(() {
           isLoading = true;
         });
-        FirebaseAuth auth = FirebaseAuth.instance;
-        auth.signInWithEmailAndPassword(
+        FirebaseAuth.instance.signInWithEmailAndPassword(
           email: usernameController.text,
           password: passwordController.text,
         );
@@ -89,17 +49,18 @@ class _LoginScreenState extends State<LoginScreen> {
           // textColor: ,
           // fontSize: 16.0
         );
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (c) => const MainScreen()),
-            (route) => false);
+
+        // Navigator.pushAndRemoveUntil(
+        //     context,
+        //     MaterialPageRoute(builder: (c) => const MainScreen()),
+        //     (route) => false);
       } on FirebaseException catch (error) {
-        LoginScreen.errorDialog(subtitle: '${error.message}', context: context);
+        errorDialog(subtitle: '${error.message}', context: context);
         setState(() {
           isLoading = false;
         });
       } catch (error) {
-        LoginScreen.errorDialog(subtitle: '$error', context: context);
+        errorDialog(subtitle: '$error', context: context);
         setState(() {
           isLoading = false;
         });
@@ -233,8 +194,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: Text(
                                           "Login",
                                           style: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white),
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -284,5 +246,44 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  static Future<void> errorDialog({
+    required String subtitle,
+    required BuildContext context,
+  }) async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Image.asset(
+                  "assets/images/warning-sign.png",
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text("An Error occured"),
+              ],
+            ),
+            content: Text(subtitle),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: TextWidget(
+                  text: "ok",
+                  color: Colors.cyan,
+                  textSize: 18,
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
