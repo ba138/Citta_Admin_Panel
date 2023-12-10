@@ -1,7 +1,10 @@
+import 'package:citta_admin_panel/auth/screens/login_screen.dart';
 import 'package:citta_admin_panel/inner_screen/all_poducts.dart';
 import 'package:citta_admin_panel/inner_screen/fashion.dart';
+import 'package:citta_admin_panel/inner_screen/logout_pop.dart';
 import 'package:citta_admin_panel/inner_screen/order_screen.dart';
 import 'package:citta_admin_panel/inner_screen/popular_pcaks.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:iconly/iconly.dart';
@@ -22,6 +25,15 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  void logoutUser() {
+    auth.signOut();
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (c) => const LoginScreen()),
+        (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Utils(context).getTheme;
@@ -102,7 +114,15 @@ class _SideMenuState extends State<SideMenu> {
                 setState(() {
                   themeState.setDarkTheme = value;
                 });
-              })
+              }),
+          DrawerListTile(
+            title: "Logout",
+            press: () {
+              logoutUser();
+              // const  LogOutPop();
+            },
+            icon: IconlyBold.logout,
+          ),
         ],
       ),
     );
