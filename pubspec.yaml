@@ -46,6 +46,8 @@ dependencies:
   firebase_auth: ^4.14.1
   fluttertoast: ^8.2.4
   uuid: ^4.2.1
+  shimmer: ^3.0.0
+  fancy_shimmer_image: ^2.0.3
 
 dev_dependencies:
   flutter_test:
