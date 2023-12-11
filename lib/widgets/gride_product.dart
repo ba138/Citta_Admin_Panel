@@ -51,7 +51,13 @@ class ProductGrid extends StatelessWidget {
                   mainAxisSpacing: defaultPadding,
                 ),
                 itemBuilder: (context, index) {
-                  return const ProductWidget(); // Return the widget for each item
+                  return ProductWidget(
+                    productID: snapshot.data!.docs[index]['id'],
+                    price: snapshot.data!.docs[index]["price"],
+                    amount: snapshot.data!.docs[index]['weight'],
+                    title: snapshot.data!.docs[index]['title'],
+                    image: snapshot.data!.docs[index]['imageUrl'],
+                  ); // Return the widget for each item
                 },
               );
             }
