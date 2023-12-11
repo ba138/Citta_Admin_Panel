@@ -61,17 +61,18 @@ class _LoginScreenState extends State<LoginScreen> {
               context,
               MaterialPageRoute(builder: (c) => const MainScreen()),
               (route) => false);
-          print('Login successful!');
+          Fluttertoast.showToast(
+            msg: "Login Successfully",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+          );
         } else {
-          // Handle login failure.
           Fluttertoast.showToast(
             msg: "InValid arguments",
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            // backgroundColor: ,
-            // textColor: ,
-            // fontSize: 16.0
           );
         }
       } on FirebaseException catch (error) {
