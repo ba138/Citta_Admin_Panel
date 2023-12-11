@@ -56,7 +56,6 @@ class _LoginScreenState extends State<LoginScreen> {
         User? user = await signInWithEmailAndPassword(
             usernameController.text, passwordController.text);
         if (user != null) {
-          // Navigate to the next screen or perform other actions on successful login.
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (c) => const MainScreen()),
