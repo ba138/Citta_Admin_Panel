@@ -1,7 +1,6 @@
 import 'package:citta_admin_panel/auth/screens/login_screen.dart';
 import 'package:citta_admin_panel/inner_screen/all_poducts.dart';
 import 'package:citta_admin_panel/inner_screen/fashion.dart';
-import 'package:citta_admin_panel/inner_screen/logout_pop.dart';
 import 'package:citta_admin_panel/inner_screen/order_screen.dart';
 import 'package:citta_admin_panel/inner_screen/popular_pcaks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +38,6 @@ class _SideMenuState extends State<SideMenu> {
     final theme = Utils(context).getTheme;
     final themeState = Provider.of<DarkThemeProvider>(context);
 
-    // final color = Utils(context).color;
     return Drawer(
       elevation: 0,
       child: ListView(
@@ -119,7 +117,6 @@ class _SideMenuState extends State<SideMenu> {
             title: "Logout",
             press: () {
               logoutUser();
-              // const  LogOutPop();
             },
             icon: IconlyBold.logout,
           ),
@@ -132,7 +129,6 @@ class _SideMenuState extends State<SideMenu> {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
-    // For selecting those three line once press "Command+D"
     required this.title,
     required this.press,
     required this.icon,
@@ -147,15 +143,16 @@ class DrawerListTile extends StatelessWidget {
     final color = theme == true ? Colors.white : Colors.black;
 
     return ListTile(
-        onTap: press,
-        horizontalTitleGap: 0.0,
-        leading: Icon(
-          icon,
-          size: 18,
-        ),
-        title: TextWidget(
-          text: title,
-          color: color,
-        ));
+      onTap: press,
+      horizontalTitleGap: 0.0,
+      leading: Icon(
+        icon,
+        size: 18,
+      ),
+      title: TextWidget(
+        text: title,
+        color: color,
+      ),
+    );
   }
 }
