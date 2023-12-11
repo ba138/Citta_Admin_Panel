@@ -2,6 +2,7 @@
 
 import 'package:citta_admin_panel/services/global_method.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../services/utils.dart';
@@ -54,7 +55,9 @@ class _ProductWidgetState extends State<ProductWidget> {
       setState(() {
         isLoading = false;
       });
-      print(error.toString());
+      if (kDebugMode) {
+        print(error.toString());
+      }
       errorDialog(subtitle: error.toString(), context: context);
     } finally {
       setState(() {
