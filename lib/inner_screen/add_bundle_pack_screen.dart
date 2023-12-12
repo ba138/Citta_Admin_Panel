@@ -11,6 +11,7 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -182,10 +183,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
             await _uploadImageToStorage("${uuid}5", previewImage5!, webImage5);
         final previewImageUrl6 =
             await _uploadImageToStorage("${uuid}6", previewImage6!, webImage6);
-        await FirebaseFirestore.instance
-            .collection('bundle pack')
-            .doc(uuid)
-            .set({
+        Map<String, dynamic> myPacks = {
           'id': uuid,
           'title': _titleController.text,
           'price': _priceController.text,
@@ -225,7 +223,17 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
             'image': previewImageUrl6,
             'amount': _detailController6.text,
           },
-        });
+        };
+        await FirebaseFirestore.instance
+            .collection('bundle pack')
+            .doc(uuid)
+            .set(myPacks);
+        await FirebaseFirestore.instance
+            .collection('Saller')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("myPacks")
+            .doc(uuid)
+            .set(myPacks);
         clearForm();
         Fluttertoast.showToast(
           msg: "Bundle Pack uploaded succefully",

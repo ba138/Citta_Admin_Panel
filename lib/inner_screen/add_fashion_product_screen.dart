@@ -11,6 +11,7 @@ import 'package:citta_admin_panel/widgets/dotted_border.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -126,15 +127,24 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           isLoading = true;
         });
         final imageUrl = await _uploadImageToStorage(uuid, _pickedImage!);
-
-        await FirebaseFirestore.instance.collection('fashion').doc(uuid).set({
+        Map<String, dynamic> myFashionProducts = {
           'id': uuid,
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
           'imageUrl': imageUrl,
           'createdAt': Timestamp.now(),
-        });
+        };
+        await FirebaseFirestore.instance
+            .collection('fashion')
+            .doc(uuid)
+            .set(myFashionProducts);
+        await FirebaseFirestore.instance
+            .collection('Saller')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("myFashionProducts")
+            .doc(uuid)
+            .set(myFashionProducts);
         clearForm();
         Fluttertoast.showToast(
           msg: "Fashion Product uploaded succefully",
