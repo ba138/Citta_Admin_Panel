@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 
 import '../services/utils.dart';
@@ -19,11 +20,13 @@ class PopularPacksWidget extends StatefulWidget {
     required this.img4,
     required this.img5,
     required this.img6,
+    required this.weight,
   }) : super(key: key);
   final String id;
   final String title;
   final String price;
   final String saleprice;
+  final String weight;
   final String coverimage;
   final String img1;
   final String img2;
@@ -63,12 +66,13 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
-                        flex: 3,
-                        child: Image.asset(
-                          "assets/images/vigatable_bundle.jpg",
-                          height: size.width * 0.12,
-                          fit: BoxFit.fill,
-                        )),
+                      flex: 3,
+                      child: FancyShimmerImage(
+                        imageUrl: widget.coverimage,
+                        boxFit: BoxFit.fill,
+                        height: size.width * 0.12,
+                      ),
+                    ),
                     const Spacer(),
                     PopupMenuButton(
                         itemBuilder: (context) => [
@@ -94,7 +98,7 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                 Row(
                   children: [
                     TextWidget(
-                      text: '\$30',
+                      text: widget.saleprice,
                       color: color,
                       textSize: 18,
                     ),
@@ -104,14 +108,14 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                     Visibility(
                         visible: true,
                         child: Text(
-                          '\$40',
+                          widget.price,
                           style: TextStyle(
                               decoration: TextDecoration.lineThrough,
                               color: color),
                         )),
                     const Spacer(),
                     TextWidget(
-                      text: '20kg',
+                      text: widget.weight,
                       color: color,
                       textSize: 18,
                     ),
@@ -121,7 +125,7 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                   height: 2,
                 ),
                 TextWidget(
-                  text: 'Pack Of Vigatables',
+                  text: widget.title,
                   color: color,
                   textSize: 20,
                   isTitle: true,
@@ -129,65 +133,35 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                 Expanded(
                   child: Row(
                     children: [
-                      Container(
+                      FancyShimmerImage(
+                        imageUrl: widget.img2,
+                        boxFit: BoxFit.fill,
                         height: 40,
                         width: 40,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/cabbage.jpg",
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
                       ),
-                      Container(
+                      FancyShimmerImage(
+                        imageUrl: widget.img1,
+                        boxFit: BoxFit.fill,
                         height: 40,
                         width: 40,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/pepper.jpg",
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
                       ),
-                      Container(
+                      FancyShimmerImage(
+                        imageUrl: widget.img4,
+                        boxFit: BoxFit.fill,
                         height: 40,
                         width: 40,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/cabbage.jpg",
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
                       ),
-                      Container(
+                      FancyShimmerImage(
+                        imageUrl: widget.img5,
+                        boxFit: BoxFit.fill,
                         height: 40,
                         width: 40,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/molo.jpeg",
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
                       ),
-                      Container(
+                      FancyShimmerImage(
+                        imageUrl: widget.img6,
+                        boxFit: BoxFit.fill,
                         height: 40,
                         width: 40,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/Tomato.jpg",
-                            ),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
                       ),
                     ],
                   ),
