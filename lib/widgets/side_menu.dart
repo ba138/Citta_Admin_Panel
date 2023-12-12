@@ -37,7 +37,7 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     final theme = Utils(context).getTheme;
     final themeState = Provider.of<DarkThemeProvider>(context);
-    final color = theme == false ? Colors.white : Colors.black;
+    final color = theme == false ? Colors.white : const Color(0xFF0a0d2c);
     return Drawer(
       backgroundColor: color,
       elevation: 0,

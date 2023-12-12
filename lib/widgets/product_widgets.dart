@@ -77,6 +77,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
+        color: Theme.of(context).cardColor.withOpacity(0.6),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () {},

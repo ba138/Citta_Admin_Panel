@@ -94,7 +94,7 @@ class _FashionWidgetState extends State<FashionWidget> {
                           : FancyShimmerImage(
                               imageUrl: widget.image,
                               boxFit: BoxFit.fill,
-                              height: 180,
+                              height: size.width * 0.12,
                               width: 150,
                             ),
                     ),
