@@ -37,8 +37,9 @@ class _SideMenuState extends State<SideMenu> {
   Widget build(BuildContext context) {
     final theme = Utils(context).getTheme;
     final themeState = Provider.of<DarkThemeProvider>(context);
-
+    final color = theme == false ? Colors.white : Colors.black;
     return Drawer(
+      backgroundColor: color,
       elevation: 0,
       child: ListView(
         children: [
@@ -103,7 +104,11 @@ class _SideMenuState extends State<SideMenu> {
             icon: IconlyBold.bag_2,
           ),
           SwitchListTile(
-              title: const Text('Theme'),
+              title: Text(
+                'Theme',
+                style: TextStyle(
+                    color: theme == true ? Colors.white : Colors.black),
+              ),
               secondary: Icon(themeState.getDarkTheme
                   ? Icons.dark_mode_outlined
                   : Icons.light_mode_outlined),
@@ -149,6 +154,7 @@ class DrawerListTile extends StatelessWidget {
         leading: Icon(
           icon,
           size: 18,
+          color: color,
         ),
         title: TextWidget(
           text: title,
