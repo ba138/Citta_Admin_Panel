@@ -68,7 +68,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           .child('product_images')
           .child("${uuid}jpg");
       if (kIsWeb) {
-        await storage.putData(webImage);
+        await storage.putFile(_pickedImage!);
       } else {
         await storage.putFile(_pickedImage!);
       }
@@ -98,14 +98,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
         setState(() {
           isLoading = true;
         });
-        final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
+        final imageUrl =
+            await _uploadImageToStorage('${_uuid}jpg', _pickedImage!);
 
         Map<String, dynamic> myProducts = {
           'id': _uuid,
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
-          "weight": _amountController,
+          "weight": _amountController.text,
           'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
