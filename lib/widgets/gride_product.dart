@@ -16,6 +16,7 @@ class ProductGrid extends StatelessWidget {
   final int crossAxisCount;
   final double childAspectRatio;
   final bool isInMain;
+
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;

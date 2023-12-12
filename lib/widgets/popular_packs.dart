@@ -6,9 +6,34 @@ import '../services/utils.dart';
 import 'text_widget.dart';
 
 class PopularPacksWidget extends StatefulWidget {
-  const PopularPacksWidget({
+  PopularPacksWidget({
     Key? key,
+    required this.id,
+    required this.title,
+    required this.price,
+    required this.saleprice,
+    required this.coverimage,
+    required this.img1,
+    required this.img2,
+    required this.img3,
+    required this.img4,
+    required this.img5,
+    required this.img6,
   }) : super(key: key);
+  final String id;
+  final String title;
+  final String price;
+  final String saleprice;
+  final String coverimage;
+  final String img1;
+  final String img2;
+  final String img3;
+
+  final String img4;
+
+  final String img5;
+
+  final String img6;
 
   @override
   _PopularPacksWidgetState createState() => _PopularPacksWidgetState();
