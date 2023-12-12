@@ -129,6 +129,7 @@ class _SideMenuState extends State<SideMenu> {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
+    // For selecting those three line once press "Command+D"
     required this.title,
     required this.press,
     required this.icon,
@@ -143,16 +144,15 @@ class DrawerListTile extends StatelessWidget {
     final color = theme == true ? Colors.white : Colors.black;
 
     return ListTile(
-      onTap: press,
-      horizontalTitleGap: 0.0,
-      leading: Icon(
-        icon,
-        size: 18,
-      ),
-      title: TextWidget(
-        text: title,
-        color: color,
-      ),
-    );
+        onTap: press,
+        horizontalTitleGap: 0.0,
+        leading: Icon(
+          icon,
+          size: 18,
+        ),
+        title: TextWidget(
+          text: title,
+          color: color,
+        ));
   }
 }

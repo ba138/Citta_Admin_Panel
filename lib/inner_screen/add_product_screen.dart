@@ -68,7 +68,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           .child('product_images')
           .child("${uuid}jpg");
       if (kIsWeb) {
-        await storage.putFile(_pickedImage!);
+        await storage.putData(webImage);
       } else {
         await storage.putFile(_pickedImage!);
       }

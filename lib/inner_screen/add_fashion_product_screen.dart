@@ -133,7 +133,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           'price': _priceController.text,
           'detail': _detailController.text,
           'imageUrl': imageUrl,
-          'isOnSale': false,
           'createdAt': Timestamp.now(),
         });
         clearForm();
