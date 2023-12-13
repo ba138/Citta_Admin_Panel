@@ -51,6 +51,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         return;
       } else {
         imageUrl = productsDoc.get('imageUrl');
+
         debugPrint(imageUrl);
       }
     } catch (error) {

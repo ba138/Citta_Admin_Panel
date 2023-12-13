@@ -66,7 +66,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
       final storage = FirebaseStorage.instance
           .ref()
           .child('product_images')
-          .child("${uuid}jpg");
+          .child("$uuid.jpg");
       if (kIsWeb) {
         await storage.putData(webImage);
       } else {
@@ -98,8 +98,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
         setState(() {
           isLoading = true;
         });
-        final imageUrl =
-            await _uploadImageToStorage('$_uuid.jpg', _pickedImage!);
+        final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
 
         Map<String, dynamic> myProducts = {
           'id': _uuid,
