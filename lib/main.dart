@@ -13,7 +13,6 @@ void main() async {
       options: const FirebaseOptions(
         apiKey: "AIzaSyDnfN9Ewo1r0_5XqoZ6SqdwgUD2IurbICE",
         authDomain: "citta-23-2b5be.firebaseapp.com",
-        
         projectId: "citta-23-2b5be",
         storageBucket: "citta-23-2b5be.appspot.com",
         messagingSenderId: "1098406014436",
@@ -21,6 +20,8 @@ void main() async {
         measurementId: "G-541Q4GM7Q7",
       ),
     );
+  } else {
+    await Firebase.initializeApp();
   }
   runApp(const MyApp());
 }
