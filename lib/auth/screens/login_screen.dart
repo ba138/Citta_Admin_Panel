@@ -37,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
       User? user = result.user;
       return user;
     } catch (error) {
-      print(error.toString());
       return null;
     }
   }
