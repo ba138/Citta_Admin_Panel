@@ -42,6 +42,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       isLoading = true;
     });
     try {
+      debugPrint(widget.image);
       final DocumentSnapshot productsDoc = await FirebaseFirestore.instance
           .collection('products')
           .doc(widget.productID)
@@ -50,6 +51,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         return;
       } else {
         imageUrl = productsDoc.get('imageUrl');
+        debugPrint(imageUrl);
       }
     } catch (error) {
       setState(() {
@@ -101,7 +103,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                               height: size.width * 0.12,
                             )
                           : FancyShimmerImage(
-                              imageUrl: widget.image,
+                              imageUrl: imageUrl!,
                               boxFit: BoxFit.fill,
                               height: 180,
                               width: 150,

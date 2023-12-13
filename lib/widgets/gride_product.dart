@@ -64,9 +64,7 @@ class ProductGrid extends StatelessWidget {
               );
             }
           }
-          debugPrint(
-            "${snapshot.data!}",
-          );
+
           return Center(
             child: TextWidget(text: "Something went wrong", color: color),
           );
