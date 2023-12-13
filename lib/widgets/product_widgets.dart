@@ -116,7 +116,12 @@ class _ProductWidgetState extends State<ProductWidget> {
                                 child: const Text('Edit'),
                               ),
                               PopupMenuItem(
-                                onTap: () {},
+                                onTap: () {
+                                  FirebaseFirestore.instance
+                                      .collection('products')
+                                      .doc(widget.productID)
+                                      .delete();
+                                },
                                 value: 2,
                                 child: const Text(
                                   'Delete',

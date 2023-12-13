@@ -48,6 +48,8 @@ dependencies:
   uuid: ^4.2.1
   shimmer: ^3.0.0
   fancy_shimmer_image: ^2.0.3
+  cached_network_image: ^3.3.0
+  
 
 dev_dependencies:
   flutter_test:

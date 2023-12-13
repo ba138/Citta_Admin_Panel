@@ -99,7 +99,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           isLoading = true;
         });
         final imageUrl =
-            await _uploadImageToStorage('${_uuid}jpg', _pickedImage!);
+            await _uploadImageToStorage('$_uuid.jpg', _pickedImage!);
 
         Map<String, dynamic> myProducts = {
           'id': _uuid,
