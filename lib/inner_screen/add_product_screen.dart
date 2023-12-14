@@ -63,8 +63,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
     try {
-      final storage =
-          FirebaseStorage.instance.ref().child('product_images').child("$uuid");
+      final storage = FirebaseStorage.instance
+          .ref()
+          .child('product_images')
+          .child('${uuid}jpg');
       if (kIsWeb) {
         await storage.putData(webImage);
       } else {
