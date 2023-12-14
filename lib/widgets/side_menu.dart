@@ -109,9 +109,12 @@ class _SideMenuState extends State<SideMenu> {
                 style: TextStyle(
                     color: theme == true ? Colors.white : Colors.black),
               ),
-              secondary: Icon(themeState.getDarkTheme
-                  ? Icons.dark_mode_outlined
-                  : Icons.light_mode_outlined),
+              secondary: Icon(
+                themeState.getDarkTheme
+                    ? Icons.dark_mode_outlined
+                    : Icons.light_mode_outlined,
+                color: theme == true ? Colors.white : Colors.black,
+              ),
               value: theme,
               onChanged: (value) {
                 setState(() {
