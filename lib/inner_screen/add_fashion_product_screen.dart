@@ -24,7 +24,7 @@ import '../responsive.dart';
 class UploadFashionProduct extends StatefulWidget {
   static const routeName = '/UploadProductForm';
 
-  const UploadFashionProduct({Key? key}) : super(key: key);
+  const UploadFashionProduct({super.key});
 
   @override
   _UploadFashionProductFormState createState() =>

@@ -8,7 +8,7 @@ import 'text_widget.dart';
 
 class PopularPacksWidget extends StatefulWidget {
   PopularPacksWidget({
-    Key? key,
+    super.key,
     required this.id,
     required this.title,
     required this.price,
@@ -21,7 +21,7 @@ class PopularPacksWidget extends StatefulWidget {
     required this.img5,
     required this.img6,
     required this.weight,
-  }) : super(key: key);
+  });
   final String id;
   final String title;
   final String price;

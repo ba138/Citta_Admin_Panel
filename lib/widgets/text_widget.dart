@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 class TextWidget extends StatelessWidget {
   TextWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.color,
     this.textSize = 16,
     this.maxLines = 10,
     this.isTitle = false,
-  }) : super(key: key);
+  });
   final String text;
   final Color color;
   final double textSize;

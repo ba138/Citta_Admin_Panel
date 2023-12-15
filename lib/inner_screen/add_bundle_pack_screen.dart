@@ -24,7 +24,7 @@ import '../responsive.dart';
 class AddBundlpackScreen extends StatefulWidget {
   static const routeName = '/UploadProductForm';
 
-  const AddBundlpackScreen({Key? key}) : super(key: key);
+  const AddBundlpackScreen({super.key});
 
   @override
   _AddBundlpackScreenFormState createState() => _AddBundlpackScreenFormState();

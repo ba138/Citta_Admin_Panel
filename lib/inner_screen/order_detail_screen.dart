@@ -16,7 +16,7 @@ import 'dart:html' as html;
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/UploadProductForm';
 
-  const OrderDetailScreen({Key? key}) : super(key: key);
+  const OrderDetailScreen({super.key});
 
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();

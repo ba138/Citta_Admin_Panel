@@ -16,8 +16,8 @@ import 'text_widget.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -136,12 +136,12 @@ class _SideMenuState extends State<SideMenu> {
 
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
-    Key? key,
+    super.key,
     // For selecting those three line once press "Command+D"
     required this.title,
     required this.press,
     required this.icon,
-  }) : super(key: key);
+  });
 
   final String title;
   final VoidCallback press;

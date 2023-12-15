@@ -10,14 +10,14 @@ import 'text_widget.dart';
 
 class ProductWidget extends StatefulWidget {
   const ProductWidget({
-    Key? key,
+    super.key,
     required this.productID,
     required this.image,
     required this.title,
     required this.price,
     required this.amount,
     required this.salePrice,
-  }) : super(key: key);
+  });
   final String productID;
   final String image;
   final String title;

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class ButtonsWidget extends StatelessWidget {
   const ButtonsWidget({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
-  }) : super(key: key);
+  });
   final VoidCallback onPressed;
   final String text;
   @override

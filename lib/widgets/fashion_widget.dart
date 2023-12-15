@@ -9,12 +9,12 @@ import 'text_widget.dart';
 
 class FashionWidget extends StatefulWidget {
   const FashionWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.price,
     required this.image,
     required this.fashionProductID,
-  }) : super(key: key);
+  });
   final String title;
   final String price;
   final String image;

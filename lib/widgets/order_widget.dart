@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'text_widget.dart';
 
 class OrdersWidget extends StatefulWidget {
-  const OrdersWidget({Key? key}) : super(key: key);
+  const OrdersWidget({super.key});
 
   @override
   _OrdersWidgetState createState() => _OrdersWidgetState();

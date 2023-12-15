@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LoadingManager extends StatelessWidget {
-  const LoadingManager({Key? key, required this.isLoading, required this.child})
-      : super(key: key);
+  const LoadingManager(
+      {super.key, required this.isLoading, required this.child});
   final bool isLoading;
   final Widget child;
   @override
