@@ -89,12 +89,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
       if (productsDoc == null) {
         return;
       } else {
+        setState(() {
+          _titleController.text = productsDoc.get('title');
+          _amountController.text = productsDoc.get('weight');
+          _detailController.text = productsDoc.get('detail');
+          _priceController.text = productsDoc.get('price');
+        });
         imageUrl = productsDoc.get('imageUrl');
-        title = productsDoc.get('title');
-        amount = productsDoc.get('weight');
-        discription = productsDoc.get('detail');
-        price = productsDoc.get('price');
-        print(price);
 
         debugPrint(imageUrl);
       }
