@@ -274,7 +274,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: TextWidget(
-                        text: 'Add Product Details',
+                        text: 'Edit Product Details',
                         color: color,
                         isTitle: true,
                       ),
