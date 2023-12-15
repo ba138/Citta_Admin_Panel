@@ -230,21 +230,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: InkWell(
                                   onTap: _pickImage,
                                   child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.add,
-                                        color: const Color(0xFFCB0166),
+                                        color: Color(0xFFCB0166),
                                       )),
                                 ),
                               ),
-
-                              //  ButtonsWidget(
-                              //   onPressed: _pickImage,
-                              //   text: "Select Image",
-                              // ),
-
                               const SizedBox(
                                 height: 20,
                               ),
