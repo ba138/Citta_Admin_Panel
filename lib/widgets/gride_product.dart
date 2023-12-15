@@ -36,9 +36,6 @@ class ProductGrid extends StatelessWidget {
                 ),
               );
             } else {
-              debugPrint(
-                snapshot.data!.docs.toString(),
-              );
               return GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
