@@ -227,11 +227,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 height: 12,
                               ),
                               Center(
-                                child: ButtonsWidget(
-                                  onPressed: _pickImage,
-                                  text: "Select Image",
+                                child: InkWell(
+                                  onTap: _pickImage,
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: const Color(0xFFCB0166),
+                                      )),
                                 ),
                               ),
+
+                              //  ButtonsWidget(
+                              //   onPressed: _pickImage,
+                              //   text: "Select Image",
+                              // ),
+
                               const SizedBox(
                                 height: 20,
                               ),
