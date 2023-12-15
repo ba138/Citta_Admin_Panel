@@ -35,7 +35,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
   bool isLoading = false;
-  String? imageUrl;
+  String imageUrl = '';
   String title = '';
   String amount = '';
   String discription = '';
@@ -91,7 +91,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       } else {
         imageUrl = productsDoc.get('imageUrl');
         title = productsDoc.get('title');
-        amount = productsDoc.get('amount');
+        amount = productsDoc.get('weight');
         discription = productsDoc.get('detail');
         price = productsDoc.get('price');
         print(price);
@@ -240,17 +240,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
 
-    var inputDecoration = InputDecoration(
-      filled: true,
-      fillColor: scaffoldColor,
-      border: InputBorder.none,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: color,
-          width: 1.0,
-        ),
-      ),
-    );
     return Scaffold(
       key: getAddProductscaffoldKey,
       drawer: const SideMenu(),
@@ -308,7 +297,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 }
                                 return null;
                               },
-                              decoration: inputDecoration,
+                              decoration: InputDecoration(
+                                hintText: title,
+                                filled: true,
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
@@ -318,9 +318,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: _pickedImage == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage,
+                                    ? Image(
+                                        image: NetworkImage(imageUrl),
                                       )
                                     : kIsWeb
                                         ? Center(
@@ -364,7 +363,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                   fontWeight: FontWeight.w400,
                                   color: color,
                                 ),
-                                hintText: 'Write details about Product....',
+                                hintText: discription,
                                 border: InputBorder.none,
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -394,7 +393,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 }
                                 return null;
                               },
-                              decoration: inputDecoration,
+                              decoration: InputDecoration(
+                                hintText: price,
+                                filled: true,
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
                             ),
                             const SizedBox(
                               height: 20,
@@ -416,7 +426,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 }
                                 return null;
                               },
-                              decoration: inputDecoration,
+                              decoration: InputDecoration(
+                                hintText: amount,
+                                filled: true,
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(18.0),
