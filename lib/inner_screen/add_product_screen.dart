@@ -128,9 +128,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          // backgroundColor: ,
-          // textColor: ,
-          // fontSize: 16.0
         );
       } on FirebaseException catch (error) {
         errorDialog(subtitle: '${error.message}', context: context);
