@@ -32,12 +32,6 @@ class EditProductScreen extends StatefulWidget {
 
 class _EditProductScreenState extends State<EditProductScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _detailController = TextEditingController();
-  final TextEditingController _amountController = TextEditingController();
-
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
   bool isLoading = false;
@@ -45,8 +39,24 @@ class _EditProductScreenState extends State<EditProductScreen> {
   String title = '';
   String amount = '';
   String discription = '';
+  String price = '';
+
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _detailController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    getProductData();
+    // Set the initial values for the controllers
+    _titleController.text = title;
+    _priceController.text = price;
+    _detailController.text = discription;
+    _amountController.text = amount;
+  }
+
   void dispose() {
     _priceController.dispose();
     _titleController.dispose();
@@ -82,7 +92,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
         imageUrl = productsDoc.get('imageUrl');
         title = productsDoc.get('title');
         amount = productsDoc.get('amount');
-        discription =productsDoc.get('')
+        discription = productsDoc.get('detail');
+        price = productsDoc.get('price');
+        print(price);
 
         debugPrint(imageUrl);
       }
