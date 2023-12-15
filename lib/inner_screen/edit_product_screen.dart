@@ -312,28 +312,31 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: _pickedImage == null
-                                    ? Image(
-                                        image: NetworkImage(imageUrl),
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: _pickedImage == null
+                                      ? Image(
+                                          image: NetworkImage(imageUrl),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                _pickedImage!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              _pickedImage!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             TextWidget(
