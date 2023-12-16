@@ -169,13 +169,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
         };
         await FirebaseFirestore.instance
             .collection('products')
-            .doc(_uuid)
+            .doc(widget.id)
             .set(myProducts);
         await FirebaseFirestore.instance
             .collection('Saller')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("my_products")
-            .doc(_uuid)
+            .doc(widget.id)
             .set(myProducts);
 
         clearForm();
