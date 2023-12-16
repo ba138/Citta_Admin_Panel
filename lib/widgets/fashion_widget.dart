@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, unnecessary_null_comparison
 
+import 'package:citta_admin_panel/inner_screen/edit_fashion_product_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +103,15 @@ class _FashionWidgetState extends State<FashionWidget> {
                     PopupMenuButton(
                         itemBuilder: (context) => [
                               PopupMenuItem(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (c) => EditFashionProductScreen(
+                                          id: widget.fashionProductID),
+                                    ),
+                                  );
+                                },
                                 value: 1,
                                 child: const Text('Edit'),
                               ),
