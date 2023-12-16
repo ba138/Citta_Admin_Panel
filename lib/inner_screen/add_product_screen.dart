@@ -37,6 +37,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _salePriceController = TextEditingController();
 
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
@@ -46,6 +47,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _titleController.dispose();
     _detailController.dispose();
     _amountController.dispose();
+    _salePriceController.dispose();
     super.dispose();
   }
 
@@ -55,6 +57,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _titleController.clear();
     _amountController.clear();
     _priceController.clear();
+    _salePriceController.clear();
 
     setState(() {
       _pickedImage = null;
@@ -109,7 +112,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
-          'salePrice': '1000',
+          'salePrice': _salePriceController.text,
         };
         await FirebaseFirestore.instance
             .collection('products')
@@ -339,6 +342,40 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 return null;
                               },
                               decoration: inputDecoration,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextWidget(
+                              text: 'Sale Price*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              controller: _salePriceController,
+                              key: const ValueKey('SalePrice'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Sale Price';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Enter discount price",
+                                filled: true,
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
                             ),
                             const SizedBox(
                               height: 20,

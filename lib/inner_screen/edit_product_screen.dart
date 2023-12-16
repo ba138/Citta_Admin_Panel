@@ -443,6 +443,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             TextWidget(
                               text: 'Product Amount*',
                               color: color,
