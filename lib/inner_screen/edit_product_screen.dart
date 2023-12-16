@@ -35,6 +35,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
   bool isLoading = false;
+
   String imageUrl = '';
   String title = '';
   String amount = '';
@@ -45,16 +46,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _salePriceController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     getProductData();
     // Set the initial values for the controllers
-    _titleController.text = title;
-    _priceController.text = price;
-    _detailController.text = discription;
-    _amountController.text = amount;
   }
 
   void dispose() {
@@ -71,6 +69,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _titleController.clear();
     _amountController.clear();
     _priceController.clear();
+    _salePriceController.clear();
 
     setState(() {
       _pickedImage = null;
@@ -94,6 +93,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           _amountController.text = productsDoc.get('weight');
           _detailController.text = productsDoc.get('detail');
           _priceController.text = productsDoc.get('price');
+          _salePriceController.text = productsDoc.get('salePrice');
         });
         imageUrl = productsDoc.get('imageUrl');
 
@@ -144,15 +144,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (isValid) {
       _formKey.currentState!.save();
       final _uuid = const Uuid().v1();
-      if (_pickedImage == null) {
-        errorDialog(subtitle: 'Please pick up an image', context: context);
-        return;
-      }
+      // if (_pickedImage == null) {
+      //   errorDialog(subtitle: 'Please pick up an image', context: context);
+      //   return;
+      // }
       try {
         setState(() {
           isLoading = true;
         });
-        final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
+        if (_pickedImage != null) {
+          imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
+        }
 
         Map<String, dynamic> myProducts = {
           'id': _uuid,
@@ -163,7 +165,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
-          'salePrice': '1000',
+          'salePrice': _salePriceController.text,
         };
         await FirebaseFirestore.instance
             .collection('products')
@@ -412,6 +414,34 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             ),
                             const SizedBox(
                               height: 20,
+                            ),
+                            TextWidget(
+                              text: 'Sale Price*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              controller: _salePriceController,
+                              key: const ValueKey('SalePrice'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Sale Price';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                hintText: price,
+                                filled: true,
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
                             ),
                             TextWidget(
                               text: 'Product Amount*',
