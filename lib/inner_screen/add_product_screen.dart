@@ -362,7 +362,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                hintText: "Enter discount price",
                                 filled: true,
                                 fillColor: scaffoldColor,
                                 border: InputBorder.none,
