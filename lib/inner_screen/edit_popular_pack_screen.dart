@@ -51,6 +51,7 @@ class EditPopularPackScreen extends StatefulWidget {
     required this.weight6,
     required this.img6,
     required this.detail,
+    required this.size,
   });
   final String id;
   final String title;
@@ -79,6 +80,7 @@ class EditPopularPackScreen extends StatefulWidget {
   final String weight6;
   final String img6;
   final String detail;
+  final String size;
 
   @override
   _EditPopularPackScreenFormState createState() =>
@@ -190,7 +192,7 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
     setState(() {
       _titleController.text = widget.title;
       _priceController.text = widget.price;
-      _detailController.text = widget.weight;
+      _detailController.text = widget.detail;
       _titleController1.text = widget.title1;
       _detailController1.text = widget.weight1;
       _titleController2.text = widget.title2;
@@ -205,6 +207,8 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
       _detailController5.text = widget.weight5;
       _titleController6.text = widget.title6;
       _detailController6.text = widget.weight6;
+      _weightController.text = widget.weight;
+      _sizeController.text = widget.size;
     });
   }
 

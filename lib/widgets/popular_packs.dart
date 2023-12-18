@@ -35,6 +35,7 @@ class PopularPacksWidget extends StatefulWidget {
     required this.title6,
     required this.weight6,
     required this.detail,
+    required this.size,
   });
   final String detail;
   final String id;
@@ -63,6 +64,7 @@ class PopularPacksWidget extends StatefulWidget {
   final String title6;
   final String weight6;
   final String img6;
+  final String size;
 
   @override
   _PopularPacksWidgetState createState() => _PopularPacksWidgetState();
@@ -129,10 +131,11 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                                         title5: widget.title5,
                                         weight5: widget.weight5,
                                         img5: widget.img5,
-                                        title6: widget.img6,
+                                        title6: widget.title6,
                                         weight6: widget.weight6,
                                         img6: widget.img6,
                                         detail: widget.detail,
+                                        size: widget.size,
                                       ),
                                     ),
                                   );
