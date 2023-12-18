@@ -24,7 +24,61 @@ import '../responsive.dart';
 class EditPopularPackScreen extends StatefulWidget {
   static const routeName = '/UploadProductForm';
 
-  const EditPopularPackScreen({super.key});
+  const EditPopularPackScreen({
+    super.key,
+    required this.id,
+    required this.title,
+    required this.price,
+    required this.saleprice,
+    required this.weight,
+    required this.coverimage,
+    required this.title1,
+    required this.weight1,
+    required this.img1,
+    required this.title2,
+    required this.weight2,
+    required this.img2,
+    required this.title3,
+    required this.weight3,
+    required this.img3,
+    required this.title4,
+    required this.weight4,
+    required this.img4,
+    required this.title5,
+    required this.weight5,
+    required this.img5,
+    required this.title6,
+    required this.weight6,
+    required this.img6,
+    required this.detail,
+  });
+  final String id;
+  final String title;
+  final String price;
+  final String saleprice;
+  final String weight;
+  final String coverimage;
+  final String title1;
+  final String weight1;
+  final String img1;
+  final String title2;
+  final String weight2;
+  final String img2;
+  final String title3;
+  final String weight3;
+  final String img3;
+  final String title4;
+  final String weight4;
+
+  final String img4;
+  final String title5;
+  final String weight5;
+
+  final String img5;
+  final String title6;
+  final String weight6;
+  final String img6;
+  final String detail;
 
   @override
   _EditPopularPackScreenFormState createState() =>
@@ -123,6 +177,34 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
 
       previewImage5 = null;
       previewImage6 = null;
+    });
+  }
+
+  @override
+  void initState() {
+    addingValues();
+    super.initState();
+  }
+
+  void addingValues() {
+    setState(() {
+      _titleController.text = widget.title;
+      _priceController.text = widget.price;
+      _detailController.text = widget.weight;
+      _titleController1.text = widget.title1;
+      _detailController1.text = widget.weight1;
+      _titleController2.text = widget.title2;
+
+      _detailController2.text = widget.weight2;
+      _titleController3.text = widget.title3;
+
+      _detailController3.text = widget.weight3;
+      _titleController4.text = widget.title4;
+      _detailController4.text = widget.weight4;
+      _titleController5.text = widget.title5;
+      _detailController5.text = widget.weight5;
+      _titleController6.text = widget.title6;
+      _detailController6.text = widget.weight6;
     });
   }
 

@@ -34,7 +34,9 @@ class PopularPacksWidget extends StatefulWidget {
     required this.weight5,
     required this.title6,
     required this.weight6,
+    required this.detail,
   });
+  final String detail;
   final String id;
   final String title;
   final String price;
@@ -105,8 +107,33 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (c) =>
-                                          const EditPopularPackScreen(),
+                                      builder: (c) => EditPopularPackScreen(
+                                        title: widget.title,
+                                        price: widget.price,
+                                        coverimage: widget.coverimage,
+                                        saleprice: widget.saleprice,
+                                        weight: widget.weight,
+                                        id: widget.id,
+                                        img1: widget.img1,
+                                        title1: widget.title,
+                                        weight1: widget.weight1,
+                                        img2: widget.img2,
+                                        weight2: widget.weight2,
+                                        title2: widget.title2,
+                                        title3: widget.title3,
+                                        weight3: widget.weight3,
+                                        img3: widget.img3,
+                                        title4: widget.title4,
+                                        weight4: widget.weight4,
+                                        img4: widget.img4,
+                                        title5: widget.title5,
+                                        weight5: widget.weight5,
+                                        img5: widget.img5,
+                                        title6: widget.img6,
+                                        weight6: widget.weight6,
+                                        img6: widget.img6,
+                                        detail: widget.detail,
+                                      ),
                                     ),
                                   );
                                 },
