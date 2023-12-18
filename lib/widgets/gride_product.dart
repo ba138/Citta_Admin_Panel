@@ -1,6 +1,7 @@
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
@@ -21,7 +22,11 @@ class ProductGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("products").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Saller")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("my_products")
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

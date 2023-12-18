@@ -3,6 +3,7 @@
 import 'package:citta_admin_panel/inner_screen/edit_fashion_product_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../services/utils.dart';
@@ -116,7 +117,19 @@ class _FashionWidgetState extends State<FashionWidget> {
                                 child: const Text('Edit'),
                               ),
                               PopupMenuItem(
-                                onTap: () {},
+                                onTap: () {
+                                  FirebaseFirestore.instance
+                                      .collection('fashion')
+                                      .doc(widget.fashionProductID)
+                                      .delete();
+                                  FirebaseFirestore.instance
+                                      .collection('Saller')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection("myFashionProducts")
+                                      .doc(widget.fashionProductID)
+                                      .delete();
+                                },
                                 value: 2,
                                 child: const Text(
                                   'Delete',

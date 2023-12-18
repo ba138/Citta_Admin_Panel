@@ -3,6 +3,7 @@
 import 'package:citta_admin_panel/inner_screen/edit_product_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -131,6 +132,13 @@ class _ProductWidgetState extends State<ProductWidget> {
                                 onTap: () {
                                   FirebaseFirestore.instance
                                       .collection('products')
+                                      .doc(widget.productID)
+                                      .delete();
+                                  FirebaseFirestore.instance
+                                      .collection('Saller')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection("my_products")
                                       .doc(widget.productID)
                                       .delete();
                                 },

@@ -332,14 +332,19 @@ class _EditFashionProductScreenState extends State<EditFashionProductScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Container(
-                                  height: 30,
-                                  width: 60,
-                                  color: const Color(0xFFCB0166),
-                                  child: const Center(
-                                    child: Text(
-                                      "change",
-                                      style: TextStyle(color: Colors.white),
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 )
