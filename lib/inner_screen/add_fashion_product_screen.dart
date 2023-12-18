@@ -12,6 +12,7 @@ import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -134,6 +135,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           'detail': _detailController.text,
           'imageUrl': imageUrl,
           'createdAt': Timestamp.now(),
+          ' salerId': FirebaseAuth.instance.currentUser!.uid,
         };
         await FirebaseFirestore.instance
             .collection('fashion')

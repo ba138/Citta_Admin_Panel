@@ -336,10 +336,10 @@ class _EditFashionProductScreenState extends State<EditFashionProductScreen> {
                                   height: 30,
                                   width: 60,
                                   color: const Color(0xFFCB0166),
-                                  child: Center(
+                                  child: const Center(
                                     child: Text(
                                       "change",
-                                      style: TextStyle(color: color),
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 )

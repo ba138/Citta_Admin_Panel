@@ -113,6 +113,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'isOnSale': false,
           'createdAt': Timestamp.now(),
           'salePrice': _salePriceController.text,
+          "sellerId": FirebaseAuth.instance.currentUser!.uid,
         };
         await FirebaseFirestore.instance
             .collection('products')
