@@ -326,6 +326,28 @@ class _EditFashionProductScreenState extends State<EditFashionProductScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  width: 60,
+                                  color: const Color(0xFFCB0166),
+                                  child: Center(
+                                    child: Text(
+                                      "change",
+                                      style: TextStyle(color: color),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             TextWidget(
                               text: 'Product Detail*',
                               color: color,
