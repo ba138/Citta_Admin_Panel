@@ -22,6 +22,18 @@ class PopularPacksWidget extends StatefulWidget {
     required this.img5,
     required this.img6,
     required this.weight,
+    required this.title1,
+    required this.weight1,
+    required this.title2,
+    required this.weight2,
+    required this.title3,
+    required this.weight3,
+    required this.title4,
+    required this.weight4,
+    required this.title5,
+    required this.weight5,
+    required this.title6,
+    required this.weight6,
   });
   final String id;
   final String title;
@@ -29,14 +41,25 @@ class PopularPacksWidget extends StatefulWidget {
   final String saleprice;
   final String weight;
   final String coverimage;
+  final String title1;
+  final String weight1;
   final String img1;
+  final String title2;
+  final String weight2;
   final String img2;
+  final String title3;
+  final String weight3;
   final String img3;
+  final String title4;
+  final String weight4;
 
   final String img4;
+  final String title5;
+  final String weight5;
 
   final String img5;
-
+  final String title6;
+  final String weight6;
   final String img6;
 
   @override
