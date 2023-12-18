@@ -133,7 +133,9 @@ class _FashionWidgetState extends State<FashionWidget> {
                                 value: 2,
                                 child: const Text(
                                   'Delete',
-                                  style: TextStyle(color: Colors.red),
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
                             ])

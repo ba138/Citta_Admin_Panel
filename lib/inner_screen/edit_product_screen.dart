@@ -342,6 +342,33 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             TextWidget(
                               text: 'Product Detail*',
                               color: color,

@@ -78,8 +78,11 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                         ],
                       ),
                     ),
-                    const Text(
+                    Text(
                       '20/03/2022',
+                      style: TextStyle(
+                        color: color,
+                      ),
                     )
                   ],
                 ),
