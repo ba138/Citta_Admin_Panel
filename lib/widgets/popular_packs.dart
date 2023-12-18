@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors_in_immutables
 
+import 'package:citta_admin_panel/inner_screen/edit_popular_pack_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +78,15 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                     PopupMenuButton(
                         itemBuilder: (context) => [
                               PopupMenuItem(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (c) =>
+                                          const EditPopularPackScreen(),
+                                    ),
+                                  );
+                                },
                                 value: 1,
                                 child: const Text('Edit'),
                               ),
