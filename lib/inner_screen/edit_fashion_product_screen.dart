@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, no_leading_underscores_for_local_identifiers, unnecessary_null_comparison
 
 import 'dart:io';
 
@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
 import '../responsive.dart';
 
 class EditFashionProductScreen extends StatefulWidget {
@@ -54,6 +53,7 @@ class _EditFashionProductScreenState extends State<EditFashionProductScreen> {
     // Set the initial values for the controllers
   }
 
+  @override
   void dispose() {
     _priceController.dispose();
     _titleController.dispose();
