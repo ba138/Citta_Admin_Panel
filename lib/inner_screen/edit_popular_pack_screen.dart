@@ -644,29 +644,32 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: _coverImage == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: _coverImage == null
+                                      ? Image(
+                                          image:
+                                              NetworkImage(widget.coverimage),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                _coverImage!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              _coverImage!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -849,9 +852,8 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: previewImage1 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage1,
+                                    ? Image(
+                                        image: NetworkImage(widget.img1),
                                       )
                                     : kIsWeb
                                         ? Center(
@@ -949,9 +951,8 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: previewImage2 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage2,
+                                    ? Image(
+                                        image: NetworkImage(widget.img2),
                                       )
                                     : kIsWeb
                                         ? Center(
@@ -1049,9 +1050,8 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: previewImage3 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage3,
+                                    ? Image(
+                                        image: NetworkImage(widget.img3),
                                       )
                                     : kIsWeb
                                         ? Center(
@@ -1149,9 +1149,8 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: previewImage4 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage4,
+                                    ? Image(
+                                        image: NetworkImage(widget.img4),
                                       )
                                     : kIsWeb
                                         ? Center(
@@ -1249,9 +1248,8 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: previewImage5 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage5,
+                                    ? Image(
+                                        image: NetworkImage(widget.img5),
                                       )
                                     : kIsWeb
                                         ? Center(
@@ -1349,9 +1347,8 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                                 child: previewImage6 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage6,
+                                    ? Image(
+                                        image: NetworkImage(widget.img6),
                                       )
                                     : kIsWeb
                                         ? Center(
