@@ -845,28 +845,31 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage1 == null
-                                    ? Image(
-                                        image: NetworkImage(widget.img1),
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage1,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: previewImage1 == null
+                                      ? Image(
+                                          image: NetworkImage(widget.img1),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage1,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                previewImage1!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage1!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -944,28 +947,31 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage2 == null
-                                    ? Image(
-                                        image: NetworkImage(widget.img2),
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage2,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: previewImage2 == null
+                                      ? Image(
+                                          image: NetworkImage(widget.img2),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage2,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                previewImage2!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage2!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -1043,28 +1049,31 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage3 == null
-                                    ? Image(
-                                        image: NetworkImage(widget.img3),
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage3,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: previewImage3 == null
+                                      ? Image(
+                                          image: NetworkImage(widget.img3),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage3,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                previewImage3!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage3!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -1142,28 +1151,31 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage4 == null
-                                    ? Image(
-                                        image: NetworkImage(widget.img4),
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage4,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: previewImage4 == null
+                                      ? Image(
+                                          image: NetworkImage(widget.img4),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage4,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                previewImage4!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage4!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -1241,28 +1253,31 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage5 == null
-                                    ? Image(
-                                        image: NetworkImage(widget.img5),
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage5,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: previewImage5 == null
+                                      ? Image(
+                                          image: NetworkImage(widget.img5),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage5,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                previewImage5!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage5!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             const SizedBox(
@@ -1340,28 +1355,31 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage6 == null
-                                    ? Image(
-                                        image: NetworkImage(widget.img6),
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage6,
-                                              fit: BoxFit.fill,
+                              child: Center(
+                                child: Container(
+                                  height: size.width > 650
+                                      ? 350
+                                      : size.width * 0.45,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: previewImage6 == null
+                                      ? Image(
+                                          image: NetworkImage(widget.img6),
+                                        )
+                                      : kIsWeb
+                                          ? Center(
+                                              child: Image.memory(
+                                                webImage6,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Image.file(
+                                                previewImage6!,
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage6!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                                ),
                               ),
                             ),
                             const SizedBox(
