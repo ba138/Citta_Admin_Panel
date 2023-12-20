@@ -126,6 +126,14 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
   Uint8List webImage5 = Uint8List(8);
   File? previewImage6;
   Uint8List webImage6 = Uint8List(8);
+  String previewImageUrl1 = "";
+  String previewImageUrl2 = "";
+  String previewImageUrl3 = "";
+  String previewImageUrl4 = "";
+  String previewImageUrl5 = "";
+  String previewImageUrl6 = "";
+  String coverImageUrl = "";
+
   @override
   void dispose() {
     _priceController.dispose();
@@ -241,34 +249,42 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
-      if (_coverImage == null &&
-          previewImage1 == null &&
-          previewImage2 == null &&
-          previewImage3 == null &&
-          previewImage4 == null &&
-          previewImage5 == null &&
-          previewImage6 == null) {
-        errorDialog(subtitle: 'Please pick up all image', context: context);
-        return;
-      }
+
       try {
         setState(() {
           isLoading = true;
         });
-        final coverImageUrl =
-            await _uploadImageToStorage("${uuid}cover", _coverImage!, webImage);
-        final previewImageUrl1 =
-            await _uploadImageToStorage("${uuid}1", previewImage1!, webImage1);
-        final previewImageUrl2 =
-            await _uploadImageToStorage("${uuid}2", previewImage2!, webImage2);
-        final previewImageUrl3 =
-            await _uploadImageToStorage("${uuid}3", previewImage3!, webImage3);
-        final previewImageUrl4 =
-            await _uploadImageToStorage("${uuid}4", previewImage4!, webImage4);
-        final previewImageUrl5 =
-            await _uploadImageToStorage("${uuid}5", previewImage5!, webImage5);
-        final previewImageUrl6 =
-            await _uploadImageToStorage("${uuid}6", previewImage6!, webImage6);
+        if (_coverImage == null) {
+          coverImageUrl = widget.coverimage;
+        } else if (previewImage1 == null) {
+          previewImageUrl1 = widget.img1;
+        } else if (previewImage2 == null) {
+          previewImageUrl2 = widget.img2;
+        } else if (previewImage3 == null) {
+          previewImageUrl3 = widget.img3;
+        } else if (previewImage4 == null) {
+          previewImageUrl4 = widget.img4;
+        } else if (previewImage5 == null) {
+          previewImageUrl5 = widget.img5;
+        } else if (previewImage6 == null) {
+          previewImageUrl6 = widget.img6;
+        } else {
+          coverImageUrl = await _uploadImageToStorage(
+              "${uuid}cover", _coverImage!, webImage);
+          previewImageUrl1 = await _uploadImageToStorage(
+              "${uuid}1", previewImage1!, webImage1);
+          previewImageUrl2 = await _uploadImageToStorage(
+              "${uuid}2", previewImage2!, webImage2);
+          previewImageUrl3 = await _uploadImageToStorage(
+              "${uuid}3", previewImage3!, webImage3);
+          previewImageUrl4 = await _uploadImageToStorage(
+              "${uuid}4", previewImage4!, webImage4);
+          previewImageUrl5 = await _uploadImageToStorage(
+              "${uuid}5", previewImage5!, webImage5);
+          previewImageUrl6 = await _uploadImageToStorage(
+              "${uuid}6", previewImage6!, webImage6);
+        }
+
         Map<String, dynamic> myPacks = {
           'id': uuid,
           'title': _titleController.text,
@@ -674,6 +690,30 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             const SizedBox(
                               height: 20,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             TextWidget(
                               text: 'Product Detail*',
                               color: color,
@@ -875,6 +915,30 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             const SizedBox(
                               height: 20,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage1();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             TextWidget(
                               text: 'Amount*',
                               color: color,
@@ -973,6 +1037,30 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                             ),
                                 ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage2();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                             const SizedBox(
                               height: 20,
@@ -1079,6 +1167,30 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             const SizedBox(
                               height: 20,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage3();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             TextWidget(
                               text: 'Amount*',
                               color: color,
@@ -1177,6 +1289,30 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                             ),
                                 ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage4();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                             const SizedBox(
                               height: 20,
@@ -1283,6 +1419,30 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                             const SizedBox(
                               height: 20,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage5();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             TextWidget(
                               text: 'Amount*',
                               color: color,
@@ -1381,6 +1541,30 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
                                             ),
                                 ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _pickImage6();
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: 60,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "change",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                             const SizedBox(
                               height: 20,
