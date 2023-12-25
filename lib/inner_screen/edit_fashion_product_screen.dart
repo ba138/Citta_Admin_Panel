@@ -159,7 +159,7 @@ class _EditFashionProductScreenState extends State<EditFashionProductScreen> {
             .doc(widget.id)
             .set(myFashionProducts);
         await FirebaseFirestore.instance
-            .collection('Saller')
+            .collection('saller')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("my_products")
             .doc(widget.id)

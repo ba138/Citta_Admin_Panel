@@ -165,14 +165,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
           'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
-          'salePrice': _salePriceController.text,
+          'sellePrice': _salePriceController.text,
+          'sellerId': FirebaseAuth.instance.currentUser!.uid,
         };
         await FirebaseFirestore.instance
             .collection('products')
             .doc(widget.id)
             .set(myProducts);
         await FirebaseFirestore.instance
-            .collection('Saller')
+            .collection('saller')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("my_products")
             .doc(widget.id)

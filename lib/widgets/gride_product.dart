@@ -23,7 +23,7 @@ class ProductGrid extends StatelessWidget {
     final Color color = Utils(context).color;
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection("Saller")
+            .collection("saller")
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("my_products")
             .snapshots(),

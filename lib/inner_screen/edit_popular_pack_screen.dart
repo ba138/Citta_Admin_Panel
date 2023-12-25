@@ -293,7 +293,7 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
           'imageUrl': coverImageUrl,
           "size": _sizeController.text,
           'weight': _weightController.text,
-          'sallerId': FirebaseAuth.instance.currentUser!.uid,
+          'sellerId': FirebaseAuth.instance.currentUser!.uid,
           'salePrice': "3200",
           'createdAt': Timestamp.now(),
           'product1': {
@@ -332,7 +332,7 @@ class _EditPopularPackScreenFormState extends State<EditPopularPackScreen> {
             .doc(uuid)
             .set(myPacks);
         await FirebaseFirestore.instance
-            .collection('Saller')
+            .collection('saller')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("myPacks")
             .doc(uuid)
