@@ -134,7 +134,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           'detail': _detailController.text,
           'imageUrl': imageUrl,
           'createdAt': Timestamp.now(),
-          ' salerId': FirebaseAuth.instance.currentUser!.uid,
+          'sellerId': FirebaseAuth.instance.currentUser!.uid,
         };
         await FirebaseFirestore.instance
             .collection('fashion')
