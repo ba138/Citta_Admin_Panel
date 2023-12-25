@@ -53,6 +53,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final TextEditingController _weightController = TextEditingController();
 
   final TextEditingController _sizeController = TextEditingController();
+  final TextEditingController _saleController = TextEditingController();
 
   File? _coverImage;
   Uint8List webImage = Uint8List(8);
@@ -88,6 +89,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _detailController5.dispose();
     _titleController1.dispose();
     _detailController1.dispose();
+    _saleController.dispose();
 
     super.dispose();
   }
@@ -110,6 +112,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _weightController.clear();
     _titleController6.clear();
     _detailController6.clear();
+    _saleController.clear();
 
     setState(() {
       _coverImage = null;
@@ -192,7 +195,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           "size": _sizeController.text,
           'weight': _weightController.text,
           'sallerId': FirebaseAuth.instance.currentUser!.uid,
-          'salePrice': "3200",
+          'salePrice': _saleController.text,
           'createdAt': Timestamp.now(),
           'product1': {
             "title": _titleController1.text,
@@ -230,7 +233,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
             .doc(uuid)
             .set(myPacks);
         await FirebaseFirestore.instance
-            .collection('Saller')
+            .collection('saller')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("myPacks")
             .doc(uuid)
@@ -638,6 +641,39 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                               decoration: InputDecoration(
                                 filled: true,
                                 hintText: "Enter The Price Of Bundle Pack",
+                                fillColor: scaffoldColor,
+                                border: InputBorder.none,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color,
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextWidget(
+                              text: 'SalePrice*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: _saleController,
+                              key: const ValueKey('SalePrice'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a Sale Price';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                hintText: "Enter The Sale Price Of Bundle Pack",
                                 fillColor: scaffoldColor,
                                 border: InputBorder.none,
                                 focusedBorder: OutlineInputBorder(

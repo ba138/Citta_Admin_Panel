@@ -120,7 +120,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
             .doc(_uuid)
             .set(myProducts);
         await FirebaseFirestore.instance
-            .collection('Saller')
+            .collection('saller')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection("my_products")
             .doc(_uuid)

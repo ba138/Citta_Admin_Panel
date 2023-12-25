@@ -108,7 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
         await FirebaseFirestore.instance
-            .collection('Saller')
+            .collection('saller')
             .doc(auth.currentUser!.uid)
             .set({
           'id': _uuid,
