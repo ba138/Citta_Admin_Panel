@@ -194,7 +194,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'imageUrl': coverImageUrl,
           "size": _sizeController.text,
           'weight': _weightController.text,
-          'sallerId': FirebaseAuth.instance.currentUser!.uid,
+          'sellerId': FirebaseAuth.instance.currentUser!.uid,
           'salePrice': _saleController.text,
           'createdAt': Timestamp.now(),
           'product1': {
