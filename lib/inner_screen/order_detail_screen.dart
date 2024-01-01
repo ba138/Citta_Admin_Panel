@@ -7,6 +7,7 @@ import 'package:citta_admin_panel/services/utils.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,8 +17,27 @@ import 'dart:html' as html;
 class OrderDetailScreen extends StatefulWidget {
   static const routeName = '/UploadProductForm';
 
-  const OrderDetailScreen({super.key});
-
+  const OrderDetailScreen({
+    super.key,
+    required this.userName,
+    required this.phone,
+    required this.imageUrl,
+    required this.title,
+    required this.price,
+    required this.productId,
+    required this.buyyerId,
+    required this.address,
+    required this.salePrice,
+  });
+  final String userName;
+  final String phone;
+  final String imageUrl;
+  final String title;
+  final String price;
+  final String productId;
+  final String buyyerId;
+  final String address;
+  final String salePrice;
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();
 }
@@ -61,6 +81,42 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
         previewImage = image;
       });
     }
+  }
+
+  String imageUrl = '';
+
+  // Function to get the image URL from Firestore
+  Future<void> getImageUrl() async {
+    try {
+      // Replace 'yourCollection' and 'yourDocumentId' with your Firestore collection and document ID
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.buyyerId)
+          .get();
+
+      if (documentSnapshot.exists) {
+        // Assuming there's a field named 'imageUrl' in your Firestore document
+        String imageUrlFromFirestore = documentSnapshot['profilePic'];
+
+        // Update the state variable with the retrieved image URL
+        setState(() {
+          imageUrl = imageUrlFromFirestore;
+        });
+
+        // Now 'imageUrl' contains the URL, and you can use it as needed
+        print('Image URL: $imageUrl');
+      } else {
+        print('Document does not exist');
+      }
+    } catch (error) {
+      print('Error getting document: $error');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getImageUrl();
   }
 
   @override
@@ -122,9 +178,10 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const CircleAvatar(
+                              CircleAvatar(
                                 radius: 60,
-                                backgroundColor: Color(0xFFCB0166),
+                                backgroundColor: const Color(0xFFCB0166),
+                                backgroundImage: NetworkImage(imageUrl),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -133,17 +190,17 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TextWidget(
-                                    text: 'Name Here',
+                                    text: widget.userName,
                                     color: color,
                                     isTitle: true,
                                   ),
                                   TextWidget(
-                                    text: 'Phone Number',
+                                    text: widget.phone,
                                     color: color,
                                     isTitle: true,
                                   ),
                                   TextWidget(
-                                    text: 'Shipping Address',
+                                    text: widget.address,
                                     color: color,
                                     isTitle: true,
                                   ),
@@ -164,9 +221,10 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                           Container(
                             height: size.width > 650 ? 350 : size.width * 0.45,
                             decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                  image: AssetImage("assets/images/Tomato.jpg"),
-                                  fit: BoxFit.fill),
+                              image: DecorationImage(
+                                image: NetworkImage(widget.imageUrl),
+                                fit: BoxFit.contain,
+                              ),
                               color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                           ),
@@ -184,7 +242,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 width: 10,
                               ),
                               TextWidget(
-                                text: 'hhhhhh',
+                                text: widget.title,
                                 color: color,
                                 isTitle: true,
                               ),
@@ -204,7 +262,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 width: 10,
                               ),
                               TextWidget(
-                                text: '123456789',
+                                text: widget.productId,
                                 color: color,
                                 isTitle: true,
                               ),
@@ -224,7 +282,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 width: 10,
                               ),
                               TextWidget(
-                                text: '120',
+                                text: widget.salePrice,
                                 color: color,
                                 isTitle: true,
                               ),

@@ -51,19 +51,29 @@ class OrdersList extends StatelessWidget {
                   // Access data like title, price, etc.
                   String title = data['title'];
                   String price = data['salePrice'];
-                  // String userId = data['buyyerId'];
-                  // String imageUrl = data['imageUrl'];
+                  String name = data['name'];
+                  String img = data['imageUrl'];
                   String date = data['date'];
+                  String address = data['address'];
+                  String status = data['status'];
+                  String buyyerId = data['buyyerId'];
+                  String productId = data['productId'];
+                  String phone = data['phone'];
                   return Column(
                     children: [
                       OrdersWidget(
-                        title: title,
-                        price: price,
-                        date: date,
-                        orderId: data['uuid'],
-                        status: data['status'],
-                        // Add more parameters as needed
-                      ),
+                          title: title,
+                          price: price,
+                          name: name,
+                          img: img,
+                          date: date,
+                          address: address,
+                          status: status,
+                          phone: phone,
+                          buyyerId: buyyerId,
+                          productId: productId
+                          // Add more parameters as needed
+                          ),
                       const Divider(
                         thickness: 3,
                       ),

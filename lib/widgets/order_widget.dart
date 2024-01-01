@@ -11,15 +11,25 @@ class OrdersWidget extends StatefulWidget {
     super.key,
     required this.price,
     required this.title,
+    required this.name,
+    required this.img,
     required this.date,
-    required this.orderId,
+    required this.address,
     required this.status,
+    required this.buyyerId,
+    required this.productId,
+    required this.phone,
   });
   final String title;
   final String price;
+  final String name;
+  final String img;
   final String date;
+  final String address;
   final String status;
-  final String orderId;
+  final String buyyerId;
+  final String productId;
+  final String phone;
 
   @override
   _OrdersWidgetState createState() => _OrdersWidgetState();
@@ -50,7 +60,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
               Flexible(
                 flex: size.width < 650 ? 3 : 1,
                 child: Image.network(
-                  'https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJzdHJhd2JlcnJ5X3JlZF9kZWxpY2lvdXNfc3dlZXQtaW1hZ2Utam9iNjIxXzEucG5n.png',
+                  widget.img,
 
                   fit: BoxFit.fill,
                   // height: screenWidth * 0.15,
@@ -82,7 +92,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                             isTitle: true,
                           ),
                           TextWidget(
-                            text: '  Hadi K.',
+                            text: widget.name,
                             color: color,
                             textSize: 14,
                             isTitle: true,
@@ -114,7 +124,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                         isTitle: true,
                       ),
                       TextWidget(
-                        text: '  New HussainAbad Danyore Gilgit',
+                        text: widget.address,
                         color: color,
                         textSize: 14,
                         isTitle: true,
@@ -142,7 +152,17 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                     onTap: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => const OrderDetailScreen(),
+                          builder: (context) => OrderDetailScreen(
+                            userName: widget.name,
+                            phone: widget.phone,
+                            imageUrl: widget.img,
+                            title: widget.title,
+                            price: widget.price,
+                            productId: widget.productId,
+                            buyyerId: widget.buyyerId,
+                            address: widget.address,
+                            salePrice: widget.price,
+                          ),
                         ),
                       );
                     },

@@ -111,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             .collection('saller')
             .doc(auth.currentUser!.uid)
             .set({
-          'id': _uuid,
+          'id': FirebaseAuth.instance.currentUser!.uid,
           'name': usernameController.text,
           'email': emailController.text,
           'profilePic': imageUrl,
