@@ -85,31 +85,24 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
 
   String imageUrl = '';
 
-  // Function to get the image URL from Firestore
   Future<void> getImageUrl() async {
     try {
-      // Replace 'yourCollection' and 'yourDocumentId' with your Firestore collection and document ID
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(widget.buyyerId)
           .get();
 
       if (documentSnapshot.exists) {
-        // Assuming there's a field named 'imageUrl' in your Firestore document
         String imageUrlFromFirestore = documentSnapshot['profilePic'];
 
-        // Update the state variable with the retrieved image URL
         setState(() {
           imageUrl = imageUrlFromFirestore;
         });
-
-        // Now 'imageUrl' contains the URL, and you can use it as needed
-        print('Image URL: $imageUrl');
       } else {
-        print('Document does not exist');
+        debugPrint('Document does not exist');
       }
     } catch (error) {
-      print('Error getting document: $error');
+      debugPrint('Error getting document: $error');
     }
   }
 
