@@ -7,7 +7,19 @@ import 'package:flutter/material.dart';
 import 'text_widget.dart';
 
 class OrdersWidget extends StatefulWidget {
-  const OrdersWidget({super.key});
+  const OrdersWidget({
+    super.key,
+    required this.price,
+    required this.title,
+    required this.date,
+    required this.orderId,
+    required this.status,
+  });
+  final String title;
+  final String price;
+  final String date;
+  final String status;
+  final String orderId;
 
   @override
   _OrdersWidgetState createState() => _OrdersWidgetState();
@@ -55,7 +67,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TextWidget(
-                      text: '12x For \$19.9',
+                      text: widget.title,
                       color: color,
                       textSize: 16,
                       isTitle: true,
@@ -79,7 +91,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                       ),
                     ),
                     Text(
-                      '20/03/2022',
+                      widget.date,
                       style: TextStyle(
                         color: color,
                       ),
@@ -119,7 +131,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                         isTitle: true,
                       ),
                       TextWidget(
-                        text: '  Padding',
+                        text: widget.status,
                         color: color,
                         textSize: 14,
                         isTitle: true,

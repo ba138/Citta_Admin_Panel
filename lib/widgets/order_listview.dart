@@ -1,4 +1,8 @@
+import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/order_widget.dart';
+import 'package:citta_admin_panel/widgets/text_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
@@ -8,26 +12,74 @@ class OrdersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Utils(context).getTheme;
+    Color color = theme == true ? Colors.white : Colors.black;
+
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
-      child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 10,
-          itemBuilder: (ctx, index) {
-            return const Column(
-              children: [
-                OrdersWidget(),
-                Divider(
-                  thickness: 3,
-                ),
-              ],
+      child: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("saller")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('my_orders')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }),
+          } else if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.data!.docs.isEmpty) {
+              return Center(
+                child: TextWidget(
+                  text: "You did not add any product yet",
+                  color: color,
+                ),
+              );
+            } else {
+              return ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data() as Map<String, dynamic>;
+
+                  // Access data like title, price, etc.
+                  String title = data['title'];
+                  String price = data['salePrice'];
+                  // String userId = data['buyyerId'];
+                  // String imageUrl = data['imageUrl'];
+                  String date = data['date'];
+                  return Column(
+                    children: [
+                      OrdersWidget(
+                        title: title,
+                        price: price,
+                        date: date,
+                        orderId: data['uuid'],
+                        status: data['status'],
+                        // Add more parameters as needed
+                      ),
+                      const Divider(
+                        thickness: 3,
+                      ),
+                    ],
+                  );
+                }).toList(),
+              );
+            }
+          }
+
+          debugPrint("${snapshot.data!}");
+          return Center(
+            child: TextWidget(text: "Something went wrong", color: color),
+          );
+        },
+      ),
     );
   }
 }
