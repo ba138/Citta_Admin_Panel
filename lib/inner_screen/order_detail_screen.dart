@@ -28,6 +28,7 @@ class OrderDetailScreen extends StatefulWidget {
     required this.buyyerId,
     required this.address,
     required this.salePrice,
+    required this.paymentType,
   });
   final String userName;
   final String phone;
@@ -38,6 +39,7 @@ class OrderDetailScreen extends StatefulWidget {
   final String buyyerId;
   final String address;
   final String salePrice;
+  final String paymentType;
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();
 }
@@ -210,7 +212,6 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-
                           Container(
                             height: size.width > 650 ? 350 : size.width * 0.45,
                             decoration: BoxDecoration(
@@ -321,22 +322,6 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                               ),
                             ],
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(18.0),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          //     children: [
-                          //       ButtonsWidget(
-                          //         onPressed: () {},
-                          //         text: 'Clear form',
-                          //       ),
-                          //       ButtonsWidget(
-                          //         onPressed: () {},
-                          //         text: 'Send Delivery',
-                          //       ),
-                          //     ],
-                          //   ),
-                          // )
                           const SizedBox(
                             height: 40,
                           ),

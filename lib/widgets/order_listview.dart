@@ -36,7 +36,7 @@ class OrdersList extends StatelessWidget {
             if (snapshot.data!.docs.isEmpty) {
               return Center(
                 child: TextWidget(
-                  text: "You did not add any product yet",
+                  text: "You did not have any order yet",
                   color: color,
                 ),
               );
@@ -59,21 +59,23 @@ class OrdersList extends StatelessWidget {
                   String buyyerId = data['buyyerId'];
                   String productId = data['productId'];
                   String phone = data['phone'];
+                  String paymentType = data['paymentType'];
                   return Column(
                     children: [
                       OrdersWidget(
-                          title: title,
-                          price: price,
-                          name: name,
-                          img: img,
-                          date: date,
-                          address: address,
-                          status: status,
-                          phone: phone,
-                          buyyerId: buyyerId,
-                          productId: productId
-                          // Add more parameters as needed
-                          ),
+                        title: title,
+                        price: price,
+                        name: name,
+                        img: img,
+                        date: date,
+                        address: address,
+                        status: status,
+                        phone: phone,
+                        buyyerId: buyyerId,
+                        productId: productId,
+                        paymentType: paymentType,
+                        // Add more parameters as needed
+                      ),
                       const Divider(
                         thickness: 3,
                       ),
