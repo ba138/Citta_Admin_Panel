@@ -60,10 +60,10 @@ class DashboardScreen extends StatelessWidget {
                         height: 20,
                       ),
 
-                      const FashionGrid(),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      // const FashionGrid(),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

@@ -3,13 +3,17 @@
 import 'dart:io';
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
+import 'package:citta_admin_panel/screens/dashboard_screen.dart';
+import 'package:citta_admin_panel/screens/main_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../responsive.dart';
 import 'dart:html' as html;
@@ -30,6 +34,8 @@ class OrderDetailScreen extends StatefulWidget {
     required this.salePrice,
     required this.paymentType,
     required this.weight,
+    required this.uuid,
+    required this.status,
   });
   final String userName;
   final String phone;
@@ -42,6 +48,8 @@ class OrderDetailScreen extends StatefulWidget {
   final String salePrice;
   final String paymentType;
   final String weight;
+  final String uuid;
+  final String status;
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();
 }
@@ -58,6 +66,63 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
   Uint8List webImage = Uint8List(8);
   html.File? imageFile;
   Image? previewImage;
+  void updateDeliveryStatus() {
+    if (widget.status == "pending") {
+      FirebaseFirestore.instance
+          .collection("saller")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('my_orders')
+          .doc(widget.uuid)
+          .update({'status': 'processing'});
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(widget.buyyerId)
+          .collection('my_orders')
+          .doc(widget.uuid)
+          .update({'status': 'processing'});
+      Fluttertoast.showToast(
+        msg: "Order is In Processing",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+      );
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (c) => const MainScreen()),
+          (route) => false);
+    } else if (widget.status == 'processing') {
+      FirebaseFirestore.instance
+          .collection("saller")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('my_orders')
+          .doc(widget.uuid)
+          .update({'status': 'Delivered'});
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(widget.buyyerId)
+          .collection('my_orders')
+          .doc(widget.uuid)
+          .update({'status': 'Delivered'});
+      Fluttertoast.showToast(
+        msg: "Order is In Complete",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+      );
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (c) => const MainScreen()),
+          (route) => false);
+    } else {
+      Fluttertoast.showToast(
+        msg: "Order is has been Complete",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+      );
+    }
+  }
+
   @override
   void dispose() {
     _priceController.dispose();
@@ -290,7 +355,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                           Row(
                             children: [
                               TextWidget(
-                                text: 'Amount/Items :',
+                                text: 'Amount/Items: ',
                                 color: const Color(0xFFCB0166),
                                 isTitle: true,
                               ),
@@ -325,23 +390,53 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                             ],
                           ),
                           const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              TextWidget(
+                                text: 'Status: ',
+                                color: const Color(0xFFCB0166),
+                                isTitle: true,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              TextWidget(
+                                text: widget.status,
+                                color: color,
+                                isTitle: true,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
                             height: 40,
                           ),
                           Center(
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                updateDeliveryStatus();
+                              },
                               child: Container(
                                 height:
                                     size.width > 650 ? 50 : size.width * 0.10,
                                 color: const Color(0xFFCB0166),
-                                child: const Center(
-                                  child: Text(
-                                    "Process Delivery",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                                child: Center(
+                                  child: widget.status == "pending"
+                                      ? const Text(
+                                          "Send Delivery",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                          ),
+                                        )
+                                      : const Text(
+                                          "Mark As Complete",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                 ),
                               ),
                             ),
