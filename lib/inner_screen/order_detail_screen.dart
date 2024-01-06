@@ -29,6 +29,7 @@ class OrderDetailScreen extends StatefulWidget {
     required this.address,
     required this.salePrice,
     required this.paymentType,
+    required this.weight,
   });
   final String userName;
   final String phone;
@@ -40,6 +41,7 @@ class OrderDetailScreen extends StatefulWidget {
   final String address;
   final String salePrice;
   final String paymentType;
+  final String weight;
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();
 }
@@ -288,7 +290,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                           Row(
                             children: [
                               TextWidget(
-                                text: 'Product Amount:',
+                                text: 'Amount/Items :',
                                 color: const Color(0xFFCB0166),
                                 isTitle: true,
                               ),
@@ -296,7 +298,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 width: 10,
                               ),
                               TextWidget(
-                                text: '1kg',
+                                text: widget.weight,
                                 color: color,
                                 isTitle: true,
                               ),
@@ -316,7 +318,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 width: 10,
                               ),
                               TextWidget(
-                                text: 'Cash On Delivery',
+                                text: widget.paymentType,
                                 color: color,
                                 isTitle: true,
                               ),
@@ -326,15 +328,19 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                             height: 40,
                           ),
                           Center(
-                            child: Container(
-                              height: size.width > 650 ? 50 : size.width * 0.10,
-                              color: const Color(0xFFCB0166),
-                              child: const Center(
-                                child: Text(
-                                  "Send Delivery",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                height:
+                                    size.width > 650 ? 50 : size.width * 0.10,
+                                color: const Color(0xFFCB0166),
+                                child: const Center(
+                                  child: Text(
+                                    "Process Delivery",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),

@@ -60,6 +60,7 @@ class OrdersList extends StatelessWidget {
                   String productId = data['productId'];
                   String phone = data['phone'];
                   String paymentType = data['paymentType'];
+                  String weight = data['weight'] ?? '1';
                   return Column(
                     children: [
                       OrdersWidget(
@@ -74,6 +75,7 @@ class OrdersList extends StatelessWidget {
                         buyyerId: buyyerId,
                         productId: productId,
                         paymentType: paymentType,
+                        weight: weight,
                         // Add more parameters as needed
                       ),
                       const Divider(

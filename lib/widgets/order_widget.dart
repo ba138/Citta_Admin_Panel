@@ -20,6 +20,7 @@ class OrdersWidget extends StatefulWidget {
     required this.productId,
     required this.phone,
     required this.paymentType,
+    required this.weight,
   });
   final String title;
   final String price;
@@ -32,6 +33,7 @@ class OrdersWidget extends StatefulWidget {
   final String productId;
   final String phone;
   final String paymentType;
+  final String weight;
 
   @override
   _OrdersWidgetState createState() => _OrdersWidgetState();
@@ -165,6 +167,7 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                             address: widget.address,
                             salePrice: widget.price,
                             paymentType: widget.paymentType,
+                            weight: widget.weight,
                           ),
                         ),
                       );
