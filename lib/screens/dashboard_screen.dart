@@ -47,11 +47,32 @@ class DashboardScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Responsive(
-                        mobile: ProductGrid(
-                          crossAxisCount: size.width < 650 ? 2 : 4,
-                          childAspectRatio:
-                              size.width < 650 && size.width > 350 ? 1.1 : 0.8,
+                        mobile: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: MediaQuery.of(context).size.height / 6,
+                                width: (MediaQuery.of(context).size.width / 2) -
+                                    30,
+                                color: Colors.red,
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: MediaQuery.of(context).size.height / 3,
+                                width: (MediaQuery.of(context).size.width / 2) -
+                                    20,
+                                color: Colors.blue,
+                              ),
+                            )
+                          ],
                         ),
+                        // ProductGrid(
+                        //   crossAxisCount: size.width < 650 ? 2 : 4,
+                        //   childAspectRatio:
+                        //       size.width < 650 && size.width > 350 ? 1.1 : 0.8,
+                        // ),
                         desktop: ProductGrid(
                           childAspectRatio: size.width < 1400 ? 0.8 : 1.05,
                         ),
