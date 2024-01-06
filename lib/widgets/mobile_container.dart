@@ -7,9 +7,9 @@ class MobileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height / 3,
+      height: MediaQuery.of(context).size.height / 4,
       width: (MediaQuery.of(context).size.width / 2) - 20,
-      color: Colors.blue,
+      color: const Color(0xFFCB0166),
       child: Column(
         children: [
           const SizedBox(

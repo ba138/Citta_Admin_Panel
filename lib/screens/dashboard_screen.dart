@@ -119,12 +119,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 TextWidget(
-                  text: 'All Products',
+                  text: 'All Details',
                   color: color,
                   textSize: 24,
                   isTitle: true,
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

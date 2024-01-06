@@ -13,7 +13,7 @@ class WebContainer extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height / 5,
       width: (MediaQuery.of(context).size.width / 6) - 20,
-      color: Colors.blue,
+      color: const Color(0xFFCB0166),
       child: Column(
         children: [
           const SizedBox(
