@@ -1,6 +1,7 @@
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/popular_packs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
@@ -21,8 +22,11 @@ class PopularPacksGride extends StatelessWidget {
     final Color color = Utils(context).color;
 
     return StreamBuilder<QuerySnapshot>(
-        stream:
-            FirebaseFirestore.instance.collection("bundle pack").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("saller")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("myPacks")
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
