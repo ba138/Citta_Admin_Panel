@@ -49,6 +49,7 @@ dependencies:
   shimmer: ^3.0.0
   fancy_shimmer_image: ^2.0.3
   cached_network_image: ^3.3.0
+  flutter_launcher_icons: ^0.13.1
   
 
 dev_dependencies:
@@ -103,3 +104,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_icons:
+  web:
+    generate: true
+    image_path: "assets/images/app_icon.png"
