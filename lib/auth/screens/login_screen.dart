@@ -113,155 +113,155 @@ class _LoginScreenState extends State<LoginScreen> {
         isLoading: isLoading,
         child: Row(
           children: [
-            if (Responsive.isDesktop(context))
-              Expanded(
-                flex: 8,
-                child: SingleChildScrollView(
-                  controller: ScrollController(),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 100,
-                              width: 100,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/groceries.png"),
-                                    fit: BoxFit.contain),
-                              ),
+            // if (Responsive.isDesktop(context))
+            Expanded(
+              flex: 8,
+              child: SingleChildScrollView(
+                controller: ScrollController(),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 100,
+                            width: 100,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage("assets/images/groceries.png"),
+                                  fit: BoxFit.contain),
                             ),
+                          ),
+                          TextWidget(
+                            text: 'Seller Point',
+                            color: color,
+                            isTitle: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: size.width > 650 ? 650 : size.width,
+                      color: Theme.of(context).cardColor,
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.all(16),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
                             TextWidget(
-                              text: 'Saller Point',
+                              text: 'Email*',
                               color: color,
                               isTitle: true,
                             ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: size.width > 650 ? 650 : size.width,
-                        color: Theme.of(context).cardColor,
-                        padding: const EdgeInsets.all(16),
-                        margin: const EdgeInsets.all(16),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              TextWidget(
-                                text: 'Email*',
-                                color: color,
-                                isTitle: true,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: usernameController,
-                                key: const ValueKey('Email'),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter user Email';
-                                  }
-                                  return null;
-                                },
-                                decoration: inputDecoration,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              TextWidget(
-                                text: 'Password*',
-                                color: color,
-                                isTitle: true,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFormField(
-                                controller: passwordController,
-                                key: const ValueKey('Password'),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter your Password';
-                                  }
-                                  return null;
-                                },
-                                decoration: inputDecoration,
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(18.0),
-                                child: Center(
-                                  child: InkWell(
-                                    onTap: () async {
-                                      loginUser();
-                                      // signinUser();
-                                    },
-                                    child: Container(
-                                      height: 46,
-                                      width: 300,
-                                      color: const Color(0xFFCB0166),
-                                      child: const Center(
-                                        child: Text(
-                                          "Login",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                          ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: usernameController,
+                              key: const ValueKey('Email'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter user Email';
+                                }
+                                return null;
+                              },
+                              decoration: inputDecoration,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextWidget(
+                              text: 'Password*',
+                              color: color,
+                              isTitle: true,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextFormField(
+                              controller: passwordController,
+                              key: const ValueKey('Password'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your Password';
+                                }
+                                return null;
+                              },
+                              decoration: inputDecoration,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Center(
+                                child: InkWell(
+                                  onTap: () async {
+                                    loginUser();
+                                    // signinUser();
+                                  },
+                                  child: Container(
+                                    height: 46,
+                                    width: 300,
+                                    color: const Color(0xFFCB0166),
+                                    child: const Center(
+                                      child: Text(
+                                        "Login",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(18.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Don't have account?",
-                                    ),
-                                    const SizedBox(
-                                      width: 6,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (c) =>
-                                                const RegisterScreen(),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text(
-                                        "Signup",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "Don't have account?",
+                                  ),
+                                  const SizedBox(
+                                    width: 6,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (c) =>
+                                              const RegisterScreen(),
                                         ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      "Signup",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
           ],
         ),
       ),
