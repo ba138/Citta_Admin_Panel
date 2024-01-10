@@ -1,0 +1,9 @@
+[
+    {
+      "origin": ["https://citta-23-2b5be.web.app/", "https://citta-23-2b5be.firebaseapp.com/"],
+      "responseHeader": ["Content-Type"],
+      "method": ["GET", "HEAD", "DELETE"],
+      "maxAgeSeconds": 3600
+    }
+  ]
+  
