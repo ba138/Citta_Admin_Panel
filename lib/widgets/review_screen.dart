@@ -7,9 +7,10 @@ import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:flutter/material.dart';
 
 class ReviewScreen extends StatefulWidget {
-  ReviewScreen({super.key, required this.productId, required this.productType});
-  String productType;
-  String productId;
+  const ReviewScreen(
+      {super.key, required this.productId, required this.productType});
+  final String productType;
+  final String productId;
 
   @override
   State<ReviewScreen> createState() => _ReviewScreenState();

@@ -1,18 +1,16 @@
 import 'package:citta_admin_panel/services/utils.dart';
-import 'package:citta_admin_panel/widgets/order_widget.dart';
 import 'package:citta_admin_panel/widgets/review_widget.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../consts/constants.dart';
 
 class ReviewListView extends StatelessWidget {
-  ReviewListView(
+  const ReviewListView(
       {super.key, required this.productId, required this.productType});
-  String productId;
-  String productType;
+  final String productId;
+  final String productType;
   @override
   Widget build(BuildContext context) {
     final theme = Utils(context).getTheme;

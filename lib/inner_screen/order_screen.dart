@@ -61,20 +61,18 @@ class _OrderScreenState extends State<OrderScreen> {
         processing = processingCount.toString();
         complete = completeCount.toString();
       });
-
-      print('Collection Index: $collectionIndex');
     } catch (e) {
-      print('Error analyzing orders: $e');
+      debugPrint('Error analyzing orders: $e');
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     analyzeOrders();
   }
 
+  @override
   Widget build(BuildContext context) {
     // Size size = Utils(context).getScreenSize;
     final color = Utils(context).color;

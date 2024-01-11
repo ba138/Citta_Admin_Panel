@@ -104,14 +104,10 @@ class _SideMenuState extends State<SideMenu> {
             icon: IconlyBold.bag_2,
           ),
           Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               borderRadius:
                   BorderRadius.circular(0.0), // Adjust the radius as needed
-              // border: Border.all(
-              //   color: theme == true ? Colors.white : Colors.black,
-              //   width: 2.0,
-              // ),
             ),
             child: Row(
               children: [
@@ -149,7 +145,7 @@ class _SideMenuState extends State<SideMenu> {
                     child: Center(
                       child: Text(
                         theme ? 'ON' : 'OFF',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),

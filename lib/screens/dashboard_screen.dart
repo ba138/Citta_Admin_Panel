@@ -1,6 +1,5 @@
 import 'package:citta_admin_panel/responsive.dart';
-import 'package:citta_admin_panel/widgets/fashion_gride.dart';
-import 'package:citta_admin_panel/widgets/gride_product.dart';
+
 import 'package:citta_admin_panel/widgets/mobile_container.dart';
 import 'package:citta_admin_panel/widgets/order_listview.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
@@ -21,7 +20,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  @override
   int productnumber = 0;
   int fashionNumber = 0;
   int bundleNumber = 0;
@@ -37,9 +35,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       setState(() {
         productnumber = querySnapshot.docs.length;
       });
-      print("this is product number in firebase:$productnumber");
     } catch (e) {
-      print("this is the error in the try catch block of products items:$e");
+      debugPrint(
+          "this is the error in the try catch block of products items:$e");
     }
   }
 
@@ -53,9 +51,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       setState(() {
         fashionNumber = querySnapshot.docs.length;
       });
-      print("this is product number in firebase:$productnumber");
     } catch (e) {
-      print("this is the error in the try catch block of products items:$e");
+      debugPrint(
+          "this is the error in the try catch block of products items:$e");
     }
   }
 
@@ -69,37 +67,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
       setState(() {
         bundleNumber = querySnapshot.docs.length;
       });
-      print("this is product number in firebase:$productnumber");
     } catch (e) {
-      print("this is the error in the try catch block of products items:$e");
+      debugPrint(
+          "this is the error in the try catch block of products items:$e");
     }
   }
 
   Future<void> sumAndAssignSalePrices() async {
-    // Get the query snapshot
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection("saller")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("my_orders")
         .get();
 
-    // Initialize a variable to store the sum
     int totalSalePrice = 0;
 
-    // Iterate through the documents in the query snapshot
     for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-      // Access the 'salePrice' field and convert it to an integer
       int salePrice = int.tryParse(doc['salePrice'] ?? '0') ?? 0;
 
-      // Add the converted salePrice to the total
       totalSalePrice += salePrice;
     }
 
-    // Convert the totalSalePrice back to a string
     totlaIcome = totalSalePrice.toString();
-
-    // Use the totalSalePriceString as needed
-    print('Total Sale Price: $totlaIcome');
   }
 
   @override
@@ -111,8 +100,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     sumAndAssignSalePrices();
   }
 
+  @override
   Widget build(BuildContext context) {
-    Size size = Utils(context).getScreenSize;
     final color = Utils(context).color;
 
     return SafeArea(

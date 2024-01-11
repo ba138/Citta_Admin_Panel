@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:citta_admin_panel/controllers/MenuController.dart';
-import 'package:citta_admin_panel/screens/dashboard_screen.dart';
 import 'package:citta_admin_panel/screens/main_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 

@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:citta_admin_panel/auth/screens/register_screen.dart';
-import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/screens/main_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';

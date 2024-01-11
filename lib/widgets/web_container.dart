@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class WebContainer extends StatelessWidget {
   const WebContainer({
-    Key? key,
+    super.key,
     required this.number,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title;
   final String number;
