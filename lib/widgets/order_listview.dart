@@ -19,7 +19,7 @@ class OrdersList extends StatelessWidget {
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: const BorderRadius.all(Radius.circular(0)),
       ),
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance

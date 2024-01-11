@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MobileContainer extends StatelessWidget {
-  const MobileContainer({super.key, required this.title, required this.number});
+  const MobileContainer(
+      {super.key,
+      required this.title,
+      required this.number,
+      required this.color});
   final String title;
   final String number;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +18,7 @@ class MobileContainer extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 16,
+            height: 12,
           ),
           Text(
             title,
@@ -24,7 +29,13 @@ class MobileContainer extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 15,
+          ),
+          const Divider(
+            color: Colors.white,
+          ),
+          const SizedBox(
+            height: 15,
           ),
           Text(
             number,

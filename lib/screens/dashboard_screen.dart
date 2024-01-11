@@ -156,10 +156,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 MobileContainer(
                                   title: "Total Products",
                                   number: productnumber.toString(),
+                                  color: color,
                                 ),
                                 MobileContainer(
                                   title: "Total Fashion Products",
                                   number: fashionNumber.toString(),
+                                  color: color,
                                 ),
                               ],
                             ),
@@ -172,10 +174,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 MobileContainer(
                                   title: "Total Bundle Products",
                                   number: bundleNumber.toString(),
+                                  color: color,
                                 ),
                                 MobileContainer(
                                   title: "Total Icome",
                                   number: totlaIcome.toString(),
+                                  color: color,
                                 ),
                               ],
                             ),
@@ -190,17 +194,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             WebContainer(
-                                number: productnumber.toString(),
-                                title: "Total Products"),
+                              number: productnumber.toString(),
+                              title: "Total Products",
+                            ),
                             WebContainer(
-                                number: fashionNumber.toString(),
-                                title: "Total Fashion Products"),
+                              number: fashionNumber.toString(),
+                              title: "Total Fashion Products",
+                            ),
                             WebContainer(
-                                number: bundleNumber.toString(),
-                                title: "Total Bundle Packs"),
+                              number: bundleNumber.toString(),
+                              title: "Total Bundle Packs",
+                            ),
                             WebContainer(
-                                number: "₹${totlaIcome.toString()}",
-                                title: "Total Income"),
+                              number: "₹${totlaIcome.toString()}",
+                              title: "Total Income",
+                            ),
                           ],
                         ),
                       ),
