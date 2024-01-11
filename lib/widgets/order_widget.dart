@@ -3,6 +3,7 @@
 import 'package:citta_admin_panel/inner_screen/order_detail_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'text_widget.dart';
 
@@ -42,6 +43,13 @@ class OrdersWidget extends StatefulWidget {
 }
 
 class _OrdersWidgetState extends State<OrdersWidget> {
+  String formatDateAndTime(String time) {
+    DateTime dateTime = DateTime.parse(time);
+    String formattedDateTime =
+        "${DateFormat.MMMd().format(dateTime)},${DateFormat.y().format(dateTime)},${DateFormat.jm().format(dateTime)}";
+    return formattedDateTime;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -107,7 +115,9 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                       ),
                     ),
                     Text(
-                      widget.date,
+                      formatDateAndTime(
+                        widget.date,
+                      ),
                       style: TextStyle(
                         color: color,
                       ),

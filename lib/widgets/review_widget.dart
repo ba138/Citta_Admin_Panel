@@ -58,8 +58,6 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                 child: Image.network(
                   widget.profilePic,
                   fit: BoxFit.fill,
-                  // height: screenWidth * 0.15,
-                  // width: screenWidth * 0.15,
                 ),
               ),
               const SizedBox(
