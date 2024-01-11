@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:citta_admin_panel/inner_screen/edit_fashion_product_screen.dart';
+import 'package:citta_admin_panel/widgets/review_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -145,6 +146,21 @@ class _FashionWidgetState extends State<FashionWidget> {
                                     color: Colors.red,
                                   ),
                                 ),
+                              ),
+                              PopupMenuItem(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (c) => ReviewScreen(
+                                        productId: widget.fashionProductID,
+                                        productType: "fashion",
+                                      ),
+                                    ),
+                                  );
+                                },
+                                value: 3,
+                                child: const Text('Reviews'),
                               ),
                             ])
                   ],
