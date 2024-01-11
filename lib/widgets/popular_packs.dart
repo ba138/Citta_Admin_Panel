@@ -79,9 +79,13 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(0.0), // Set the desired border radius
+        ),
         color: Theme.of(context).cardColor.withOpacity(0.6),
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(0),
           onTap: () {},
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -103,6 +107,10 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                     ),
                     const Spacer(),
                     PopupMenuButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              0.0), // Set the desired border radius
+                        ),
                         itemBuilder: (context) => [
                               PopupMenuItem(
                                 onTap: () {

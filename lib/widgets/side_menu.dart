@@ -103,24 +103,63 @@ class _SideMenuState extends State<SideMenu> {
             },
             icon: IconlyBold.bag_2,
           ),
-          SwitchListTile(
-              title: Text(
-                'Theme',
-                style: TextStyle(
-                    color: theme == true ? Colors.white : Colors.black),
-              ),
-              secondary: Icon(
-                themeState.getDarkTheme
-                    ? Icons.dark_mode_outlined
-                    : Icons.light_mode_outlined,
-                color: theme == true ? Colors.white : Colors.black,
-              ),
-              value: theme,
-              onChanged: (value) {
-                setState(() {
-                  themeState.setDarkTheme = value;
-                });
-              }),
+          Container(
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(0.0), // Adjust the radius as needed
+              // border: Border.all(
+              //   color: theme == true ? Colors.white : Colors.black,
+              //   width: 2.0,
+              // ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  themeState.getDarkTheme
+                      ? Icons.dark_mode_outlined
+                      : Icons.light_mode_outlined,
+                  color: theme == true ? Colors.white : Colors.black,
+                ),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Text(
+                    'Theme',
+                    style: TextStyle(
+                      color: theme == true ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      themeState.setDarkTheme = !theme;
+                    });
+                  },
+                  child: Container(
+                    width: 40.0,
+                    height: 24.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          0.0), // Adjust the radius as needed
+                      color: theme
+                          ? Colors.blue
+                          : Colors.grey, // Use appropriate colors
+                    ),
+                    child: Center(
+                      child: Text(
+                        theme ? 'ON' : 'OFF',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           DrawerListTile(
             title: "Logout",
             press: () {
