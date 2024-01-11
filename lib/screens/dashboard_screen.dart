@@ -25,7 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int productnumber = 0;
   int fashionNumber = 0;
   int bundleNumber = 0;
-  int orderNumber = 0;
+  String totlaIcome = "0";
 
   Future<void> getDocumentIndex() async {
     try {
@@ -75,20 +75,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  Future<void> getOrderIndex() async {
-    try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection("saller")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .collection("my_orders")
-          .get();
-      setState(() {
-        orderNumber = querySnapshot.docs.length;
-      });
-      print("this is product number in firebase:$productnumber");
-    } catch (e) {
-      print("this is the error in the try catch block of products items:$e");
+  Future<void> sumAndAssignSalePrices() async {
+    // Get the query snapshot
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection("saller")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("my_orders")
+        .get();
+
+    // Initialize a variable to store the sum
+    int totalSalePrice = 0;
+
+    // Iterate through the documents in the query snapshot
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      // Access the 'salePrice' field and convert it to an integer
+      int salePrice = int.tryParse(doc['salePrice'] ?? '0') ?? 0;
+
+      // Add the converted salePrice to the total
+      totalSalePrice += salePrice;
     }
+
+    // Convert the totalSalePrice back to a string
+    totlaIcome = totalSalePrice.toString();
+
+    // Use the totalSalePriceString as needed
+    print('Total Sale Price: $totlaIcome');
   }
 
   @override
@@ -97,7 +108,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     getDocumentIndex();
     getFashionIndex();
     getBundleIndex();
-    getOrderIndex();
+    sumAndAssignSalePrices();
   }
 
   Widget build(BuildContext context) {
@@ -163,8 +174,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   number: bundleNumber.toString(),
                                 ),
                                 MobileContainer(
-                                  title: "Total Orders",
-                                  number: orderNumber.toString(),
+                                  title: "Total Icome",
+                                  number: totlaIcome.toString(),
                                 ),
                               ],
                             ),
@@ -188,8 +199,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 number: bundleNumber.toString(),
                                 title: "Total Bundle Packs"),
                             WebContainer(
-                                number: orderNumber.toString(),
-                                title: "Total Orders"),
+                                number: "₹${totlaIcome.toString()}",
+                                title: "Total Income"),
                           ],
                         ),
                       ),
