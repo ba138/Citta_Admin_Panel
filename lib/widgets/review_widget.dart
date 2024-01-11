@@ -9,8 +9,17 @@ import 'text_widget.dart';
 class ReviewWidget extends StatefulWidget {
   ReviewWidget({
     super.key,
+    required this.name,
+    required this.date,
+    required this.profilePic,
+    required this.rating,
+    required this.comment,
   });
-
+  String name;
+  String date;
+  String profilePic;
+  String rating;
+  String comment;
   @override
   _ReviewWidgetState createState() => _ReviewWidgetState();
 }
@@ -40,7 +49,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
               Flexible(
                 flex: size.width < 650 ? 3 : 1,
                 child: Image.network(
-                  "",
+                  widget.profilePic,
                   fit: BoxFit.fill,
                   // height: screenWidth * 0.15,
                   // width: screenWidth * 0.15,
@@ -49,122 +58,63 @@ class _ReviewWidgetState extends State<ReviewWidget> {
               const SizedBox(
                 width: 12,
               ),
-              Expanded(
-                flex: 10,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                      text: "widget.title",
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextWidget(
+                    text: widget.name,
+                    color: color,
+                    textSize: 16,
+                    isTitle: true,
+                  ),
+                  FittedBox(
+                    child: Row(
+                      children: [
+                        TextWidget(
+                          text: "Rating: ",
+                          color: const Color(0xFFCB0166),
+                          textSize: 14,
+                          isTitle: true,
+                        ),
+                        TextWidget(
+                          text: widget.rating,
+                          color: color,
+                          textSize: 14,
+                          isTitle: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                  FittedBox(
+                    child: Row(
+                      children: [
+                        TextWidget(
+                          text: "Comment: ",
+                          color: const Color(0xFFCB0166),
+                          textSize: 14,
+                          isTitle: true,
+                        ),
+                        TextWidget(
+                          text: widget.comment,
+                          color: color,
+                          textSize: 14,
+                          isTitle: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    widget.date,
+                    style: TextStyle(
                       color: color,
-                      textSize: 16,
-                      isTitle: true,
                     ),
-                    FittedBox(
-                      child: Row(
-                        children: [
-                          TextWidget(
-                            text: 'By',
-                            color: Colors.blue,
-                            textSize: 16,
-                            isTitle: true,
-                          ),
-                          TextWidget(
-                            text: "widget.name",
-                            color: color,
-                            textSize: 14,
-                            isTitle: true,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      " widget.date",
-                      style: TextStyle(
-                        color: color,
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
               const SizedBox(
                 width: 14,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      TextWidget(
-                        text: 'Shipping Address:',
-                        color: Colors.blue,
-                        textSize: 16,
-                        isTitle: true,
-                      ),
-                      TextWidget(
-                        text: "widget.address",
-                        color: color,
-                        textSize: 14,
-                        isTitle: true,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextWidget(
-                        text: 'Status:',
-                        color: Colors.blue,
-                        textSize: 16,
-                        isTitle: true,
-                      ),
-                      TextWidget(
-                        text: "widget.status",
-                        color: color,
-                        textSize: 14,
-                        isTitle: true,
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () {
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => OrderDetailScreen(
-                      //       userName: widget.name,
-                      //       phone: widget.phone,
-                      //       imageUrl: widget.img,
-                      //       title: widget.title,
-                      //       price: widget.price,
-                      //       productId: widget.productId,
-                      //       buyyerId: widget.buyyerId,
-                      //       address: widget.address,
-                      //       salePrice: widget.price,
-                      //       paymentType: widget.paymentType,
-                      //       weight: widget.weight,
-                      //       uuid: widget.uuid,
-                      //       status: widget.status,
-                      //     ),
-                      //   ),
-                      // );
-                    },
-                    child: Container(
-                      height: 40,
-                      width: 80,
-                      color: const Color(0xFFCB0166),
-                      child: Center(
-                        child: TextWidget(
-                          text: 'View Detail',
-                          color: Colors.white,
-                          textSize: 14,
-                          isTitle: true,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              )
             ],
           ),
         ),

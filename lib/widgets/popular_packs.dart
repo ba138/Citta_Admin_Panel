@@ -1,7 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors_in_immutables
 
 import 'package:citta_admin_panel/inner_screen/edit_popular_pack_screen.dart';
+import 'package:citta_admin_panel/widgets/review_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../services/utils.dart';
@@ -152,12 +155,39 @@ class _PopularPacksWidgetState extends State<PopularPacksWidget> {
                                 child: const Text('Edit'),
                               ),
                               PopupMenuItem(
-                                onTap: () {},
+                                onTap: () {
+                                  FirebaseFirestore.instance
+                                      .collection('products')
+                                      .doc(widget.id)
+                                      .delete();
+                                  FirebaseFirestore.instance
+                                      .collection('Saller')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection("my_products")
+                                      .doc(widget.id)
+                                      .delete();
+                                },
                                 value: 2,
                                 child: const Text(
                                   'Delete',
                                   style: TextStyle(color: Colors.red),
                                 ),
+                              ),
+                              PopupMenuItem(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (c) => ReviewScreen(
+                                        productId: widget.id,
+                                        productType: "bundle pack",
+                                      ),
+                                    ),
+                                  );
+                                },
+                                value: 3,
+                                child: const Text('Reviews'),
                               ),
                             ])
                   ],

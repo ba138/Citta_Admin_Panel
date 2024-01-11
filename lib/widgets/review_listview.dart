@@ -1,5 +1,6 @@
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/order_widget.dart';
+import 'package:citta_admin_panel/widgets/review_widget.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,7 +39,7 @@ class ReviewListView extends StatelessWidget {
             if (snapshot.data!.docs.isEmpty) {
               return Center(
                 child: TextWidget(
-                  text: "You did not have any order yet",
+                  text: "This product did not have any review yet!",
                   color: color,
                 ),
               );
@@ -51,36 +52,20 @@ class ReviewListView extends StatelessWidget {
                       document.data() as Map<String, dynamic>;
 
                   // Access data like title, price, etc.
-                  String title = data['title'];
-                  String price = data['salePrice'];
-                  String name = data['name'];
-                  String img = data['imageUrl'];
-                  String date = data['date'];
-                  String address = data['address'];
-                  String status = data['status'];
-                  String buyyerId = data['buyyerId'];
-                  String productId = data['productId'];
-                  String phone = data['phone'];
-                  String paymentType = data['paymentType'];
-                  String weight = data['weight'] ?? '1';
-                  String uuid = data['uuid'];
+                  String name = data['userName'];
+                  String rating = data['currentUserRating'].toString();
+                  String img = data['profilePic'];
+                  String date = data['time'];
+                  String comment = data['comment'];
+
                   return Column(
                     children: [
-                      OrdersWidget(
-                        title: title,
-                        price: price,
+                      ReviewWidget(
                         name: name,
-                        img: img,
                         date: date,
-                        address: address,
-                        status: status,
-                        phone: phone,
-                        buyyerId: buyyerId,
-                        productId: productId,
-                        paymentType: paymentType,
-                        weight: weight,
-                        uuid: uuid,
-                        // Add more parameters as needed
+                        profilePic: img,
+                        rating: rating,
+                        comment: comment,
                       ),
                       const Divider(
                         thickness: 3,
