@@ -29,6 +29,7 @@ class ReviewListView extends StatelessWidget {
             .collection(productType)
             .doc(productId)
             .collection('commentsAndRatings')
+            .orderBy("time", descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

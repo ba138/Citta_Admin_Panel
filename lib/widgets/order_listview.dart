@@ -26,6 +26,7 @@ class OrdersList extends StatelessWidget {
             .collection("saller")
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('my_orders')
+            .orderBy("date", descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
