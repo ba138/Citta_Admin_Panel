@@ -1,6 +1,6 @@
 {
-    "name": "citta_admin_panel",
-    "short_name": "citta_admin_panel",
+    "name": "citta_seller_panel",
+    "short_name": "citta_seller_panel",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

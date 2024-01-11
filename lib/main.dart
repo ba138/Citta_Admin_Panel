@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'consts/theme_data.dart';
 import 'providers/dark_theme_provider.dart';
+import 'dart:html' as html;
 
 void main() async {
+  html.document.title = 'CITTA-23';
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(

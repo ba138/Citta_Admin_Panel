@@ -50,6 +50,7 @@ dependencies:
   fancy_shimmer_image: ^2.0.3
   cached_network_image: ^3.3.0
   flutter_launcher_icons: ^0.13.1
+  html: ^0.15.4
   
 
 dev_dependencies:
