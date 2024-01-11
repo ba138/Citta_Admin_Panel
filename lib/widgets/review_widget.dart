@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:citta_admin_panel/inner_screen/order_detail_screen.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'text_widget.dart';
 
 class ReviewWidget extends StatefulWidget {
-  ReviewWidget({
+  const ReviewWidget({
     super.key,
     required this.name,
     required this.date,
@@ -16,11 +15,11 @@ class ReviewWidget extends StatefulWidget {
     required this.rating,
     required this.comment,
   });
-  String name;
-  String date;
-  String profilePic;
-  String rating;
-  String comment;
+  final String name;
+  final String date;
+  final String profilePic;
+  final String rating;
+  final String comment;
   @override
   _ReviewWidgetState createState() => _ReviewWidgetState();
 }
