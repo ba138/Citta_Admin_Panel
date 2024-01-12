@@ -1,6 +1,7 @@
 import 'package:citta_admin_panel/auth/screens/login_screen.dart';
 import 'package:citta_admin_panel/inner_screen/all_poducts.dart';
 import 'package:citta_admin_panel/inner_screen/fashion.dart';
+import 'package:citta_admin_panel/inner_screen/finance_screen.dart';
 import 'package:citta_admin_panel/inner_screen/order_screen.dart';
 import 'package:citta_admin_panel/inner_screen/popular_pcaks.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,6 +103,17 @@ class _SideMenuState extends State<SideMenu> {
               );
             },
             icon: IconlyBold.bag_2,
+          ),
+          DrawerListTile(
+            title: "Finance",
+            press: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const FinanceScreen(),
+                ),
+              );
+            },
+            icon: IconlyBold.buy,
           ),
           Container(
             padding: const EdgeInsets.all(10.0),
