@@ -61,6 +61,7 @@ class ProductGrid extends StatelessWidget {
                     title: snapshot.data!.docs[index]['title'],
                     image: snapshot.data!.docs[index]['imageUrl'],
                     salePrice: snapshot.data!.docs[index]["salePrice"],
+                    detail: snapshot.data!.docs[index]['detail'],
                   ); // Return the widget for each item
                 },
               );

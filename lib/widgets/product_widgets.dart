@@ -5,6 +5,7 @@ import 'package:citta_admin_panel/widgets/review_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,7 @@ class ProductWidget extends StatefulWidget {
     required this.price,
     required this.amount,
     required this.salePrice,
+    required this.detail,
   });
   final String productID;
   final String image;
@@ -27,51 +29,106 @@ class ProductWidget extends StatefulWidget {
   final String price;
   final String amount;
   final String salePrice;
+  final String detail;
   @override
   _ProductWidgetState createState() => _ProductWidgetState();
 }
 
 class _ProductWidgetState extends State<ProductWidget> {
   bool isLoading = false;
-  String? imageUrl;
-  @override
-  void initState() {
-    getProductData();
-    super.initState();
+  String imageUrl = "";
+  bool isAvailable = true;
+
+  Future<void> updateProduct() async {
+    print('out side try catch bleck');
+    try {
+      if (isAvailable == true) {
+        print('inside the if condtion');
+        print("this is the productId${widget.productID}");
+        await FirebaseFirestore.instance
+            .collection("saller")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("my_products")
+            .doc(widget.productID)
+            .update({
+          "stock": "out of Stock",
+        });
+        await FirebaseFirestore.instance
+            .collection("products")
+            .doc(widget.productID)
+            .delete();
+      } else if (isAvailable == false) {
+        print('after if statement>>>>>>>>>>>>>>>>>');
+        await FirebaseFirestore.instance
+            .collection("products")
+            .doc(widget.productID)
+            .set({
+          'id': widget.productID,
+          'title': widget.title,
+          'price': widget.price,
+          'detail': widget.detail,
+          "weight": widget.amount,
+          'imageUrl': widget.image,
+          'isOnSale': false,
+          'createdAt': Timestamp.now(),
+          'salePrice': widget.salePrice,
+          "sellerId": FirebaseAuth.instance.currentUser!.uid,
+        });
+        await FirebaseFirestore.instance
+            .collection("saller")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("my_products")
+            .doc(widget.productID)
+            .update({
+          'stock': FieldValue.delete(),
+        });
+      }
+    } catch (e) {
+      print(('this is the try catch block$e'));
+    }
   }
 
-  void getProductData() async {
-    setState(() {
-      isLoading = true;
-    });
+  Future<void> checkProductAvailability() async {
     try {
-      debugPrint(widget.image);
-      final DocumentSnapshot productsDoc = await FirebaseFirestore.instance
-          .collection('products')
+      var docSnapshot = await FirebaseFirestore.instance
+          .collection("saller")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('my_products')
           .doc(widget.productID)
           .get();
-      if (productsDoc == null) {
-        return;
-      } else {
-        imageUrl = productsDoc.get('imageUrl');
 
-        debugPrint(imageUrl);
+      if (docSnapshot.exists) {
+        // Document exists
+        if (docSnapshot.data()!.containsKey('stock')) {
+          // 'stock' field exists
+          setState(() {
+            isAvailable = false;
+          });
+          debugPrint("this is after setstate$isAvailable");
+        } else {
+          // 'stock' field does not exist, set isAvailable to true
+          setState(() {
+            isAvailable = true;
+          });
+        }
+      } else {
+        // Document does not exist, set isAvailable to true
+        setState(() {
+          isAvailable = true;
+        });
       }
-    } catch (error) {
-      setState(() {
-        isLoading = false;
-      });
-      if (kDebugMode) {
-        print(
-          error.toString(),
-        );
-      }
-      errorDialog(subtitle: error.toString(), context: context);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
+    } catch (e) {
+      print("Error checking product availability: $e");
+      // Handle the error as needed
     }
+  }
+
+  @override
+  void initState() {
+    // getProductData();
+    checkProductAvailability();
+
+    super.initState();
   }
 
   @override
@@ -97,7 +154,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Flexible(
@@ -212,6 +269,36 @@ class _ProductWidgetState extends State<ProductWidget> {
                   color: color,
                   textSize: 24,
                   isTitle: true,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    updateProduct();
+
+                    setState(() {
+                      isAvailable = !isAvailable;
+                    });
+                    print("after setstate");
+                  },
+                  child: Container(
+                    width: 100.0,
+                    height: 24.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                          0.0), // Adjust the radius as needed
+                      color: isAvailable
+                          ? const Color(0xFFCB0166)
+                          : const Color(0xFFCB0166), // Use appropriate colors
+                    ),
+                    child: Center(
+                      child: Text(
+                        isAvailable ? 'InStock' : 'OutOfStock',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
