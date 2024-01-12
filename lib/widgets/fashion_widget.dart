@@ -17,48 +17,100 @@ class FashionWidget extends StatefulWidget {
     required this.price,
     required this.image,
     required this.fashionProductID,
+    required this.detail,
   });
   final String title;
   final String price;
   final String image;
   final String fashionProductID;
+  final String detail;
   @override
   _FashionWidgetState createState() => _FashionWidgetState();
 }
 
 class _FashionWidgetState extends State<FashionWidget> {
-  String? imageUrl;
+  String imageUrl = "";
   bool isLoading = false;
+  bool isAvailable = true;
+
   @override
   void initState() {
-    getProductData();
+    // getProductData();
+    checkProductAvailability();
     super.initState();
   }
 
-  void getProductData() async {
-    setState(() {
-      isLoading = true;
-    });
+  Future<void> checkProductAvailability() async {
     try {
-      final DocumentSnapshot productsDoc = await FirebaseFirestore.instance
-          .collection('fashion')
+      var docSnapshot = await FirebaseFirestore.instance
+          .collection("saller")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('myFashionProducts')
           .doc(widget.fashionProductID)
           .get();
-      if (productsDoc == null) {
-        return;
-      } else {
-        imageUrl = productsDoc.get('imageUrl');
-      }
-    } catch (error) {
-      setState(() {
-        isLoading = false;
-      });
 
-      errorDialog(subtitle: error.toString(), context: context);
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
+      if (docSnapshot.exists) {
+        if (docSnapshot.data()!.containsKey('stock')) {
+          setState(() {
+            isAvailable = false;
+          });
+        } else {
+          setState(() {
+            isAvailable = true;
+          });
+        }
+      } else {
+        setState(() {
+          isAvailable = true;
+        });
+      }
+    } catch (e) {
+      debugPrint("Error checking product availability: $e");
+    }
+  }
+
+  Future<void> updateProduct() async {
+    try {
+      if (isAvailable == true) {
+        await FirebaseFirestore.instance
+            .collection("saller")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("myFashionProducts")
+            .doc(widget.fashionProductID)
+            .update({
+          "stock": "out of Stock",
+        });
+        await FirebaseFirestore.instance
+            .collection("fashion")
+            .doc(widget.fashionProductID)
+            .delete();
+      } else if (isAvailable == false) {
+        await FirebaseFirestore.instance
+            .collection("fashion")
+            .doc(widget.fashionProductID)
+            .set({
+          'id': widget.fashionProductID,
+          'title': widget.title,
+          'price': widget.price,
+          'detail': widget.detail,
+          "weight": '1',
+          'imageUrl': widget.image,
+          'isOnSale': false,
+          'createdAt': Timestamp.now(),
+          'salePrice': widget.price,
+          "sellerId": FirebaseAuth.instance.currentUser!.uid,
+        });
+        await FirebaseFirestore.instance
+            .collection("saller")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("myFashionProducts")
+            .doc(widget.fashionProductID)
+            .update({
+          'stock': FieldValue.delete(),
+        });
+      }
+    } catch (e) {
+      debugPrint(('this is the try catch block$e'));
     }
   }
 
@@ -196,6 +248,34 @@ class _FashionWidgetState extends State<FashionWidget> {
                   color: color,
                   textSize: 18,
                   isTitle: true,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    updateProduct();
+
+                    setState(() {
+                      isAvailable = !isAvailable;
+                    });
+                  },
+                  child: Container(
+                    width: 100.0,
+                    height: 24.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(0.0),
+                      color: isAvailable
+                          ? const Color(0xFFCB0166)
+                          : const Color(0xFFCB0166),
+                    ),
+                    child: Center(
+                      child: Text(
+                        isAvailable ? 'InStock' : 'OutOfStock',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
