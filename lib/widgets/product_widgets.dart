@@ -40,11 +40,8 @@ class _ProductWidgetState extends State<ProductWidget> {
   bool isAvailable = true;
 
   Future<void> updateProduct() async {
-    print('out side try catch bleck');
     try {
       if (isAvailable == true) {
-        print('inside the if condtion');
-        print("this is the productId${widget.productID}");
         await FirebaseFirestore.instance
             .collection("saller")
             .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -58,7 +55,6 @@ class _ProductWidgetState extends State<ProductWidget> {
             .doc(widget.productID)
             .delete();
       } else if (isAvailable == false) {
-        print('after if statement>>>>>>>>>>>>>>>>>');
         await FirebaseFirestore.instance
             .collection("products")
             .doc(widget.productID)
@@ -84,7 +80,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         });
       }
     } catch (e) {
-      print(('this is the try catch block$e'));
+      debugPrint(('this is the try catch block$e'));
     }
   }
 
@@ -98,34 +94,28 @@ class _ProductWidgetState extends State<ProductWidget> {
           .get();
 
       if (docSnapshot.exists) {
-        // Document exists
         if (docSnapshot.data()!.containsKey('stock')) {
-          // 'stock' field exists
           setState(() {
             isAvailable = false;
           });
           debugPrint("this is after setstate$isAvailable");
         } else {
-          // 'stock' field does not exist, set isAvailable to true
           setState(() {
             isAvailable = true;
           });
         }
       } else {
-        // Document does not exist, set isAvailable to true
         setState(() {
           isAvailable = true;
         });
       }
     } catch (e) {
       print("Error checking product availability: $e");
-      // Handle the error as needed
     }
   }
 
   @override
   void initState() {
-    // getProductData();
     checkProductAvailability();
 
     super.initState();
