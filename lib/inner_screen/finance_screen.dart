@@ -95,96 +95,93 @@ class _FinanceScreenState extends State<FinanceScreen> {
               // It takes 5/6 part of the screen
               flex: 5,
               child: SingleChildScrollView(
-                  child: Padding(
-                padding: const EdgeInsets.all(defaultPadding),
-                child: Column(
-                  children: [
-                    Header(
-                      fct: () {
-                        controlFinanceScreen();
-                      },
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        TextWidget(
-                          text: 'All Details',
-                          color: color,
-                          textSize: 24,
-                          isTitle: true,
+                child: Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: Column(
+                    children: [
+                      Header(
+                        fct: () {
+                          controlFinanceScreen();
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          TextWidget(
+                            text: 'All Details',
+                            color: color,
+                            textSize: 24,
+                            isTitle: true,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Responsive(
+                        mobile: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                MobileContainer(
+                                  title: "Total Orders",
+                                  number: complete,
+                                  color: Colors.white,
+                                ),
+                                MobileContainer(
+                                  title: "Pending",
+                                  number: pending,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                MobileContainer(
+                                  title: processing,
+                                  number: "4",
+                                  color: Colors.white,
+                                ),
+                                MobileContainer(
+                                  title: "Complete",
+                                  number: complete,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Responsive(
-                      mobile: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              MobileContainer(
-                                title: "Total Orders",
-                                number: complete,
-                                color: Colors.white,
-                              ),
-                              MobileContainer(
-                                title: "Pending",
-                                number: pending,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              MobileContainer(
-                                title: processing,
-                                number: "4",
-                                color: Colors.white,
-                              ),
-                              MobileContainer(
-                                title: "Complete",
-                                number: complete,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                        ],
+                        desktop: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            WebContainer(
+                              number: totalOrders,
+                              title: "Total Orders",
+                            ),
+                            WebContainer(
+                              number: pending,
+                              title: "Pending",
+                            ),
+                            WebContainer(
+                              number: processing,
+                              title: "Processing",
+                            ),
+                            WebContainer(
+                              number: complete,
+                              title: "Complete",
+                            ),
+                          ],
+                        ),
                       ),
-                      desktop: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          WebContainer(
-                            number: totalOrders,
-                            title: "Total Orders",
-                          ),
-                          WebContainer(
-                            number: pending,
-                            title: "Pending",
-                          ),
-                          WebContainer(
-                            number: processing,
-                            title: "Processing",
-                          ),
-                          WebContainer(
-                            number: complete,
-                            title: "Complete",
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const OrdersList()
-                  ],
+                    ],
+                  ),
                 ),
-              )),
+              ),
             ),
           ],
         ),
