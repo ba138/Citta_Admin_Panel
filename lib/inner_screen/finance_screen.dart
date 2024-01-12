@@ -78,7 +78,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
     final color = Utils(context).color;
 
     return Scaffold(
-      key: getOrderScaffoldKey,
+      key: getFinanceScaffoldKey,
       drawer: const SideMenu(),
       body: SafeArea(
         child: Row(
