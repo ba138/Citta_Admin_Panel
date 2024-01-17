@@ -220,11 +220,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                           ],
                         ),
-                        // ProductGrid(
-                        //   crossAxisCount: size.width < 650 ? 2 : 4,
-                        //   childAspectRatio:
-                        //       size.width < 650 && size.width > 350 ? 1.1 : 0.8,
-                        // ),
                         desktop: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -327,19 +322,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // const FashionGrid(),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-
-                      // const OrdersList(),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-
-                      // MyProductsHome(),
-                      // SizedBox(height: defaultPadding),
-                      // OrdersScreen(),
                     ],
                   ),
                 ),
