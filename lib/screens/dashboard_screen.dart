@@ -271,7 +271,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   color: Colors.white,
                                 ),
                                 MobileContainer(
-                                  title: "Pending",
+                                  title: "Recent",
                                   number: pending,
                                   color: Colors.white,
                                 ),
@@ -306,7 +306,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             ),
                             WebContainer(
                               number: pending,
-                              title: "Pending",
+                              title: "Recent",
                             ),
                             WebContainer(
                               number: processing,
