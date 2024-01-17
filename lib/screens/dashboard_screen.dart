@@ -24,6 +24,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int fashionNumber = 0;
   int bundleNumber = 0;
   String totlaIcome = "0";
+  String totalOrders = "0";
+  String complete = "0";
+
+  String pending = "0";
+
+  String processing = "0";
+
+  Future<void> analyzeOrders() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection("saller")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("my_orders")
+          .get();
+
+      int collectionIndex = 0;
+
+      int pendingCount = 0;
+      int processingCount = 0;
+      int completeCount = 0;
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        String status = doc['status'] ?? '';
+
+        if (status == 'pending') {
+          pendingCount++;
+        } else if (status == 'processing') {
+          processingCount++;
+        } else if (status == 'Delivered') {
+          completeCount++;
+        }
+
+        collectionIndex++;
+      }
+
+      setState(() {
+        totalOrders = collectionIndex.toString();
+        pending = pendingCount.toString();
+        processing = processingCount.toString();
+        complete = completeCount.toString();
+      });
+    } catch (e) {
+      debugPrint('Error analyzing orders: $e');
+    }
+  }
 
   Future<void> getDocumentIndex() async {
     try {
@@ -97,6 +142,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     getDocumentIndex();
     getFashionIndex();
     getBundleIndex();
+    analyzeOrders();
     sumAndAssignSalePrices();
   }
 
@@ -204,16 +250,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-
-                      // const FashionGrid(),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
-                            text: 'All Orders',
+                            text: 'Orders Details',
                             color: color,
                             textSize: 24,
                             isTitle: true,
@@ -223,10 +264,78 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const OrdersList(),
+                      Responsive(
+                        mobile: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                MobileContainer(
+                                  title: "Total Orders",
+                                  number: complete,
+                                  color: Colors.white,
+                                ),
+                                MobileContainer(
+                                  title: "Pending",
+                                  number: pending,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                MobileContainer(
+                                  title: processing,
+                                  number: processing,
+                                  color: Colors.white,
+                                ),
+                                MobileContainer(
+                                  title: "Complete",
+                                  number: complete,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        desktop: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            WebContainer(
+                              number: totalOrders,
+                              title: "Total Orders",
+                            ),
+                            WebContainer(
+                              number: pending,
+                              title: "Pending",
+                            ),
+                            WebContainer(
+                              number: processing,
+                              title: "Processing",
+                            ),
+                            WebContainer(
+                              number: complete,
+                              title: "Complete",
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),
+                      // const FashionGrid(),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+
+                      // const OrdersList(),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
 
                       // MyProductsHome(),
                       // SizedBox(height: defaultPadding),
