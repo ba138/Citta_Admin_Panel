@@ -3,6 +3,7 @@ import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/models.dart';
 import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/services/utils.dart';
+import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/header.dart';
 import 'package:citta_admin_panel/widgets/mobile_container.dart';
 import 'package:citta_admin_panel/widgets/side_menu.dart';
@@ -153,6 +154,9 @@ class _FinanceScreenState extends State<FinanceScreen> {
                           controlFinanceScreen();
                         },
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -162,6 +166,8 @@ class _FinanceScreenState extends State<FinanceScreen> {
                             textSize: 24,
                             isTitle: true,
                           ),
+                          const Spacer(),
+                          ButtonsWidget(onPressed: () {}, text: "WithDraw")
                         ],
                       ),
                       const SizedBox(
