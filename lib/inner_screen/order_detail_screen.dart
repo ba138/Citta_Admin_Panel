@@ -35,6 +35,7 @@ class OrderDetailScreen extends StatefulWidget {
     required this.weight,
     required this.uuid,
     required this.status,
+    required this.size,
   });
   final String userName;
   final String phone;
@@ -49,6 +50,7 @@ class OrderDetailScreen extends StatefulWidget {
   final String weight;
   final String uuid;
   final String status;
+  final String size;
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();
 }
@@ -363,6 +365,26 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                               ),
                               TextWidget(
                                 text: widget.weight,
+                                color: color,
+                                isTitle: true,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              TextWidget(
+                                text: 'Size: ',
+                                color: const Color(0xFFCB0166),
+                                isTitle: true,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              TextWidget(
+                                text: widget.size,
                                 color: color,
                                 isTitle: true,
                               ),
