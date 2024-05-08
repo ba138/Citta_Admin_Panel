@@ -13,9 +13,11 @@ import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -32,6 +34,33 @@ class UploadProductForm extends StatefulWidget {
 
 class _UploadProductFormState extends State<UploadProductForm> {
   final _formKey = GlobalKey<FormState>();
+  static const menuItems = <String>[
+    'Grocerry',
+    'Fashion',
+    'Bundle',
+  ];
+  static const menuItems2 = <String>[
+    'Grocerry',
+    'Fashion',
+    'Bundle',
+  ];
+
+  final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
+      .map(
+        (String value) => DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        ),
+      )
+      .toList();
+  final List<DropdownMenuItem<String>> _dropDownMenuItems2 = menuItems2
+      .map(
+        (String value) => DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        ),
+      )
+      .toList();
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
@@ -41,6 +70,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
+  String? _btn2SelectedVal;
+  String? _btn2SelectedVal2;
+
   @override
   void dispose() {
     _priceController.dispose();
@@ -183,11 +215,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Utils(context).getTheme;
     final color = Utils(context).color;
     final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
-
     var inputDecoration = InputDecoration(
       filled: true,
       fillColor: scaffoldColor,
@@ -199,7 +229,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
         ),
       ),
     );
+
     return Scaffold(
+      backgroundColor: const Color(0xffF5F5F5),
       key: getAddProductscaffoldKey,
       drawer: const SideMenu(),
       body: LoadingManager(
@@ -214,217 +246,359 @@ class _UploadProductFormState extends State<UploadProductForm> {
               flex: 5,
               child: SingleChildScrollView(
                 controller: ScrollController(),
-                child: Column(
-                  children: [
-                    // Header(fct: () {
-                    //   controlAddProductsMenu();
-                    // }),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: TextWidget(
-                        text: 'Add Product Details',
-                        color: color,
-                        isTitle: true,
-                      ),
-                    ),
-                    Container(
-                      width: size.width > 650 ? 650 : size.width,
-                      color: Theme.of(context).cardColor,
-                      padding: const EdgeInsets.all(16),
-                      margin: const EdgeInsets.all(16),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController,
-                              key: const ValueKey('Title'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: inputDecoration,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: _pickedImage == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              _pickedImage!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                              ),
-                            ),
-                            TextWidget(
-                              text: 'Product Detail*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              maxLines: 4,
-                              key: const ValueKey('Detail'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Detail ';
-                                }
-                                return null;
-                              },
-                              controller: _detailController,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: scaffoldColor,
-                                alignLabelWithHint: true,
-                                hintStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: color,
-                                ),
-                                hintText: 'Write details about Product....',
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Product Price*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _priceController,
-                              key: const ValueKey('Price'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Price';
-                                }
-                                return null;
-                              },
-                              decoration: inputDecoration,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Sale Price*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(height: 10),
-                            TextFormField(
-                              controller: _salePriceController,
-                              key: const ValueKey('SalePrice'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Sale Price';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Product Amount*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _amountController,
-                              key: const ValueKey('Amount'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Amount';
-                                }
-                                return null;
-                              },
-                              decoration: inputDecoration,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  ButtonsWidget(
-                                    onPressed: () {
-                                      clearForm();
-                                    },
-                                    text: 'Clear form',
-                                  ),
-                                  ButtonsWidget(
-                                    onPressed: () {
-                                      _uploadForm();
-                                    },
-                                    text: 'Upload',
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Container(
+                    color: Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: TextWidget(
+                            text: 'Add Product Details',
+                            color: color,
+                            isTitle: true,
+                          ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      text: 'product name',
+                                      color: color,
+                                      isTitle: true,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            8.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors
+                                              .grey, // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                      child: TextFormField(
+                                        controller: _titleController,
+                                        key: const ValueKey('Title'),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter a Title';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          border: InputBorder.none,
+                                          hintText: 'Enter Title',
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      text: 'product description',
+                                      color: color,
+                                      isTitle: true,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            8.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors
+                                              .grey, // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                      child: TextFormField(
+                                        controller: _detailController,
+                                        key: const ValueKey('Detail'),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter a Detail ';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          border: InputBorder.none,
+                                          hintText: 'Please enter a Detail',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      text: 'Product Weight',
+                                      color: color,
+                                      isTitle: true,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            8.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors
+                                              .grey, // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                      child: TextFormField(
+                                        controller: _amountController,
+                                        key: const ValueKey('Amount'),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter a Amount';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          border: InputBorder.none,
+                                          hintText: 'Please enter a Amount',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      text: 'Product Categorie',
+                                      color: color,
+                                      isTitle: true,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            8.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors
+                                              .grey, // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 8.0,
+                                          right: 8,
+                                        ),
+                                        child: DropdownButton(
+                                          underline: const SizedBox(),
+                                          isExpanded: true,
+                                          value: _btn2SelectedVal,
+                                          hint: const Text(
+                                              'Choose the product Categories'),
+                                          onChanged: (String? newValue) {
+                                            if (newValue != null) {
+                                              setState(() =>
+                                                  _btn2SelectedVal = newValue);
+                                            }
+                                          },
+                                          items: _dropDownMenuItems,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      text: 'Product Price',
+                                      color: color,
+                                      isTitle: true,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            8.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors
+                                              .grey, // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                      child: TextFormField(
+                                        controller: _detailController,
+                                        key: const ValueKey('Price'),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter a Price';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                          border: InputBorder.none,
+                                          hintText: 'Please enter a Price',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      text: 'Related Products',
+                                      color: color,
+                                      isTitle: true,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            8.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors
+                                              .grey, // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 8.0,
+                                          right: 8,
+                                        ),
+                                        child: DropdownButton(
+                                          isExpanded: true,
+                                          underline: const SizedBox(),
+                                          value: _btn2SelectedVal2,
+                                          hint: const Text(
+                                              'Choose the releated Products'),
+                                          onChanged: (String? newValue) {
+                                            if (newValue != null) {
+                                              setState(() =>
+                                                  _btn2SelectedVal2 = newValue);
+                                            }
+                                          },
+                                          items: _dropDownMenuItems2,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Container(
+                            height: size.width > 650 ? 350 : size.width * 0.45,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(
+                                  8.0), // Adjust border radius as needed
+                              border: Border.all(
+                                color: Colors.grey, // Specify border color
+                                width: 1.0, // Specify border width
+                              ),
+                            ),
+                            child: _pickedImage == null
+                                ? DottedBor(
+                                    color: color,
+                                    tap: _pickImage,
+                                  )
+                                : kIsWeb
+                                    ? Image.memory(
+                                        webImage,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        fit: BoxFit.fill,
+                                      )
+                                    : Image.file(
+                                        _pickedImage!,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        fit: BoxFit.fill,
+                                      ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.all(18.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ButtonsWidget(
+                                onPressed: clearForm,
+                                text: 'Clear form',
+                                bgColor: Colors.transparent,
+                                textColor: Colors.black,
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              ButtonsWidget(
+                                onPressed: _uploadForm,
+                                text: 'Upload',
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),

@@ -17,7 +17,7 @@ class DottedBor extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
-            Icons.image_outlined,
+            Icons.upload_outlined,
             color: color,
             size: 50,
           ),
@@ -27,8 +27,8 @@ class DottedBor extends StatelessWidget {
           TextButton(
             onPressed: () => tap(),
             child: TextWidget(
-              text: "Choose an Image",
-              color: const Color(0xFFCB0166),
+              text: "Upload Product Image",
+              color: const Color(0xFF000000),
             ),
           ),
         ],
