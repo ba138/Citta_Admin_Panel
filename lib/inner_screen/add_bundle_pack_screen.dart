@@ -2,11 +2,15 @@
 
 import 'dart:io';
 
+import 'package:citta_admin_panel/consts/bundel_pack_field.dart';
+import 'package:citta_admin_panel/consts/colors.dart';
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
 import 'package:citta_admin_panel/widgets/text_widget.dart';
@@ -493,6 +497,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     );
     return Scaffold(
       key: getAddProductscaffoldKey,
+      backgroundColor: Color(0xffF8F8F8),
       drawer: const SideMenu(),
       body: LoadingManager(
         isLoading: isLoading,
@@ -507,874 +512,1558 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
               child: SingleChildScrollView(
                 controller: ScrollController(),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(20),
-                      child: TextWidget(
-                        text: 'Add Bundle Pack Details',
-                        color: color,
-                        isTitle: true,
+                      child: Text(
+                        "Add Bundle Pack Details",
+                        style: GoogleFonts.getFont(
+                          "Poppins",
+                          textStyle: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            color: AppColor.titleColor,
+                          ),
+                        ),
                       ),
                     ),
-                    Container(
-                      width: size.width > 650 ? 650 : size.width,
-                      color: Theme.of(context).cardColor,
-                      padding: const EdgeInsets.all(16),
-                      margin: const EdgeInsets.all(16),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController,
-                              key: const ValueKey('Title'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Name Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: _coverImage == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage,
-                                              fit: BoxFit.fill,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: AppColor.borderColor)),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                2.5,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.6,
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              _coverImage!,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            border: Border.all(
+                                                color: AppColor.borderColor)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Name",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Weight",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Price",
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Text(
+                                                "Upload Product Image",
+                                                style: GoogleFonts.getFont(
+                                                  "Poppins",
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColor.titleColor,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppColor
+                                                            .borderColor),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: previewImage1 == null
+                                                      ? DottedBor(
+                                                          color: color,
+                                                          tap: _pickImage1,
+                                                        )
+                                                      : kIsWeb
+                                                          ? Center(
+                                                              child:
+                                                                  Image.memory(
+                                                                webImage1,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            )
+                                                          : Center(
+                                                              child: Image.file(
+                                                                previewImage1!,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Product Detail*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextField(
-                              maxLines: 4,
-                              controller: _detailController,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: scaffoldColor,
-                                alignLabelWithHint: true,
-                                hintStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: color,
-                                ),
-                                hintText: 'Write details about Product....',
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Price*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _priceController,
-                              key: const ValueKey('Price'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Price';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Price Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'SalePrice*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _saleController,
-                              key: const ValueKey('SalePrice'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Sale Price';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Sale Price Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Size*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _sizeController,
-                              key: const ValueKey('Size'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Size';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Small,Medim,Large",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Weight*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _weightController,
-                              key: const ValueKey('weight'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Weight';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The weight Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: TextWidget(
-                                text: 'First Product*',
-                                color: color,
-                                isTitle: true,
-                              ),
-                            ),
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController1,
-                              key: const ValueKey('Title1'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Name Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage1 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage1,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage1,
-                                              fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                2.5,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.6,
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage1!,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            border: Border.all(
+                                                color: AppColor.borderColor)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Name",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Weight",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Price",
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Text(
+                                                "Upload Product Image",
+                                                style: GoogleFonts.getFont(
+                                                  "Poppins",
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColor.titleColor,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppColor
+                                                            .borderColor),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: previewImage2 == null
+                                                      ? DottedBor(
+                                                          color: color,
+                                                          tap: _pickImage2,
+                                                        )
+                                                      : kIsWeb
+                                                          ? Center(
+                                                              child:
+                                                                  Image.memory(
+                                                                webImage2,
+                                                                fit: BoxFit
+                                                                    .fitWidth,
+                                                              ),
+                                                            )
+                                                          : Center(
+                                                              child: Image.file(
+                                                                _coverImage!,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Amount*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _detailController1,
-                              key: const ValueKey('Amount'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Amount';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Amount Of Product",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: TextWidget(
-                                text: 'Second Product*',
-                                color: color,
-                                isTitle: true,
-                              ),
-                            ),
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController2,
-                              key: const ValueKey('Title2'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Name Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage2 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage2,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage2,
-                                              fit: BoxFit.fill,
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                2.5,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.6,
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage2!,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            border: Border.all(
+                                                color: AppColor.borderColor)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Name",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Weight",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Price",
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Text(
+                                                "Upload Product Image",
+                                                style: GoogleFonts.getFont(
+                                                  "Poppins",
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColor.titleColor,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppColor
+                                                            .borderColor),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: previewImage3 == null
+                                                      ? DottedBor(
+                                                          color: color,
+                                                          tap: _pickImage3,
+                                                        )
+                                                      : kIsWeb
+                                                          ? Center(
+                                                              child:
+                                                                  Image.memory(
+                                                                webImage3,
+                                                                fit: BoxFit
+                                                                    .fitWidth,
+                                                              ),
+                                                            )
+                                                          : Center(
+                                                              child: Image.file(
+                                                                _coverImage!,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Amount*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _detailController2,
-                              key: const ValueKey('Amount2'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Amount';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Amount Of Product",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: TextWidget(
-                                text: 'Third Product*',
-                                color: color,
-                                isTitle: true,
-                              ),
-                            ),
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController3,
-                              key: const ValueKey('Title3'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Name Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage3 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage3,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage3,
-                                              fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                2.5,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.6,
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage3!,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            border: Border.all(
+                                                color: AppColor.borderColor)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Name",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Weight",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Price",
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Text(
+                                                "Upload Product Image",
+                                                style: GoogleFonts.getFont(
+                                                  "Poppins",
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColor.titleColor,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppColor
+                                                            .borderColor),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: previewImage4 == null
+                                                      ? DottedBor(
+                                                          color: color,
+                                                          tap: _pickImage4,
+                                                        )
+                                                      : kIsWeb
+                                                          ? Center(
+                                                              child:
+                                                                  Image.memory(
+                                                                webImage4,
+                                                                fit: BoxFit
+                                                                    .fitWidth,
+                                                              ),
+                                                            )
+                                                          : Center(
+                                                              child: Image.file(
+                                                                _coverImage!,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Amount*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _detailController3,
-                              key: const ValueKey('Amount3'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Amount';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Amount Of Product",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: TextWidget(
-                                text: 'Fourth Product*',
-                                color: color,
-                                isTitle: true,
-                              ),
-                            ),
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController4,
-                              key: const ValueKey('Title4'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Name Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage4 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage4,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage4,
-                                              fit: BoxFit.fill,
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Expanded(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                2.5,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.6,
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage4!,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            border: Border.all(
+                                                color: AppColor.borderColor)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Name",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Weight",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Price",
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Text(
+                                                "Upload Product Image",
+                                                style: GoogleFonts.getFont(
+                                                  "Poppins",
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColor.titleColor,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppColor
+                                                            .borderColor),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: previewImage5 == null
+                                                      ? DottedBor(
+                                                          color: color,
+                                                          tap: _pickImage5,
+                                                        )
+                                                      : kIsWeb
+                                                          ? Center(
+                                                              child:
+                                                                  Image.memory(
+                                                                webImage5,
+                                                                fit: BoxFit
+                                                                    .fitWidth,
+                                                              ),
+                                                            )
+                                                          : Center(
+                                                              child: Image.file(
+                                                                _coverImage!,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Amount*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _detailController4,
-                              key: const ValueKey('Amount4'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Amount';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Amount Of Product",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: TextWidget(
-                                text: 'Fifth Product*',
-                                color: color,
-                                isTitle: true,
-                              ),
-                            ),
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController5,
-                              key: const ValueKey('Title5'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Name Of Product ",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage5 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage5,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage5,
-                                              fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                2.5,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2.6,
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
                                             ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage5!,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            border: Border.all(
+                                                color: AppColor.borderColor)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Name",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Weight",
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Expanded(
+                                                    child: BundleField(
+                                                      controller:
+                                                          _titleController1,
+                                                      tite: "Product Price",
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Text(
+                                                "Upload Product Image",
+                                                style: GoogleFonts.getFont(
+                                                  "Poppins",
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: AppColor.titleColor,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 12,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: AppColor
+                                                            .borderColor),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                  child: previewImage6 == null
+                                                      ? DottedBor(
+                                                          color: color,
+                                                          tap: _pickImage,
+                                                        )
+                                                      : kIsWeb
+                                                          ? Center(
+                                                              child:
+                                                                  Image.memory(
+                                                                webImage6,
+                                                                fit: BoxFit
+                                                                    .fitWidth,
+                                                              ),
+                                                            )
+                                                          : Center(
+                                                              child: Image.file(
+                                                                _coverImage!,
+                                                                fit:
+                                                                    BoxFit.fill,
+                                                              ),
+                                                            ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Amount*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _detailController5,
-                              key: const ValueKey('Amount5'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Amount';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Amount Of Product",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Center(
-                              child: TextWidget(
-                                text: 'Sixth Product*',
-                                color: color,
-                                isTitle: true,
+                              // TextWidget(
+                              //   text: 'Product title*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _titleController,
+                              //   key: const ValueKey('Title'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Title';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Name Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(14),
+                              //   child: Container(
+                              //     height: size.width > 650
+                              //         ? 350
+                              //         : size.width * 0.45,
+                              //     color:
+                              //         Theme.of(context).scaffoldBackgroundColor,
+                              //     child: _coverImage == null
+                              //         ? DottedBor(
+                              //             color: color,
+                              //             tap: _pickImage,
+                              //           )
+                              //         : kIsWeb
+                              //             ? Center(
+                              //                 child: Image.memory(
+                              //                   webImage,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               )
+                              //             : Center(
+                              //                 child: Image.file(
+                              //                   _coverImage!,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Product Detail*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextField(
+                              //   maxLines: 4,
+                              //   controller: _detailController,
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     fillColor: scaffoldColor,
+                              //     alignLabelWithHint: true,
+                              //     hintStyle: TextStyle(
+                              //       fontSize: 14,
+                              //       fontWeight: FontWeight.w400,
+                              //       color: color,
+                              //     ),
+                              //     hintText: 'Write details about Product....',
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Price*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _priceController,
+                              //   key: const ValueKey('Price'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Price';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Price Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'SalePrice*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _saleController,
+                              //   key: const ValueKey('SalePrice'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Sale Price';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText:
+                              //         "Enter The Sale Price Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Size*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _sizeController,
+                              //   key: const ValueKey('Size'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Size';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Small,Medim,Large",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Weight*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _weightController,
+                              //   key: const ValueKey('weight'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Weight';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The weight Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Center(
+                              //   child: TextWidget(
+                              //     text: 'First Product*',
+                              //     color: color,
+                              //     isTitle: true,
+                              //   ),
+                              // ),
+                              // TextWidget(
+                              //   text: 'Product title*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _titleController1,
+                              //   key: const ValueKey('Title1'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Title';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Name Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(14),
+                              //   child: Container(
+                              //     height: size.width > 650
+                              //         ? 350
+                              //         : size.width * 0.45,
+                              //     color:
+                              //         Theme.of(context).scaffoldBackgroundColor,
+                              //     child: previewImage1 == null
+                              //         ? DottedBor(
+                              //             color: color,
+                              //             tap: _pickImage1,
+                              //           )
+                              //         : kIsWeb
+                              //             ? Center(
+                              //                 child: Image.memory(
+                              //                   webImage1,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               )
+                              //             : Center(
+                              //                 child: Image.file(
+                              //                   previewImage1!,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Amount*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _detailController1,
+                              //   key: const ValueKey('Amount'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Amount';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Amount Of Product",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Center(
+                              //   child: TextWidget(
+                              //     text: 'Second Product*',
+                              //     color: color,
+                              //     isTitle: true,
+                              //   ),
+                              // ),
+                              // TextWidget(
+                              //   text: 'Product title*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _titleController2,
+                              //   key: const ValueKey('Title2'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Title';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Name Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(14),
+                              //   child: Container(
+                              //     height: size.width > 650
+                              //         ? 350
+                              //         : size.width * 0.45,
+                              //     color:
+                              //         Theme.of(context).scaffoldBackgroundColor,
+                              //     child: previewImage2 == null
+                              //         ? DottedBor(
+                              //             color: color,
+                              //             tap: _pickImage2,
+                              //           )
+                              //         : kIsWeb
+                              //             ? Center(
+                              //                 child: Image.memory(
+                              //                   webImage2,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               )
+                              //             : Center(
+                              //                 child: Image.file(
+                              //                   previewImage2!,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Amount*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _detailController2,
+                              //   key: const ValueKey('Amount2'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Amount';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Amount Of Product",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Center(
+                              //   child: TextWidget(
+                              //     text: 'Third Product*',
+                              //     color: color,
+                              //     isTitle: true,
+                              //   ),
+                              // ),
+                              // TextWidget(
+                              //   text: 'Product title*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _titleController3,
+                              //   key: const ValueKey('Title3'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Title';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Name Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(14),
+                              //   child: Container(
+                              //     height: size.width > 650
+                              //         ? 350
+                              //         : size.width * 0.45,
+                              //     color:
+                              //         Theme.of(context).scaffoldBackgroundColor,
+                              //     child: previewImage3 == null
+                              //         ? DottedBor(
+                              //             color: color,
+                              //             tap: _pickImage3,
+                              //           )
+                              //         : kIsWeb
+                              //             ? Center(
+                              //                 child: Image.memory(
+                              //                   webImage3,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               )
+                              //             : Center(
+                              //                 child: Image.file(
+                              //                   previewImage3!,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Amount*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _detailController3,
+                              //   key: const ValueKey('Amount3'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Amount';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Amount Of Product",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Center(
+                              //   child: TextWidget(
+                              //     text: 'Fourth Product*',
+                              //     color: color,
+                              //     isTitle: true,
+                              //   ),
+                              // ),
+                              // TextWidget(
+                              //   text: 'Product title*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _titleController4,
+                              //   key: const ValueKey('Title4'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Title';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Name Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(14),
+                              //   child: Container(
+                              //     height: size.width > 650
+                              //         ? 350
+                              //         : size.width * 0.45,
+                              //     color:
+                              //         Theme.of(context).scaffoldBackgroundColor,
+                              //     child: previewImage4 == null
+                              //         ? DottedBor(
+                              //             color: color,
+                              //             tap: _pickImage4,
+                              //           )
+                              //         : kIsWeb
+                              //             ? Center(
+                              //                 child: Image.memory(
+                              //                   webImage4,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               )
+                              //             : Center(
+                              //                 child: Image.file(
+                              //                   previewImage4!,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Amount*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _detailController4,
+                              //   key: const ValueKey('Amount4'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Amount';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Amount Of Product",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Center(
+                              //   child: TextWidget(
+                              //     text: 'Fifth Product*',
+                              //     color: color,
+                              //     isTitle: true,
+                              //   ),
+                              // ),
+                              // TextWidget(
+                              //   text: 'Product title*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _titleController5,
+                              //   key: const ValueKey('Title5'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Title';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Name Of Product ",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(14),
+                              //   child: Container(
+                              //     height: size.width > 650
+                              //         ? 350
+                              //         : size.width * 0.45,
+                              //     color:
+                              //         Theme.of(context).scaffoldBackgroundColor,
+                              //     child: previewImage5 == null
+                              //         ? DottedBor(
+                              //             color: color,
+                              //             tap: _pickImage5,
+                              //           )
+                              //         : kIsWeb
+                              //             ? Center(
+                              //                 child: Image.memory(
+                              //                   webImage5,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               )
+                              //             : Center(
+                              //                 child: Image.file(
+                              //                   previewImage5!,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Amount*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _detailController5,
+                              //   key: const ValueKey('Amount5'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Amount';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Amount Of Product",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Center(
+                              //   child: TextWidget(
+                              //     text: 'Sixth Product*',
+                              //     color: color,
+                              //     isTitle: true,
+                              //   ),
+                              // ),
+                              // TextWidget(
+                              //   text: 'Product title*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _titleController6,
+                              //   key: const ValueKey('Title6'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Title';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Name Of Bundle Pack",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(14),
+                              //   child: Container(
+                              //     height: size.width > 650
+                              //         ? 350
+                              //         : size.width * 0.45,
+                              //     color:
+                              //         Theme.of(context).scaffoldBackgroundColor,
+                              //     child: previewImage6 == null
+                              //         ? DottedBor(
+                              //             color: color,
+                              //             tap: _pickImage6,
+                              //           )
+                              //         : kIsWeb
+                              //             ? Center(
+                              //                 child: Image.memory(
+                              //                   webImage6,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               )
+                              //             : Center(
+                              //                 child: Image.file(
+                              //                   previewImage6!,
+                              //                   fit: BoxFit.fill,
+                              //                 ),
+                              //               ),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
+                              // TextWidget(
+                              //   text: 'Amount*',
+                              //   color: color,
+                              //   isTitle: true,
+                              // ),
+                              // const SizedBox(
+                              //   height: 10,
+                              // ),
+                              // TextFormField(
+                              //   controller: _detailController6,
+                              //   key: const ValueKey('Amount6'),
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return 'Please enter a Amount';
+                              //     }
+                              //     return null;
+                              //   },
+                              //   decoration: InputDecoration(
+                              //     filled: true,
+                              //     hintText: "Enter The Amount Of Product",
+                              //     fillColor: scaffoldColor,
+                              //     border: InputBorder.none,
+                              //     focusedBorder: OutlineInputBorder(
+                              //       borderSide: BorderSide(
+                              //         color: color,
+                              //         width: 1.0,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              const SizedBox(
+                                height: 20,
                               ),
-                            ),
-                            TextWidget(
-                              text: 'Product title*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _titleController6,
-                              key: const ValueKey('Title6'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Title';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Name Of Bundle Pack",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
+                              Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    ButtonsWidget(
+                                      onPressed: () {
+                                        clearForm();
+                                      },
+                                      text: 'Clear form',
+                                      bgColor: Colors.transparent,
+                                      textColor: AppColor.titleColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    ButtonsWidget(
+                                      onPressed: () {
+                                        _uploadForm();
+                                      },
+                                      text: 'Upload',
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(14),
-                              child: Container(
-                                height:
-                                    size.width > 650 ? 350 : size.width * 0.45,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                child: previewImage6 == null
-                                    ? DottedBor(
-                                        color: color,
-                                        tap: _pickImage6,
-                                      )
-                                    : kIsWeb
-                                        ? Center(
-                                            child: Image.memory(
-                                              webImage6,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Image.file(
-                                              previewImage6!,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextWidget(
-                              text: 'Amount*',
-                              color: color,
-                              isTitle: true,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _detailController6,
-                              key: const ValueKey('Amount6'),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter a Amount';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                hintText: "Enter The Amount Of Product",
-                                fillColor: scaffoldColor,
-                                border: InputBorder.none,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: color,
-                                    width: 1.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  ButtonsWidget(
-                                    onPressed: () {
-                                      clearForm();
-                                    },
-                                    text: 'Clear form',
-                                  ),
-                                  ButtonsWidget(
-                                    onPressed: () {
-                                      _uploadForm();
-                                    },
-                                    text: 'Upload',
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -189,6 +189,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
       ),
     );
     return Scaffold(
+      backgroundColor: const Color(0xffF8F8F8),
       key: getAddProductscaffoldKey,
       drawer: const SideMenu(),
       body: LoadingManager(
@@ -217,10 +218,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                       ),
                     ),
                     Container(
-                      width: size.width > 650 ? 650 : size.width,
-                      color: Theme.of(context).cardColor,
-                      padding: const EdgeInsets.all(16),
-                      margin: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(color: Colors.white),
                       child: Form(
                         key: _formKey,
                         child: Column(

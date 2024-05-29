@@ -247,7 +247,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
               child: SingleChildScrollView(
                 controller: ScrollController(),
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
                   child: Container(
                     color: Colors.white,
                     child: Column(
