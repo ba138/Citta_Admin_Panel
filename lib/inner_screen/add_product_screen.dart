@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:citta_admin_panel/consts/colors.dart';
 import 'package:citta_admin_panel/controllers/MenuController.dart';
 import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/services/utils.dart';
@@ -19,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import '../responsive.dart';
@@ -231,7 +233,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xffF5F5F5),
+      backgroundColor: const Color(0xffF8F8F8),
       key: getAddProductscaffoldKey,
       drawer: const SideMenu(),
       body: LoadingManager(
@@ -270,36 +272,47 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextWidget(
-                                      text: 'product name',
-                                      color: color,
-                                      isTitle: true,
+                                    Text(
+                                      "Product Name",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.titleColor,
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     Container(
+                                      height: 38,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            8.0), // Adjust border radius as needed
+                                            4.0), // Adjust border radius as needed
                                         border: Border.all(
-                                          color: Colors
-                                              .grey, // Specify border color
+                                          color: AppColor
+                                              .borderColor, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
-                                      child: TextFormField(
-                                        controller: _titleController,
-                                        key: const ValueKey('Title'),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please enter a Title';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0),
-                                          border: InputBorder.none,
-                                          hintText: 'Enter Title',
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextFormField(
+                                          controller: _titleController,
+                                          key: const ValueKey('Title'),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please enter a Title';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            border: InputBorder.none,
+                                            hintText: 'Enter Title',
+                                          ),
                                         ),
                                       ),
                                     )
@@ -314,36 +327,47 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextWidget(
-                                      text: 'product description',
-                                      color: color,
-                                      isTitle: true,
+                                    Text(
+                                      "Product Dscription",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.titleColor,
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     Container(
+                                      height: 38,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            8.0), // Adjust border radius as needed
+                                            4.0), // Adjust border radius as needed
                                         border: Border.all(
                                           color: Colors
                                               .grey, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
-                                      child: TextFormField(
-                                        controller: _detailController,
-                                        key: const ValueKey('Detail'),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please enter a Detail ';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0),
-                                          border: InputBorder.none,
-                                          hintText: 'Please enter a Detail',
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextFormField(
+                                          controller: _detailController,
+                                          key: const ValueKey('Detail'),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please enter a Detail ';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            border: InputBorder.none,
+                                            hintText: 'Please enter a Detail',
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -358,36 +382,47 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextWidget(
-                                      text: 'Product Weight',
-                                      color: color,
-                                      isTitle: true,
+                                    Text(
+                                      "Product Weight",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.titleColor,
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     Container(
+                                      height: 38,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            8.0), // Adjust border radius as needed
+                                            4.0), // Adjust border radius as needed
                                         border: Border.all(
                                           color: Colors
                                               .grey, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
-                                      child: TextFormField(
-                                        controller: _amountController,
-                                        key: const ValueKey('Amount'),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please enter a Amount';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0),
-                                          border: InputBorder.none,
-                                          hintText: 'Please enter a Amount',
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextFormField(
+                                          controller: _amountController,
+                                          key: const ValueKey('Amount'),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please enter a Amount';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            border: InputBorder.none,
+                                            hintText: 'Please enter a Amount',
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -406,16 +441,25 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextWidget(
-                                      text: 'Product Categorie',
-                                      color: color,
-                                      isTitle: true,
+                                    Text(
+                                      "Product Categorie",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.titleColor,
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     Container(
+                                      height: 38,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            8.0), // Adjust border radius as needed
+                                            4.0), // Adjust border radius as needed
                                         border: Border.all(
                                           color: Colors
                                               .grey, // Specify border color
@@ -454,36 +498,47 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextWidget(
-                                      text: 'Product Price',
-                                      color: color,
-                                      isTitle: true,
+                                    Text(
+                                      "Product Price",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.titleColor,
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     Container(
+                                      height: 38,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            8.0), // Adjust border radius as needed
+                                            4.0), // Adjust border radius as needed
                                         border: Border.all(
                                           color: Colors
                                               .grey, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
-                                      child: TextFormField(
-                                        controller: _detailController,
-                                        key: const ValueKey('Price'),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please enter a Price';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0),
-                                          border: InputBorder.none,
-                                          hintText: 'Please enter a Price',
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: TextFormField(
+                                          controller: _detailController,
+                                          key: const ValueKey('Price'),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please enter a Price';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: const InputDecoration(
+                                            isDense: true,
+                                            border: InputBorder.none,
+                                            hintText: 'Please enter a Price',
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -498,16 +553,25 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextWidget(
-                                      text: 'Related Products',
-                                      color: color,
-                                      isTitle: true,
+                                    Text(
+                                      "Related Products",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.titleColor,
+                                        ),
+                                      ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
                                     Container(
+                                      height: 38,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(
-                                            8.0), // Adjust border radius as needed
+                                            4.0), // Adjust border radius as needed
                                         border: Border.all(
                                           color: Colors
                                               .grey, // Specify border color

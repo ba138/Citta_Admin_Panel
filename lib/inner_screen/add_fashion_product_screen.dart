@@ -340,7 +340,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                             height: 38,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(
-                                                  8.0), // Adjust border radius as needed
+                                                  4.0), // Adjust border radius as needed
                                               border: Border.all(
                                                 color: AppColor
                                                     .borderColor, // Specify border color
@@ -397,7 +397,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                             height: 38,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(
-                                                  8.0), // Adjust border radius as needed
+                                                  4.0), // Adjust border radius as needed
                                               border: Border.all(
                                                 color: AppColor
                                                     .borderColor, // Specify border color
@@ -454,7 +454,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                             height: 38,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(
-                                                  8.0), // Adjust border radius as needed
+                                                  4.0), // Adjust border radius as needed
                                               border: Border.all(
                                                 color: AppColor
                                                     .borderColor, // Specify border color
@@ -496,7 +496,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                       : size.width * 0.45,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(
-                                        8.0), // Adjust border radius as needed
+                                        4.0), // Adjust border radius as needed
                                     border: Border.all(
                                       color: AppColor
                                           .borderColor, // Specify border color
