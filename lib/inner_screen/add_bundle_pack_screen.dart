@@ -497,7 +497,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     );
     return Scaffold(
       key: getAddProductscaffoldKey,
-      backgroundColor: Color(0xffF8F8F8),
+      backgroundColor: const Color(0xffF8F8F8),
       drawer: const SideMenu(),
       body: LoadingManager(
         isLoading: isLoading,

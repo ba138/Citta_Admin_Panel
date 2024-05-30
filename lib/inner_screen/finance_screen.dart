@@ -1,6 +1,5 @@
 import 'package:citta_admin_panel/consts/constants.dart';
 import 'package:citta_admin_panel/controllers/MenuController.dart';
-import 'package:citta_admin_panel/models.dart';
 import 'package:citta_admin_panel/responsive.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';

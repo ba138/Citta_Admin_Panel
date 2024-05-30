@@ -5,8 +5,6 @@ import 'package:citta_admin_panel/widgets/review_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../services/utils.dart';
@@ -110,7 +108,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         });
       }
     } catch (e) {
-      print("Error checking product availability: $e");
+      debugPrint("Error checking product availability: $e");
     }
   }
 
@@ -295,44 +293,5 @@ class _ProductWidgetState extends State<ProductWidget> {
         ),
       ),
     );
-  }
-
-  static Future<void> errorDialog({
-    required String subtitle,
-    required BuildContext context,
-  }) async {
-    await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Row(
-              children: [
-                Image.asset(
-                  "assets/images/warning-sign.png",
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                const Text("An Error occured"),
-              ],
-            ),
-            content: Text(subtitle),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: TextWidget(
-                  text: "ok",
-                  color: Colors.cyan,
-                  textSize: 18,
-                ),
-              ),
-            ],
-          );
-        });
   }
 }

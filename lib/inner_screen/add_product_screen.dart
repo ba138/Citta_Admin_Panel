@@ -14,11 +14,9 @@ import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -35,16 +33,25 @@ class UploadProductForm extends StatefulWidget {
 }
 
 class _UploadProductFormState extends State<UploadProductForm> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static const menuItems = <String>[
-    'Grocerry',
-    'Fashion',
-    'Bundle',
+    'New Items',
+    'Hot Selling',
+    'Lightening Deals',
   ];
+
   static const menuItems2 = <String>[
-    'Grocerry',
-    'Fashion',
-    'Bundle',
+    '0',
+    '10',
+    '20',
+    '30',
+    '40',
+    '50',
+    '60',
+    '70',
+    '80',
+    '90',
+    '100',
   ];
 
   final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
@@ -68,7 +75,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _salePriceController = TextEditingController();
 
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
@@ -81,7 +87,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _titleController.dispose();
     _detailController.dispose();
     _amountController.dispose();
-    _salePriceController.dispose();
     super.dispose();
   }
 
@@ -91,10 +96,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
     _titleController.clear();
     _amountController.clear();
     _priceController.clear();
-    _salePriceController.clear();
 
     setState(() {
       _pickedImage = null;
+      _btn2SelectedVal = null;
+      _btn2SelectedVal2 = null;
     });
   }
 
@@ -120,24 +126,30 @@ class _UploadProductFormState extends State<UploadProductForm> {
   }
 
   bool isLoading = false;
-  void _uploadForm() async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
 
-    if (isValid) {
-      _formKey.currentState!.save();
-      final _uuid = const Uuid().v1();
+  void _uploadForm() async {
+    try {
       if (_pickedImage == null) {
         errorDialog(subtitle: 'Please pick up an image', context: context);
         return;
       }
-      try {
-        setState(() {
-          isLoading = true;
-        });
-        final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
 
-        Map<String, dynamic> myProducts = {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        errorDialog(subtitle: 'User is not authenticated', context: context);
+        return;
+      }
+
+      final _uuid = const Uuid().v1();
+      setState(() {
+        isLoading = true;
+      });
+
+      final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
+      Map<String, dynamic> myProducts = {};
+
+      if (_btn2SelectedVal != 'Lightening Deals') {
+        myProducts = {
           'id': _uuid,
           'title': _titleController.text,
           'price': _priceController.text,
@@ -146,42 +158,52 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'imageUrl': imageUrl,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
-          'salePrice': _salePriceController.text,
-          "sellerId": FirebaseAuth.instance.currentUser!.uid,
+          "sellerId": user.uid,
+          "category": _btn2SelectedVal
         };
-        await FirebaseFirestore.instance
-            .collection('products')
-            .doc(_uuid)
-            .set(myProducts);
-        await FirebaseFirestore.instance
-            .collection('saller')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection("my_products")
-            .doc(_uuid)
-            .set(myProducts);
-
-        clearForm();
-        Fluttertoast.showToast(
-          msg: "Product uploaded succefully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-        );
-      } on FirebaseException catch (error) {
-        errorDialog(subtitle: '${error.message}', context: context);
-        setState(() {
-          isLoading = false;
-        });
-      } catch (error) {
-        errorDialog(subtitle: '$error', context: context);
-        setState(() {
-          isLoading = false;
-        });
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
+      } else {
+        myProducts = {
+          'id': _uuid,
+          'title': _titleController.text,
+          'price': _priceController.text,
+          'detail': _detailController.text,
+          "weight": _amountController.text,
+          'imageUrl': imageUrl,
+          'isOnSale': false,
+          'createdAt': Timestamp.now(),
+          "sellerId": user.uid,
+          "category": _btn2SelectedVal,
+          "discount": _btn2SelectedVal2,
+        };
       }
+
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(_uuid)
+          .set(myProducts);
+      await FirebaseFirestore.instance
+          .collection('seller')
+          .doc(user.uid)
+          .collection("my_products")
+          .doc(_uuid)
+          .set(myProducts);
+
+      clearForm();
+
+      Fluttertoast.showToast(
+        msg: "Product uploaded successfully",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+      );
+    } on FirebaseException catch (error) {
+      errorDialog(subtitle: '${error.message}', context: context);
+    } catch (error) {
+      errorDialog(subtitle: '$error', context: context);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -218,19 +240,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
   @override
   Widget build(BuildContext context) {
     final color = Utils(context).color;
-    final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
-    var inputDecoration = InputDecoration(
-      filled: true,
-      fillColor: scaffoldColor,
-      border: InputBorder.none,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: color,
-          width: 1.0,
-        ),
-      ),
-    );
 
     return Scaffold(
       backgroundColor: const Color(0xffF8F8F8),
@@ -411,17 +421,17 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: TextFormField(
                                           controller: _amountController,
-                                          key: const ValueKey('Amount'),
+                                          key: const ValueKey('Weight'),
                                           validator: (value) {
                                             if (value!.isEmpty) {
-                                              return 'Please enter a Amount';
+                                              return 'Please enter a weight';
                                             }
                                             return null;
                                           },
                                           decoration: const InputDecoration(
                                             isDense: true,
                                             border: InputBorder.none,
-                                            hintText: 'Please enter a Amount',
+                                            hintText: '1kg',
                                           ),
                                         ),
                                       ),
@@ -442,7 +452,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Product Categorie",
+                                      "Product Discount",
                                       style: GoogleFonts.getFont(
                                         "Poppins",
                                         textStyle: const TextStyle(
@@ -474,16 +484,16 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         child: DropdownButton(
                                           underline: const SizedBox(),
                                           isExpanded: true,
-                                          value: _btn2SelectedVal,
+                                          value: _btn2SelectedVal2,
                                           hint: const Text(
-                                              'Choose the product Categories'),
+                                              'Choose the product discount'),
                                           onChanged: (String? newValue) {
                                             if (newValue != null) {
                                               setState(() =>
-                                                  _btn2SelectedVal = newValue);
+                                                  _btn2SelectedVal2 = newValue);
                                             }
                                           },
-                                          items: _dropDownMenuItems,
+                                          items: _dropDownMenuItems2,
                                         ),
                                       ),
                                     )
@@ -526,7 +536,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: TextFormField(
-                                          controller: _detailController,
+                                          controller: _priceController,
                                           key: const ValueKey('Price'),
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -586,16 +596,16 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         child: DropdownButton(
                                           isExpanded: true,
                                           underline: const SizedBox(),
-                                          value: _btn2SelectedVal2,
+                                          value: _btn2SelectedVal,
                                           hint: const Text(
                                               'Choose the releated Products'),
                                           onChanged: (String? newValue) {
                                             if (newValue != null) {
                                               setState(() =>
-                                                  _btn2SelectedVal2 = newValue);
+                                                  _btn2SelectedVal = newValue);
                                             }
                                           },
-                                          items: _dropDownMenuItems2,
+                                          items: _dropDownMenuItems,
                                         ),
                                       ),
                                     ),
@@ -654,7 +664,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 width: 20,
                               ),
                               ButtonsWidget(
-                                onPressed: _uploadForm,
+                                onPressed: () {
+                                  _uploadForm();
+                                },
                                 text: 'Upload',
                               ),
                             ],

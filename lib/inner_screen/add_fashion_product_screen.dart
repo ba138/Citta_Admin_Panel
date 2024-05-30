@@ -15,11 +15,9 @@ import 'package:citta_admin_panel/widgets/text_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -223,20 +221,8 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   @override
   Widget build(BuildContext context) {
     final color = Utils(context).color;
-    final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
 
-    var inputDecoration = InputDecoration(
-      filled: true,
-      fillColor: scaffoldColor,
-      border: InputBorder.none,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: color,
-          width: 1.0,
-        ),
-      ),
-    );
     return Scaffold(
       backgroundColor: const Color(0xffF8F8F8),
       key: getAddProductscaffoldKey,
