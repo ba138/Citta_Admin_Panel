@@ -357,8 +357,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         borderRadius: BorderRadius.circular(
                                             4.0), // Adjust border radius as needed
                                         border: Border.all(
-                                          color: Colors
-                                              .grey, // Specify border color
+                                          color: AppColor
+                                              .borderColor, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
@@ -412,8 +412,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         borderRadius: BorderRadius.circular(
                                             4.0), // Adjust border radius as needed
                                         border: Border.all(
-                                          color: Colors
-                                              .grey, // Specify border color
+                                          color: AppColor
+                                              .borderColor, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
@@ -452,7 +452,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Product Discount",
+                                      "Related Products",
                                       style: GoogleFonts.getFont(
                                         "Poppins",
                                         textStyle: const TextStyle(
@@ -471,8 +471,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         borderRadius: BorderRadius.circular(
                                             4.0), // Adjust border radius as needed
                                         border: Border.all(
-                                          color: Colors
-                                              .grey, // Specify border color
+                                          color: AppColor
+                                              .borderColor, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
@@ -482,21 +482,21 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                           right: 8,
                                         ),
                                         child: DropdownButton(
-                                          underline: const SizedBox(),
                                           isExpanded: true,
-                                          value: _btn2SelectedVal2,
+                                          underline: const SizedBox(),
+                                          value: _btn2SelectedVal,
                                           hint: const Text(
-                                              'Choose the product discount'),
+                                              'Choose the releated Products'),
                                           onChanged: (String? newValue) {
                                             if (newValue != null) {
                                               setState(() =>
-                                                  _btn2SelectedVal2 = newValue);
+                                                  _btn2SelectedVal = newValue);
                                             }
                                           },
-                                          items: _dropDownMenuItems2,
+                                          items: _dropDownMenuItems,
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -528,8 +528,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         borderRadius: BorderRadius.circular(
                                             4.0), // Adjust border radius as needed
                                         border: Border.all(
-                                          color: Colors
-                                              .grey, // Specify border color
+                                          color: AppColor
+                                              .borderColor, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
@@ -564,7 +564,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Related Products",
+                                      "Product Discount",
                                       style: GoogleFonts.getFont(
                                         "Poppins",
                                         textStyle: const TextStyle(
@@ -583,8 +583,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         borderRadius: BorderRadius.circular(
                                             4.0), // Adjust border radius as needed
                                         border: Border.all(
-                                          color: Colors
-                                              .grey, // Specify border color
+                                          color: AppColor
+                                              .borderColor, // Specify border color
                                           width: 1.0, // Specify border width
                                         ),
                                       ),
@@ -594,24 +594,24 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                           right: 8,
                                         ),
                                         child: DropdownButton(
-                                          isExpanded: true,
                                           underline: const SizedBox(),
-                                          value: _btn2SelectedVal,
+                                          isExpanded: true,
+                                          value: _btn2SelectedVal2,
                                           hint: const Text(
-                                              'Choose the releated Products'),
+                                              'Choose the product discount'),
                                           onChanged: (String? newValue) {
                                             if (newValue != null) {
                                               setState(() =>
-                                                  _btn2SelectedVal = newValue);
+                                                  _btn2SelectedVal2 = newValue);
                                             }
                                           },
-                                          items: _dropDownMenuItems,
+                                          items: _dropDownMenuItems2,
                                         ),
                                       ),
-                                    ),
+                                    )
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
