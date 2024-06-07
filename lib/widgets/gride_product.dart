@@ -54,15 +54,26 @@ class ProductGrid extends StatelessWidget {
                   mainAxisSpacing: defaultPadding,
                 ),
                 itemBuilder: (context, index) {
+                  var product = snapshot.data!.docs[index];
+                  bool isOnSale = product['isOnSale'];
+                  double price = double.parse(product['price']);
+                  double salePrice = price;
+
+                  if (isOnSale) {
+                    String discountStr = product['discount'];
+                    double discount = double.tryParse(discountStr) ?? 0.0;
+                    salePrice = price - (price * discount / 100);
+                  }
+
                   return ProductWidget(
-                    productID: snapshot.data!.docs[index]['id'],
-                    price: snapshot.data!.docs[index]["price"],
-                    amount: snapshot.data!.docs[index]['weight'],
-                    title: snapshot.data!.docs[index]['title'],
-                    image: snapshot.data!.docs[index]['imageUrl'],
-                    salePrice: snapshot.data!.docs[index]["salePrice"],
-                    detail: snapshot.data!.docs[index]['detail'],
-                  ); // Return the widget for each item
+                    productID: product['id'],
+                    price: price.toStringAsFixed(2), // Original price
+                    amount: product['weight'],
+                    title: product['title'],
+                    image: product['imageUrl'],
+                    salePrice: salePrice.toStringAsFixed(2), // Sale price
+                    detail: product['detail'],
+                  );
                 },
               );
             }

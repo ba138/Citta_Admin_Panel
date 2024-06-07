@@ -35,38 +35,13 @@ class UploadFashionProduct extends StatefulWidget {
 }
 
 class _UploadFashionProductFormState extends State<UploadFashionProduct> {
-  static const menuItems = <String>[
-    'Grocerry',
-    'Fashion',
-    'Bundle',
-  ];
-  static const menuItems2 = <String>[
-    'Grocerry',
-    'Fashion',
-    'Bundle',
-  ];
   static const menuItems3 = <String>[
     'X',
     'L',
     'XXL',
     "XXL",
   ];
-  final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
-      .map(
-        (String value) => DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ),
-      )
-      .toList();
-  final List<DropdownMenuItem<String>> _dropDownMenuItems2 = menuItems2
-      .map(
-        (String value) => DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ),
-      )
-      .toList();
+
   final List<DropdownMenuItem<String>> _dropDownMenuItems3 = menuItems3
       .map(
         (String value) => DropdownMenuItem<String>(
@@ -75,8 +50,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
         ),
       )
       .toList();
-  String? _btn2SelectedVal;
-  String? _btn2SelectedVal2;
+
   String? _btn2SelectedVal3;
 
   final _formKey = GlobalKey<FormState>();
@@ -87,6 +61,16 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
 
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
+  File? _colorImage1;
+  Uint8List webImage1 = Uint8List(8);
+  File? _colorImage2;
+  Uint8List webImage2 = Uint8List(8);
+  File? _colorImage3;
+  Uint8List webImage3 = Uint8List(8);
+  File? _colorImage4;
+  Uint8List webImage4 = Uint8List(8);
+  File? _colorImage5;
+  Uint8List webImage5 = Uint8List(8);
   @override
   void dispose() {
     _priceController.dispose();
@@ -218,6 +202,15 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     }
   }
 
+  Color size1 = Colors.transparent;
+  Color size2 = Colors.transparent;
+
+  Color size3 = Colors.transparent;
+
+  Color size4 = Colors.transparent;
+  Color size5 = Colors.transparent;
+
+  List sizeList = [];
   @override
   Widget build(BuildContext context) {
     final color = Utils(context).color;
@@ -322,38 +315,105 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                           const SizedBox(
                                             height: 8,
                                           ),
-                                          Container(
-                                            height: 38,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(
-                                                  4.0), // Adjust border radius as needed
-                                              border: Border.all(
-                                                color: AppColor
-                                                    .borderColor, // Specify border color
-                                                width:
-                                                    1.0, // Specify border width
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: const Center(
+                                                  child: Icon(Icons.add),
+                                                ),
                                               ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 8.0,
-                                                right: 8,
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: const Center(
+                                                  child: Icon(Icons.add),
+                                                ),
                                               ),
-                                              child: DropdownButton(
-                                                isExpanded: true,
-                                                underline: const SizedBox(),
-                                                value: _btn2SelectedVal2,
-                                                onChanged: (String? newValue) {
-                                                  if (newValue != null) {
-                                                    setState(() =>
-                                                        _btn2SelectedVal2 =
-                                                            newValue);
-                                                  }
-                                                },
-                                                items: _dropDownMenuItems2,
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: const Center(
+                                                  child: Icon(Icons.add),
+                                                ),
                                               ),
-                                            ),
-                                          ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: const Center(
+                                                  child: Icon(Icons.add),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: const Center(
+                                                  child: Icon(Icons.add),
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: _pickedImage == null
+                                                    ? IconButton(
+                                                        onPressed: () {},
+                                                        icon: const Icon(
+                                                            Icons.add))
+                                                    : kIsWeb
+                                                        ? Image.memory(
+                                                            webImage,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          )
+                                                        : Image.file(
+                                                            _pickedImage!,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                              ),
+                                            ],
+                                          )
                                         ],
                                       ),
                                     ),
@@ -379,38 +439,344 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                           const SizedBox(
                                             height: 8,
                                           ),
-                                          Container(
-                                            height: 38,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(
-                                                  4.0), // Adjust border radius as needed
-                                              border: Border.all(
-                                                color: AppColor
-                                                    .borderColor, // Specify border color
-                                                width:
-                                                    1.0, // Specify border width
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 8.0,
-                                                right: 8,
-                                              ),
-                                              child: DropdownButton(
-                                                isExpanded: true,
-                                                underline: const SizedBox(),
-                                                value: _btn2SelectedVal,
-                                                onChanged: (String? newValue) {
-                                                  if (newValue != null) {
-                                                    setState(() =>
-                                                        _btn2SelectedVal =
-                                                            newValue);
-                                                  }
-                                                },
-                                                items: _dropDownMenuItems,
-                                              ),
-                                            ),
-                                          ),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      size1 = size1 ==
+                                                              AppColor
+                                                                  .primaryColor
+                                                          ? Colors.transparent
+                                                          : AppColor
+                                                              .primaryColor;
+                                                      if (size1 ==
+                                                          AppColor
+                                                              .primaryColor) {
+                                                        sizeList.add('S');
+                                                      } else {
+                                                        sizeList.remove('S');
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 38,
+                                                    decoration: BoxDecoration(
+                                                      color: size1,
+                                                      border: Border.all(
+                                                        color: size1 ==
+                                                                AppColor
+                                                                    .primaryColor
+                                                            ? Colors.transparent
+                                                            : AppColor
+                                                                .borderColor,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Small",
+                                                          style: GoogleFonts
+                                                              .getFont(
+                                                            "Poppins",
+                                                            textStyle:
+                                                                TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: size1 ==
+                                                                      AppColor
+                                                                          .primaryColor
+                                                                  ? Colors.white
+                                                                  : AppColor
+                                                                      .titleColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      size2 = size2 ==
+                                                              AppColor
+                                                                  .primaryColor
+                                                          ? Colors.transparent
+                                                          : AppColor
+                                                              .primaryColor;
+                                                      if (size2 ==
+                                                          AppColor
+                                                              .primaryColor) {
+                                                        sizeList.add('L');
+                                                      } else {
+                                                        sizeList.remove('L');
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 38,
+                                                    decoration: BoxDecoration(
+                                                      color: size2,
+                                                      border: Border.all(
+                                                        color: size2 ==
+                                                                AppColor
+                                                                    .primaryColor
+                                                            ? Colors.transparent
+                                                            : AppColor
+                                                                .borderColor,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Large",
+                                                          style: GoogleFonts
+                                                              .getFont(
+                                                            "Poppins",
+                                                            textStyle:
+                                                                TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: size2 ==
+                                                                      AppColor
+                                                                          .primaryColor
+                                                                  ? Colors.white
+                                                                  : AppColor
+                                                                      .titleColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      size3 = size3 ==
+                                                              AppColor
+                                                                  .primaryColor
+                                                          ? Colors.transparent
+                                                          : AppColor
+                                                              .primaryColor;
+                                                      if (size3 ==
+                                                          AppColor
+                                                              .primaryColor) {
+                                                        sizeList.add('XL');
+                                                      } else {
+                                                        sizeList.remove('XL');
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 38,
+                                                    decoration: BoxDecoration(
+                                                      color: size3,
+                                                      border: Border.all(
+                                                        color: size3 ==
+                                                                AppColor
+                                                                    .primaryColor
+                                                            ? Colors.transparent
+                                                            : AppColor
+                                                                .borderColor,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "XL",
+                                                          style: GoogleFonts
+                                                              .getFont(
+                                                            "Poppins",
+                                                            textStyle:
+                                                                TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: size3 ==
+                                                                      AppColor
+                                                                          .primaryColor
+                                                                  ? Colors.white
+                                                                  : AppColor
+                                                                      .titleColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      size4 = size4 ==
+                                                              AppColor
+                                                                  .primaryColor
+                                                          ? Colors.transparent
+                                                          : AppColor
+                                                              .primaryColor;
+                                                      if (size4 ==
+                                                          AppColor
+                                                              .primaryColor) {
+                                                        sizeList.add('XXL');
+                                                      } else {
+                                                        sizeList.remove('XXL');
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 38,
+                                                    decoration: BoxDecoration(
+                                                      color: size4,
+                                                      border: Border.all(
+                                                        color: size4 ==
+                                                                AppColor
+                                                                    .primaryColor
+                                                            ? Colors.transparent
+                                                            : AppColor
+                                                                .borderColor,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "XXL",
+                                                          style: GoogleFonts
+                                                              .getFont(
+                                                            "Poppins",
+                                                            textStyle:
+                                                                TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: size4 ==
+                                                                      AppColor
+                                                                          .primaryColor
+                                                                  ? Colors.white
+                                                                  : AppColor
+                                                                      .titleColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      size5 = size5 ==
+                                                              AppColor
+                                                                  .primaryColor
+                                                          ? Colors.transparent
+                                                          : AppColor
+                                                              .primaryColor;
+                                                      if (size5 ==
+                                                          AppColor
+                                                              .primaryColor) {
+                                                        sizeList.add('XXXL');
+                                                      } else {
+                                                        sizeList.remove('XXXL');
+                                                      }
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 38,
+                                                    decoration: BoxDecoration(
+                                                      color: size5,
+                                                      border: Border.all(
+                                                        color: size5 ==
+                                                                AppColor
+                                                                    .primaryColor
+                                                            ? Colors.transparent
+                                                            : AppColor
+                                                                .borderColor,
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "XXXL",
+                                                          style: GoogleFonts
+                                                              .getFont(
+                                                            "Poppins",
+                                                            textStyle:
+                                                                TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: size5 ==
+                                                                      AppColor
+                                                                          .primaryColor
+                                                                  ? Colors.white
+                                                                  : AppColor
+                                                                      .titleColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ]),
+                                          // Container(
+                                          //   height: 38,
+                                          //   decoration: BoxDecoration(
+                                          //     borderRadius: BorderRadius.circular(
+                                          //         4.0), // Adjust border radius as needed
+                                          //     border: Border.all(
+                                          //       color: AppColor
+                                          //           .borderColor, // Specify border color
+                                          //       width:
+                                          //           1.0, // Specify border width
+                                          //     ),
+                                          //   ),
+                                          //   child: Padding(
+                                          //     padding: const EdgeInsets.only(
+                                          //       left: 8.0,
+                                          //       right: 8,
+                                          //     ),
+                                          //     child: DropdownButton(
+                                          //       isExpanded: true,
+                                          //       underline: const SizedBox(),
+                                          //       value: _btn2SelectedVal,
+                                          //       onChanged: (String? newValue) {
+                                          //         if (newValue != null) {
+                                          //           setState(() =>
+                                          //               _btn2SelectedVal =
+                                          //                   newValue);
+                                          //         }
+                                          //       },
+                                          //       items: _dropDownMenuItems,
+                                          //     ),
+                                          //   ),
+                                          // ),
                                         ],
                                       ),
                                     ),

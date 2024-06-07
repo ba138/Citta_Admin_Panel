@@ -169,7 +169,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'detail': _detailController.text,
           "weight": _amountController.text,
           'imageUrl': imageUrl,
-          'isOnSale': false,
+          'isOnSale': true,
           'createdAt': Timestamp.now(),
           "sellerId": user.uid,
           "category": _btn2SelectedVal,
@@ -182,7 +182,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           .doc(_uuid)
           .set(myProducts);
       await FirebaseFirestore.instance
-          .collection('seller')
+          .collection('saller')
           .doc(user.uid)
           .collection("my_products")
           .doc(_uuid)
