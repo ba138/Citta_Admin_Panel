@@ -71,6 +71,8 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   Uint8List webImage4 = Uint8List(8);
   File? _colorImage5;
   Uint8List webImage5 = Uint8List(8);
+  File? _colorImage6;
+  Uint8List webImage6 = Uint8List(8);
   @override
   void dispose() {
     _priceController.dispose();
@@ -87,17 +89,36 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
 
     setState(() {
       _pickedImage = null;
+      _colorImage1 = null;
+      _colorImage2 = null;
+
+      _colorImage3 = null;
+
+      _colorImage4 = null;
+
+      _colorImage5 = null;
+
+      _colorImage6 = null;
+      size1 = Colors.transparent;
+      size2 = Colors.transparent;
+
+      size3 = Colors.transparent;
+
+      size4 = Colors.transparent;
+      size5 = Colors.transparent;
+      sizeList.clear();
     });
   }
 
-  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
+  Future<String> _uploadImageToStorage(
+      String uuid, File? imageFile, Uint8List? webImage) async {
     try {
       final storage = FirebaseStorage.instance
           .ref()
           .child('Fashion_product')
           .child("${uuid}jpg");
       if (kIsWeb) {
-        await storage.putData(webImage);
+        await storage.putData(webImage!);
       } else {
         await storage.putFile(_pickedImage!);
       }
@@ -141,6 +162,186 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     }
   }
 
+  Future<void> _color6Image() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _colorImage6 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage6 = f;
+          _colorImage6 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _color5Image() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _colorImage5 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage5 = f;
+          _colorImage5 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _color4Image() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _colorImage4 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage4 = f;
+          _colorImage4 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _color3Image() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _colorImage3 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage3 = f;
+          _colorImage3 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _color2Image() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _colorImage2 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage2 = f;
+          _colorImage2 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _color1Image() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _colorImage1 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webImage1 = f;
+          _colorImage1 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
   bool isLoading = false;
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
@@ -153,11 +354,53 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
         errorDialog(subtitle: 'Please pick up an image', context: context);
         return;
       }
+      if (sizeList.isEmpty) {
+        errorDialog(subtitle: 'Select atleast one size', context: context);
+        return;
+      }
       try {
         setState(() {
           isLoading = true;
         });
-        final imageUrl = await _uploadImageToStorage(uuid, _pickedImage!);
+        List colorList = [];
+        final imageUrl =
+            await _uploadImageToStorage(uuid, _pickedImage!, webImage);
+        if (webImage1.isNotEmpty) {
+          final uuid1 = const Uuid().v1();
+          final image1 =
+              await _uploadImageToStorage(uuid1, _colorImage1, webImage1);
+          colorList.add(image1);
+        }
+        if (webImage2.isNotEmpty) {
+          final uuid2 = const Uuid().v1();
+          final image2 =
+              await _uploadImageToStorage(uuid2, _colorImage2, webImage2);
+          colorList.add(image2);
+        }
+        if (webImage3.isNotEmpty) {
+          final uuid3 = const Uuid().v1();
+          final image3 =
+              await _uploadImageToStorage(uuid3, _colorImage3, webImage3);
+          colorList.add(image3);
+        }
+        if (webImage4.isNotEmpty) {
+          final uuid4 = const Uuid().v1();
+          final image4 =
+              await _uploadImageToStorage(uuid4, _colorImage4, webImage4);
+          colorList.add(image4);
+        }
+        if (webImage5.isNotEmpty) {
+          final uuid5 = const Uuid().v1();
+          final image5 =
+              await _uploadImageToStorage(uuid5, _colorImage5, webImage5);
+          colorList.add(image5);
+        }
+        if (webImage6.isNotEmpty) {
+          final uuid6 = const Uuid().v1();
+          final image6 =
+              await _uploadImageToStorage(uuid6, _colorImage6, webImage6);
+          colorList.add(image6);
+        }
         Map<String, dynamic> myFashionProducts = {
           'id': uuid,
           'title': _titleController.text,
@@ -166,6 +409,8 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           'imageUrl': imageUrl,
           'createdAt': Timestamp.now(),
           'sellerId': FirebaseAuth.instance.currentUser!.uid,
+          'color': colorList,
+          'size': sizeList,
         };
         await FirebaseFirestore.instance
             .collection('fashion')
@@ -278,7 +523,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                     ),
                                     Expanded(
                                       child: BundleField(
-                                          controller: _titleController,
+                                          controller: _priceController,
                                           tite: "Product Price"),
                                     ),
                                     const SizedBox(
@@ -286,7 +531,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                     ),
                                     Expanded(
                                       child: BundleField(
-                                          controller: _titleController,
+                                          controller: _detailController,
                                           tite: "Product Description"),
                                     ),
                                   ],
@@ -327,74 +572,17 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                                       color:
                                                           AppColor.borderColor),
                                                 ),
-                                                child: const Center(
-                                                  child: Icon(Icons.add),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 36,
-                                                width: 32,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          AppColor.borderColor),
-                                                ),
-                                                child: const Center(
-                                                  child: Icon(Icons.add),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 36,
-                                                width: 32,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          AppColor.borderColor),
-                                                ),
-                                                child: const Center(
-                                                  child: Icon(Icons.add),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 36,
-                                                width: 32,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          AppColor.borderColor),
-                                                ),
-                                                child: const Center(
-                                                  child: Icon(Icons.add),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 36,
-                                                width: 32,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          AppColor.borderColor),
-                                                ),
-                                                child: const Center(
-                                                  child: Icon(Icons.add),
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 36,
-                                                width: 32,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          AppColor.borderColor),
-                                                ),
-                                                child: _pickedImage == null
-                                                    ? IconButton(
-                                                        onPressed: () {},
-                                                        icon: const Icon(
-                                                            Icons.add))
+                                                child: _colorImage1 == null
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          _color1Image();
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.add),
+                                                      )
                                                     : kIsWeb
                                                         ? Image.memory(
-                                                            webImage,
+                                                            webImage1,
                                                             width:
                                                                 MediaQuery.of(
                                                                         context)
@@ -403,7 +591,187 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                                             fit: BoxFit.fill,
                                                           )
                                                         : Image.file(
-                                                            _pickedImage!,
+                                                            _colorImage1!,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                              ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: _colorImage2 == null
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          _color2Image();
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.add),
+                                                      )
+                                                    : kIsWeb
+                                                        ? Image.memory(
+                                                            webImage2,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          )
+                                                        : Image.file(
+                                                            _colorImage2!,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                              ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: _colorImage3 == null
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          _color3Image();
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.add),
+                                                      )
+                                                    : kIsWeb
+                                                        ? Image.memory(
+                                                            webImage3,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          )
+                                                        : Image.file(
+                                                            _colorImage3!,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                              ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: _colorImage4 == null
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          _color4Image();
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.add),
+                                                      )
+                                                    : kIsWeb
+                                                        ? Image.memory(
+                                                            webImage4,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          )
+                                                        : Image.file(
+                                                            _colorImage4!,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                              ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: _colorImage5 == null
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          _color5Image();
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.add),
+                                                      )
+                                                    : kIsWeb
+                                                        ? Image.memory(
+                                                            webImage5,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          )
+                                                        : Image.file(
+                                                            _colorImage5!,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                              ),
+                                              Container(
+                                                height: 36,
+                                                width: 32,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color:
+                                                          AppColor.borderColor),
+                                                ),
+                                                child: _colorImage6 == null
+                                                    ? InkWell(
+                                                        onTap: () {
+                                                          _color6Image();
+                                                        },
+                                                        child: const Icon(
+                                                            Icons.add),
+                                                      )
+                                                    : kIsWeb
+                                                        ? Image.memory(
+                                                            webImage6,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            fit: BoxFit.fill,
+                                                          )
+                                                        : Image.file(
+                                                            _colorImage6!,
                                                             width:
                                                                 MediaQuery.of(
                                                                         context)
