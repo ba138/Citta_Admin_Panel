@@ -36,7 +36,19 @@ class AddBundlpackScreen extends StatefulWidget {
 
 class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   final _formKey = GlobalKey<FormState>();
-
+  static const menuItems = <String>[
+    'Small',
+    'Medium',
+    'Large',
+  ];
+  final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
+      .map(
+        (String value) => DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        ),
+      )
+      .toList();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
@@ -58,7 +70,18 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
 
   final TextEditingController _sizeController = TextEditingController();
   final TextEditingController _saleController = TextEditingController();
+  final TextEditingController _price1 = TextEditingController();
+  final TextEditingController _price2 = TextEditingController();
 
+  final TextEditingController _price3 = TextEditingController();
+
+  final TextEditingController _price4 = TextEditingController();
+
+  final TextEditingController _price5 = TextEditingController();
+
+  final TextEditingController _price6 = TextEditingController();
+
+  String _btn2SelectedVal = "Small";
   File? _coverImage;
   Uint8List webImage = Uint8List(8);
 
@@ -94,6 +117,12 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _titleController1.dispose();
     _detailController1.dispose();
     _saleController.dispose();
+    _price1.dispose();
+    _price2.dispose();
+    _price3.dispose();
+    _price4.dispose();
+    _price5.dispose();
+    _price6.dispose();
 
     super.dispose();
   }
@@ -117,6 +146,12 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _titleController6.clear();
     _detailController6.clear();
     _saleController.clear();
+    _price1.clear();
+    _price2.clear();
+    _price3.clear();
+    _price4.clear();
+    _price5.clear();
+    _price6.clear();
 
     setState(() {
       _coverImage = null;
@@ -196,7 +231,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'price': _priceController.text,
           'detail': _detailController.text,
           'imageUrl': coverImageUrl,
-          "size": _sizeController.text,
+          "size": _btn2SelectedVal,
           'weight': _weightController.text,
           'sellerId': FirebaseAuth.instance.currentUser!.uid,
           'salePrice': _saleController.text,
@@ -529,7 +564,218 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 1.8,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: AppColor.borderColor)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Row(
+                            children: [
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 1.8,
+                                width: 1050,
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(
+                                      6,
+                                    ),
+                                    border: Border.all(
+                                        color: AppColor.borderColor)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: BundleField(
+                                              controller: _titleController,
+                                              tite: "Bundle Pack Name",
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: BundleField(
+                                              controller: _weightController,
+                                              tite: "Bundle Pack Weight",
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: BundleField(
+                                              controller: _priceController,
+                                              tite: "Bundle Pack Price",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: BundleField(
+                                              controller: _detailController,
+                                              tite: "Bundle Pack Description",
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Size",
+                                                  style: GoogleFonts.getFont(
+                                                    "Poppins",
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color:
+                                                          AppColor.titleColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Container(
+                                                  height: 38,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4.0), // Adjust border radius as needed
+                                                    border: Border.all(
+                                                      color: AppColor
+                                                          .borderColor, // Specify border color
+                                                      width:
+                                                          1.0, // Specify border width
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                      left: 8.0,
+                                                      right: 8,
+                                                    ),
+                                                    child: DropdownButton(
+                                                      isExpanded: true,
+                                                      underline:
+                                                          const SizedBox(),
+                                                      value: _btn2SelectedVal,
+                                                      hint: const Text(
+                                                          'Choose the releated Products'),
+                                                      onChanged:
+                                                          (String? newValue) {
+                                                        if (newValue != null) {
+                                                          setState(() =>
+                                                              _btn2SelectedVal =
+                                                                  newValue);
+                                                        }
+                                                      },
+                                                      items: _dropDownMenuItems,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "widget.tite",
+                                                  style: GoogleFonts.getFont(
+                                                    "Poppins",
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.transparent,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Container(
+                                                  height: 38,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.transparent,
+                                                    border: Border.all(
+                                                        color:
+                                                            Colors.transparent),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: AppColor.borderColor),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          child: _coverImage == null
+                                              ? DottedBor(
+                                                  color: color,
+                                                  tap: _pickImage,
+                                                )
+                                              : kIsWeb
+                                                  ? Center(
+                                                      child: Image.memory(
+                                                        webImage,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    )
+                                                  : Center(
+                                                      child: Image.file(
+                                                        _coverImage!,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -583,7 +829,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _detailController1,
                                                       tite: "Product Weight",
                                                     ),
                                                   ),
@@ -592,8 +838,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   ),
                                                   Expanded(
                                                     child: BundleField(
-                                                      controller:
-                                                          _titleController1,
+                                                      controller: _price1,
                                                       tite: "Product Price",
                                                     ),
                                                   ),
@@ -678,7 +923,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _titleController2,
                                                       tite: "Product Name",
                                                     ),
                                                   ),
@@ -688,7 +933,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _detailController2,
                                                       tite: "Product Weight",
                                                     ),
                                                   ),
@@ -697,8 +942,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   ),
                                                   Expanded(
                                                     child: BundleField(
-                                                      controller:
-                                                          _titleController1,
+                                                      controller: _price2,
                                                       tite: "Product Price",
                                                     ),
                                                   ),
@@ -794,7 +1038,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _titleController3,
                                                       tite: "Product Name",
                                                     ),
                                                   ),
@@ -804,7 +1048,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _detailController3,
                                                       tite: "Product Weight",
                                                     ),
                                                   ),
@@ -813,8 +1057,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   ),
                                                   Expanded(
                                                     child: BundleField(
-                                                      controller:
-                                                          _titleController1,
+                                                      controller: _price3,
                                                       tite: "Product Price",
                                                     ),
                                                   ),
@@ -899,7 +1142,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _titleController4,
                                                       tite: "Product Name",
                                                     ),
                                                   ),
@@ -909,7 +1152,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _detailController4,
                                                       tite: "Product Weight",
                                                     ),
                                                   ),
@@ -918,8 +1161,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   ),
                                                   Expanded(
                                                     child: BundleField(
-                                                      controller:
-                                                          _titleController1,
+                                                      controller: _price4,
                                                       tite: "Product Price",
                                                     ),
                                                   ),
@@ -1015,7 +1257,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _titleController5,
                                                       tite: "Product Name",
                                                     ),
                                                   ),
@@ -1025,7 +1267,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _detailController5,
                                                       tite: "Product Weight",
                                                     ),
                                                   ),
@@ -1034,8 +1276,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   ),
                                                   Expanded(
                                                     child: BundleField(
-                                                      controller:
-                                                          _titleController1,
+                                                      controller: _price5,
                                                       tite: "Product Price",
                                                     ),
                                                   ),
@@ -1120,7 +1361,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _titleController6,
                                                       tite: "Product Name",
                                                     ),
                                                   ),
@@ -1130,7 +1371,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   Expanded(
                                                     child: BundleField(
                                                       controller:
-                                                          _titleController1,
+                                                          _detailController6,
                                                       tite: "Product Weight",
                                                     ),
                                                   ),
@@ -1139,8 +1380,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   ),
                                                   Expanded(
                                                     child: BundleField(
-                                                      controller:
-                                                          _titleController1,
+                                                      controller: _price6,
                                                       tite: "Product Price",
                                                     ),
                                                   ),
@@ -1176,7 +1416,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                   child: previewImage6 == null
                                                       ? DottedBor(
                                                           color: color,
-                                                          tap: _pickImage,
+                                                          tap: _pickImage6,
                                                         )
                                                       : kIsWeb
                                                           ? Center(
@@ -1204,836 +1444,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                   ),
                                 ),
                               ),
-                              // TextWidget(
-                              //   text: 'Product title*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _titleController,
-                              //   key: const ValueKey('Title'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Title';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Name Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(14),
-                              //   child: Container(
-                              //     height: size.width > 650
-                              //         ? 350
-                              //         : size.width * 0.45,
-                              //     color:
-                              //         Theme.of(context).scaffoldBackgroundColor,
-                              //     child: _coverImage == null
-                              //         ? DottedBor(
-                              //             color: color,
-                              //             tap: _pickImage,
-                              //           )
-                              //         : kIsWeb
-                              //             ? Center(
-                              //                 child: Image.memory(
-                              //                   webImage,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               )
-                              //             : Center(
-                              //                 child: Image.file(
-                              //                   _coverImage!,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Product Detail*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextField(
-                              //   maxLines: 4,
-                              //   controller: _detailController,
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     fillColor: scaffoldColor,
-                              //     alignLabelWithHint: true,
-                              //     hintStyle: TextStyle(
-                              //       fontSize: 14,
-                              //       fontWeight: FontWeight.w400,
-                              //       color: color,
-                              //     ),
-                              //     hintText: 'Write details about Product....',
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Price*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _priceController,
-                              //   key: const ValueKey('Price'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Price';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Price Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'SalePrice*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _saleController,
-                              //   key: const ValueKey('SalePrice'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Sale Price';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText:
-                              //         "Enter The Sale Price Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Size*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _sizeController,
-                              //   key: const ValueKey('Size'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Size';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Small,Medim,Large",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Weight*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _weightController,
-                              //   key: const ValueKey('weight'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Weight';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The weight Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // Center(
-                              //   child: TextWidget(
-                              //     text: 'First Product*',
-                              //     color: color,
-                              //     isTitle: true,
-                              //   ),
-                              // ),
-                              // TextWidget(
-                              //   text: 'Product title*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _titleController1,
-                              //   key: const ValueKey('Title1'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Title';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Name Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(14),
-                              //   child: Container(
-                              //     height: size.width > 650
-                              //         ? 350
-                              //         : size.width * 0.45,
-                              //     color:
-                              //         Theme.of(context).scaffoldBackgroundColor,
-                              //     child: previewImage1 == null
-                              //         ? DottedBor(
-                              //             color: color,
-                              //             tap: _pickImage1,
-                              //           )
-                              //         : kIsWeb
-                              //             ? Center(
-                              //                 child: Image.memory(
-                              //                   webImage1,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               )
-                              //             : Center(
-                              //                 child: Image.file(
-                              //                   previewImage1!,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Amount*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _detailController1,
-                              //   key: const ValueKey('Amount'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Amount';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Amount Of Product",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // Center(
-                              //   child: TextWidget(
-                              //     text: 'Second Product*',
-                              //     color: color,
-                              //     isTitle: true,
-                              //   ),
-                              // ),
-                              // TextWidget(
-                              //   text: 'Product title*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _titleController2,
-                              //   key: const ValueKey('Title2'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Title';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Name Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(14),
-                              //   child: Container(
-                              //     height: size.width > 650
-                              //         ? 350
-                              //         : size.width * 0.45,
-                              //     color:
-                              //         Theme.of(context).scaffoldBackgroundColor,
-                              //     child: previewImage2 == null
-                              //         ? DottedBor(
-                              //             color: color,
-                              //             tap: _pickImage2,
-                              //           )
-                              //         : kIsWeb
-                              //             ? Center(
-                              //                 child: Image.memory(
-                              //                   webImage2,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               )
-                              //             : Center(
-                              //                 child: Image.file(
-                              //                   previewImage2!,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Amount*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _detailController2,
-                              //   key: const ValueKey('Amount2'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Amount';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Amount Of Product",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // Center(
-                              //   child: TextWidget(
-                              //     text: 'Third Product*',
-                              //     color: color,
-                              //     isTitle: true,
-                              //   ),
-                              // ),
-                              // TextWidget(
-                              //   text: 'Product title*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _titleController3,
-                              //   key: const ValueKey('Title3'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Title';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Name Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(14),
-                              //   child: Container(
-                              //     height: size.width > 650
-                              //         ? 350
-                              //         : size.width * 0.45,
-                              //     color:
-                              //         Theme.of(context).scaffoldBackgroundColor,
-                              //     child: previewImage3 == null
-                              //         ? DottedBor(
-                              //             color: color,
-                              //             tap: _pickImage3,
-                              //           )
-                              //         : kIsWeb
-                              //             ? Center(
-                              //                 child: Image.memory(
-                              //                   webImage3,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               )
-                              //             : Center(
-                              //                 child: Image.file(
-                              //                   previewImage3!,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Amount*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _detailController3,
-                              //   key: const ValueKey('Amount3'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Amount';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Amount Of Product",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // Center(
-                              //   child: TextWidget(
-                              //     text: 'Fourth Product*',
-                              //     color: color,
-                              //     isTitle: true,
-                              //   ),
-                              // ),
-                              // TextWidget(
-                              //   text: 'Product title*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _titleController4,
-                              //   key: const ValueKey('Title4'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Title';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Name Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(14),
-                              //   child: Container(
-                              //     height: size.width > 650
-                              //         ? 350
-                              //         : size.width * 0.45,
-                              //     color:
-                              //         Theme.of(context).scaffoldBackgroundColor,
-                              //     child: previewImage4 == null
-                              //         ? DottedBor(
-                              //             color: color,
-                              //             tap: _pickImage4,
-                              //           )
-                              //         : kIsWeb
-                              //             ? Center(
-                              //                 child: Image.memory(
-                              //                   webImage4,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               )
-                              //             : Center(
-                              //                 child: Image.file(
-                              //                   previewImage4!,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Amount*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _detailController4,
-                              //   key: const ValueKey('Amount4'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Amount';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Amount Of Product",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // Center(
-                              //   child: TextWidget(
-                              //     text: 'Fifth Product*',
-                              //     color: color,
-                              //     isTitle: true,
-                              //   ),
-                              // ),
-                              // TextWidget(
-                              //   text: 'Product title*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _titleController5,
-                              //   key: const ValueKey('Title5'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Title';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Name Of Product ",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(14),
-                              //   child: Container(
-                              //     height: size.width > 650
-                              //         ? 350
-                              //         : size.width * 0.45,
-                              //     color:
-                              //         Theme.of(context).scaffoldBackgroundColor,
-                              //     child: previewImage5 == null
-                              //         ? DottedBor(
-                              //             color: color,
-                              //             tap: _pickImage5,
-                              //           )
-                              //         : kIsWeb
-                              //             ? Center(
-                              //                 child: Image.memory(
-                              //                   webImage5,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               )
-                              //             : Center(
-                              //                 child: Image.file(
-                              //                   previewImage5!,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Amount*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _detailController5,
-                              //   key: const ValueKey('Amount5'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Amount';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Amount Of Product",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // Center(
-                              //   child: TextWidget(
-                              //     text: 'Sixth Product*',
-                              //     color: color,
-                              //     isTitle: true,
-                              //   ),
-                              // ),
-                              // TextWidget(
-                              //   text: 'Product title*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _titleController6,
-                              //   key: const ValueKey('Title6'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Title';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Name Of Bundle Pack",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.all(14),
-                              //   child: Container(
-                              //     height: size.width > 650
-                              //         ? 350
-                              //         : size.width * 0.45,
-                              //     color:
-                              //         Theme.of(context).scaffoldBackgroundColor,
-                              //     child: previewImage6 == null
-                              //         ? DottedBor(
-                              //             color: color,
-                              //             tap: _pickImage6,
-                              //           )
-                              //         : kIsWeb
-                              //             ? Center(
-                              //                 child: Image.memory(
-                              //                   webImage6,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               )
-                              //             : Center(
-                              //                 child: Image.file(
-                              //                   previewImage6!,
-                              //                   fit: BoxFit.fill,
-                              //                 ),
-                              //               ),
-                              //   ),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20,
-                              // ),
-                              // TextWidget(
-                              //   text: 'Amount*',
-                              //   color: color,
-                              //   isTitle: true,
-                              // ),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // TextFormField(
-                              //   controller: _detailController6,
-                              //   key: const ValueKey('Amount6'),
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return 'Please enter a Amount';
-                              //     }
-                              //     return null;
-                              //   },
-                              //   decoration: InputDecoration(
-                              //     filled: true,
-                              //     hintText: "Enter The Amount Of Product",
-                              //     fillColor: scaffoldColor,
-                              //     border: InputBorder.none,
-                              //     focusedBorder: OutlineInputBorder(
-                              //       borderSide: BorderSide(
-                              //         color: color,
-                              //         width: 1.0,
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
                               const SizedBox(
                                 height: 20,
                               ),

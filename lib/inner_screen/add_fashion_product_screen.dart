@@ -1113,38 +1113,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                                   ),
                                                 ),
                                               ]),
-                                          // Container(
-                                          //   height: 38,
-                                          //   decoration: BoxDecoration(
-                                          //     borderRadius: BorderRadius.circular(
-                                          //         4.0), // Adjust border radius as needed
-                                          //     border: Border.all(
-                                          //       color: AppColor
-                                          //           .borderColor, // Specify border color
-                                          //       width:
-                                          //           1.0, // Specify border width
-                                          //     ),
-                                          //   ),
-                                          //   child: Padding(
-                                          //     padding: const EdgeInsets.only(
-                                          //       left: 8.0,
-                                          //       right: 8,
-                                          //     ),
-                                          //     child: DropdownButton(
-                                          //       isExpanded: true,
-                                          //       underline: const SizedBox(),
-                                          //       value: _btn2SelectedVal,
-                                          //       onChanged: (String? newValue) {
-                                          //         if (newValue != null) {
-                                          //           setState(() =>
-                                          //               _btn2SelectedVal =
-                                          //                   newValue);
-                                          //         }
-                                          //       },
-                                          //       items: _dropDownMenuItems,
-                                          //     ),
-                                          //   ),
-                                          // ),
                                         ],
                                       ),
                                     ),
@@ -1163,7 +1131,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                               textStyle: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w400,
-                                                color: AppColor.titleColor,
+                                                color: Colors.transparent,
                                               ),
                                             ),
                                           ),
@@ -1176,29 +1144,10 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                               borderRadius: BorderRadius.circular(
                                                   4.0), // Adjust border radius as needed
                                               border: Border.all(
-                                                color: AppColor
-                                                    .borderColor, // Specify border color
+                                                color: Colors.transparent,
+                                                // Specify border color
                                                 width:
                                                     1.0, // Specify border width
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 8.0,
-                                                right: 8,
-                                              ),
-                                              child: DropdownButton(
-                                                isExpanded: true,
-                                                underline: const SizedBox(),
-                                                value: _btn2SelectedVal3,
-                                                onChanged: (String? newValue) {
-                                                  if (newValue != null) {
-                                                    setState(() =>
-                                                        _btn2SelectedVal3 =
-                                                            newValue);
-                                                  }
-                                                },
-                                                items: _dropDownMenuItems3,
                                               ),
                                             ),
                                           ),
