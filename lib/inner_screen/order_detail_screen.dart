@@ -36,6 +36,8 @@ class OrderDetailScreen extends StatefulWidget {
     required this.uuid,
     required this.status,
     required this.size,
+    required this.color,
+    required this.items,
   });
   final String userName;
   final String phone;
@@ -51,6 +53,8 @@ class OrderDetailScreen extends StatefulWidget {
   final String uuid;
   final String status;
   final String size;
+  final String color;
+  final String items;
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();
 }
