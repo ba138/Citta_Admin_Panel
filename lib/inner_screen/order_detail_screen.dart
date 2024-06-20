@@ -38,6 +38,7 @@ class OrderDetailScreen extends StatefulWidget {
     required this.size,
     required this.color,
     required this.items,
+    required this.discount,
   });
   final String userName;
   final String phone;
@@ -55,6 +56,7 @@ class OrderDetailScreen extends StatefulWidget {
   final String size;
   final String color;
   final String items;
+  final String discount;
   @override
   _OrderDetailScreenFormState createState() => _OrderDetailScreenFormState();
 }
@@ -192,7 +194,8 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
     final color = Utils(context).color;
     final scaffoldColor = Theme.of(context).scaffoldBackgroundColor;
     Size size = Utils(context).getScreenSize;
-
+    String orginalPrice =
+        (int.parse(widget.salePrice) - int.parse(widget.discount)).toString();
     var inputDecoration = InputDecoration(
       filled: true,
       fillColor: scaffoldColor,
@@ -284,19 +287,6 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                            height: size.width > 650 ? 350 : size.width * 0.45,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(widget.imageUrl),
-                                fit: BoxFit.contain,
-                              ),
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
                           Row(
                             children: [
                               TextWidget(
@@ -313,6 +303,36 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 isTitle: true,
                               ),
                             ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            height: size.width > 650 ? 350 : size.width * 0.45,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(widget.imageUrl),
+                                fit: BoxFit.contain,
+                              ),
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextWidget(
+                            text: 'Product Color:',
+                            color: const Color(0xFFCB0166),
+                            isTitle: true,
+                          ),
+                          Container(
+                            height: 120,
+                            width: 120,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(widget.color),
+                                  fit: BoxFit.contain),
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -348,7 +368,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                                 width: 10,
                               ),
                               TextWidget(
-                                text: widget.salePrice,
+                                text: orginalPrice,
                                 color: color,
                                 isTitle: true,
                               ),
@@ -360,7 +380,7 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                           Row(
                             children: [
                               TextWidget(
-                                text: 'Amount/Items: ',
+                                text: 'weight: ',
                                 color: const Color(0xFFCB0166),
                                 isTitle: true,
                               ),
@@ -389,6 +409,26 @@ class _OrderDetailScreenFormState extends State<OrderDetailScreen> {
                               ),
                               TextWidget(
                                 text: widget.size,
+                                color: color,
+                                isTitle: true,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            children: [
+                              TextWidget(
+                                text: 'Quantity: ',
+                                color: const Color(0xFFCB0166),
+                                isTitle: true,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              TextWidget(
+                                text: widget.items,
                                 color: color,
                                 isTitle: true,
                               ),

@@ -26,6 +26,7 @@ class OrdersWidget extends StatefulWidget {
     required this.size,
     required this.color,
     required this.quantity,
+    required this.discount,
   });
   final String title;
   final String price;
@@ -43,6 +44,7 @@ class OrdersWidget extends StatefulWidget {
   final String size;
   final String color;
   final String quantity;
+  final String discount;
 
   @override
   _OrdersWidgetState createState() => _OrdersWidgetState();
@@ -189,8 +191,9 @@ class _OrdersWidgetState extends State<OrdersWidget> {
                             uuid: widget.uuid,
                             status: widget.status,
                             size: widget.size,
-                            color: widget.quantity,
+                            color: widget.color,
                             items: widget.quantity,
+                            discount: widget.discount,
                           ),
                         ),
                       );
