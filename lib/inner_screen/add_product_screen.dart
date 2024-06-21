@@ -53,6 +53,22 @@ class _UploadProductFormState extends State<UploadProductForm> {
     '90',
     '100',
   ];
+  String? releatedButton;
+  static const releatedmenuItems = <String>[
+    'Shirt',
+    'Paints',
+    'jacket',
+    "Under Wear",
+  ];
+  final List<DropdownMenuItem<String>> _dropDownReleatedMenuItems =
+      releatedmenuItems
+          .map(
+            (String value) => DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            ),
+          )
+          .toList();
 
   final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
       .map(
@@ -139,6 +155,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
         errorDialog(subtitle: 'User is not authenticated', context: context);
         return;
       }
+      if (releatedButton == null) {
+        errorDialog(subtitle: 'Please select the Category', context: context);
+        return;
+      }
 
       final _uuid = const Uuid().v1();
       setState(() {
@@ -159,7 +179,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'isOnSale': false,
           'createdAt': Timestamp.now(),
           "sellerId": user.uid,
-          "category": _btn2SelectedVal
+          "category": _btn2SelectedVal,
+          'releated': releatedButton,
         };
       } else {
         myProducts = {
@@ -174,6 +195,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           "sellerId": user.uid,
           "category": _btn2SelectedVal,
           "discount": _btn2SelectedVal2,
+          'releated': releatedButton,
         };
       }
 
@@ -609,6 +631,132 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         ),
                                       ),
                                     )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      " Product category",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.titleColor,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Container(
+                                      height: 38,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            4.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: AppColor
+                                              .borderColor, // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 8.0,
+                                          right: 8,
+                                        ),
+                                        child: DropdownButton(
+                                          isExpanded: true,
+                                          underline: const SizedBox(),
+                                          value: releatedButton,
+                                          hint: const Text(
+                                              'Choose the Product Category'),
+                                          onChanged: (String? newValue) {
+                                            if (newValue != null) {
+                                              setState(() =>
+                                                  releatedButton = newValue);
+                                            }
+                                          },
+                                          items: _dropDownReleatedMenuItems,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Size",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Container(
+                                      height: 38,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            4.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors.transparent,
+                                          // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Size",
+                                      style: GoogleFonts.getFont(
+                                        "Poppins",
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Container(
+                                      height: 38,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            4.0), // Adjust border radius as needed
+                                        border: Border.all(
+                                          color: Colors.transparent,
+                                          // Specify border color
+                                          width: 1.0, // Specify border width
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

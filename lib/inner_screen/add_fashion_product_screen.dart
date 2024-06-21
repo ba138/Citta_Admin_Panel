@@ -41,7 +41,60 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     'XXL',
     "XXL",
   ];
+  static const menuItems2 = <String>[
+    '0',
+    '10',
+    '20',
+    '30',
+    '40',
+    '50',
+    '60',
+    '70',
+    '80',
+    '90',
+    '100',
+  ];
+  final List<DropdownMenuItem<String>> _dropDownMenuItems2 = menuItems2
+      .map(
+        (String value) => DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        ),
+      )
+      .toList();
+  String? _btn2SelectedVal;
+  String? releatedButton;
+  String? _btn2SelectedVal2;
 
+  static const releatedmenuItems = <String>[
+    'Shirt',
+    'Paints',
+    'jacket',
+    "Under Wear",
+  ];
+  final List<DropdownMenuItem<String>> _dropDownReleatedMenuItems =
+      releatedmenuItems
+          .map(
+            (String value) => DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            ),
+          )
+          .toList();
+
+  final List<DropdownMenuItem<String>> _dropDownMenuItems = menuItems
+      .map(
+        (String value) => DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        ),
+      )
+      .toList();
+  static const menuItems = <String>[
+    'New Items',
+    'Hot Selling',
+    'Lightening Deals',
+  ];
   final List<DropdownMenuItem<String>> _dropDownMenuItems3 = menuItems3
       .map(
         (String value) => DropdownMenuItem<String>(
@@ -107,6 +160,8 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
       size4 = Colors.transparent;
       size5 = Colors.transparent;
       sizeList.clear();
+      _btn2SelectedVal2 = null;
+      releatedButton = null;
     });
   }
 
@@ -401,17 +456,49 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
               await _uploadImageToStorage(uuid6, _colorImage6, webImage6);
           colorList.add(image6);
         }
-        Map<String, dynamic> myFashionProducts = {
-          'id': uuid,
-          'title': _titleController.text,
-          'price': _priceController.text,
-          'detail': _detailController.text,
-          'imageUrl': imageUrl,
-          'createdAt': Timestamp.now(),
-          'sellerId': FirebaseAuth.instance.currentUser!.uid,
-          'color': colorList,
-          'size': sizeList,
-        };
+        if (_btn2SelectedVal == null) {
+          errorDialog(
+              subtitle: 'Select the releated Product', context: context);
+          return;
+        }
+        if (releatedButton == null) {
+          errorDialog(
+              subtitle: 'Select the Product Category', context: context);
+          return;
+        }
+
+        Map<String, dynamic> myFashionProducts = {};
+        if (_btn2SelectedVal != 'Lightening Deals') {
+          myFashionProducts = {
+            'id': uuid,
+            'title': _titleController.text,
+            'price': _priceController.text,
+            'detail': _detailController.text,
+            'imageUrl': imageUrl,
+            'createdAt': Timestamp.now(),
+            'sellerId': FirebaseAuth.instance.currentUser!.uid,
+            'color': colorList,
+            'size': sizeList,
+            "category": _btn2SelectedVal,
+            'releated': releatedButton,
+          };
+        } else {
+          myFashionProducts = {
+            'id': uuid,
+            'title': _titleController.text,
+            'price': _priceController.text,
+            'detail': _detailController.text,
+            'imageUrl': imageUrl,
+            'createdAt': Timestamp.now(),
+            'sellerId': FirebaseAuth.instance.currentUser!.uid,
+            'color': colorList,
+            'size': sizeList,
+            "category": _btn2SelectedVal,
+            'releated': releatedButton,
+            "discount": _btn2SelectedVal2,
+          };
+        }
+
         await FirebaseFirestore.instance
             .collection('fashion')
             .doc(uuid)
@@ -1118,6 +1205,185 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                     ),
                                     const SizedBox(
                                       width: 20,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Related Products",
+                                            style: GoogleFonts.getFont(
+                                              "Poppins",
+                                              textStyle: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColor.titleColor,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Container(
+                                            height: 38,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(
+                                                  4.0), // Adjust border radius as needed
+                                              border: Border.all(
+                                                color: AppColor
+                                                    .borderColor, // Specify border color
+                                                width:
+                                                    1.0, // Specify border width
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 8.0,
+                                                right: 8,
+                                              ),
+                                              child: DropdownButton(
+                                                isExpanded: true,
+                                                underline: const SizedBox(),
+                                                value: _btn2SelectedVal,
+                                                hint: const Text(
+                                                    'Choose the releated Products'),
+                                                onChanged: (String? newValue) {
+                                                  if (newValue != null) {
+                                                    setState(() =>
+                                                        _btn2SelectedVal =
+                                                            newValue);
+                                                  }
+                                                },
+                                                items: _dropDownMenuItems,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            " Product category",
+                                            style: GoogleFonts.getFont(
+                                              "Poppins",
+                                              textStyle: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColor.titleColor,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Container(
+                                            height: 38,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(
+                                                  4.0), // Adjust border radius as needed
+                                              border: Border.all(
+                                                color: AppColor
+                                                    .borderColor, // Specify border color
+                                                width:
+                                                    1.0, // Specify border width
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 8.0,
+                                                right: 8,
+                                              ),
+                                              child: DropdownButton(
+                                                isExpanded: true,
+                                                underline: const SizedBox(),
+                                                value: releatedButton,
+                                                hint: const Text(
+                                                    'Choose the Product Category'),
+                                                onChanged: (String? newValue) {
+                                                  if (newValue != null) {
+                                                    setState(() =>
+                                                        releatedButton =
+                                                            newValue);
+                                                  }
+                                                },
+                                                items:
+                                                    _dropDownReleatedMenuItems,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Product Discount",
+                                            style: GoogleFonts.getFont(
+                                              "Poppins",
+                                              textStyle: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColor.titleColor,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 8,
+                                          ),
+                                          Container(
+                                            height: 38,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(
+                                                  4.0), // Adjust border radius as needed
+                                              border: Border.all(
+                                                color: AppColor
+                                                    .borderColor, // Specify border color
+                                                width:
+                                                    1.0, // Specify border width
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 8.0,
+                                                right: 8,
+                                              ),
+                                              child: DropdownButton(
+                                                underline: const SizedBox(),
+                                                isExpanded: true,
+                                                value: _btn2SelectedVal2,
+                                                hint: const Text(
+                                                    'Choose the product discount'),
+                                                onChanged: (String? newValue) {
+                                                  if (newValue != null) {
+                                                    setState(() =>
+                                                        _btn2SelectedVal2 =
+                                                            newValue);
+                                                  }
+                                                },
+                                                items: _dropDownMenuItems2,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     Expanded(
                                       child: Column(
