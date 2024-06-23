@@ -35,12 +35,6 @@ class UploadFashionProduct extends StatefulWidget {
 }
 
 class _UploadFashionProductFormState extends State<UploadFashionProduct> {
-  static const menuItems3 = <String>[
-    'X',
-    'L',
-    'XXL',
-    "XXL",
-  ];
   static const menuItems2 = <String>[
     '0',
     '10',
@@ -95,16 +89,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     'Hot Selling',
     'Lightening Deals',
   ];
-  final List<DropdownMenuItem<String>> _dropDownMenuItems3 = menuItems3
-      .map(
-        (String value) => DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        ),
-      )
-      .toList();
-
-  String? _btn2SelectedVal3;
 
   final _formKey = GlobalKey<FormState>();
 
