@@ -57,10 +57,11 @@ class OrdersList extends StatelessWidget {
                   String date = data['date'];
                   String address = data['address'];
                   String status = data['status'];
-                  String buyyerId = data['buyyerId'];
+                  String buyyerId = data['buyerId'];
                   String productId = data['productId'];
                   String phone = data['phone'];
-                  String paymentType = data['paymentType'];
+                  String paymentType = "Stripe";
+                  // data['paymentType'];
                   String weight = data['weight'];
                   String uuid = data['uuid'];
                   String size = data['size'];

@@ -55,10 +55,28 @@ class _UploadProductFormState extends State<UploadProductForm> {
   ];
   String? releatedButton;
   static const releatedmenuItems = <String>[
-    'Shirt',
-    'Paints',
-    'jacket',
-    "Under Wear",
+    'Potatoes',
+    'Beets',
+    'Onions',
+    "Garlic",
+    'Pumpkin',
+    'Tomatoes',
+    'Cucumber',
+    'Carrots',
+    'Radishes',
+    'Broccoli',
+    'Kale',
+    'Pasta',
+    'Rice',
+    'Sauces & Gravies',
+    'Fruits',
+    'Baking Mixes',
+    'Flour & Sugar',
+    'Fresh Meat',
+    'Eggs',
+    'Lamb',
+    'Fish Meat',
+    'Other',
   ];
   final List<DropdownMenuItem<String>> _dropDownReleatedMenuItems =
       releatedmenuItems

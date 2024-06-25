@@ -61,10 +61,28 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   String? _btn2SelectedVal2;
 
   static const releatedmenuItems = <String>[
-    'Shirt',
-    'Paints',
-    'jacket',
-    "Under Wear",
+    "T-Shirts",
+    'Shirts',
+    'Sweaters',
+    'Hoodies ',
+    "Jeans",
+    'Trousers',
+    'Shorts',
+    'Jackets',
+    'Coats',
+    'Blazers',
+    "Underwear & Socks",
+    'Belts',
+    'Hats',
+    'Gloves',
+    'Blouses',
+    'Skirts',
+    'Leggings',
+    'Casual Dresses',
+    'Evening Dresses',
+    'Work Dresses',
+    'Handbags',
+    'Others'
   ];
   final List<DropdownMenuItem<String>> _dropDownReleatedMenuItems =
       releatedmenuItems
@@ -389,60 +407,45 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
+
       if (_pickedImage == null) {
         errorDialog(subtitle: 'Please pick up an image', context: context);
         return;
       }
       if (sizeList.isEmpty) {
-        errorDialog(subtitle: 'Select atleast one size', context: context);
+        errorDialog(subtitle: 'Select at least one size', context: context);
         return;
       }
+
       try {
         setState(() {
           isLoading = true;
         });
-        List colorList = [];
+
+        List<String> colorList = [];
         final imageUrl =
             await _uploadImageToStorage(uuid, _pickedImage!, webImage);
-        if (webImage1.isNotEmpty) {
-          final uuid1 = const Uuid().v1();
-          final image1 =
-              await _uploadImageToStorage(uuid1, _colorImage1, webImage1);
-          colorList.add(image1);
+
+        // Helper function to upload color images and add to colorList
+        Future<void> uploadColorImage(File? imageFile) async {
+          if (imageFile != null) {
+            var uuid = const Uuid().v1();
+            final imageUrl =
+                await _uploadImageToStorage(uuid, imageFile, webImage1);
+            colorList.add(imageUrl);
+          }
         }
-        if (webImage2.isNotEmpty) {
-          final uuid2 = const Uuid().v1();
-          final image2 =
-              await _uploadImageToStorage(uuid2, _colorImage2, webImage2);
-          colorList.add(image2);
-        }
-        if (webImage3.isNotEmpty) {
-          final uuid3 = const Uuid().v1();
-          final image3 =
-              await _uploadImageToStorage(uuid3, _colorImage3, webImage3);
-          colorList.add(image3);
-        }
-        if (webImage4.isNotEmpty) {
-          final uuid4 = const Uuid().v1();
-          final image4 =
-              await _uploadImageToStorage(uuid4, _colorImage4, webImage4);
-          colorList.add(image4);
-        }
-        if (webImage5.isNotEmpty) {
-          final uuid5 = const Uuid().v1();
-          final image5 =
-              await _uploadImageToStorage(uuid5, _colorImage5, webImage5);
-          colorList.add(image5);
-        }
-        if (webImage6.isNotEmpty) {
-          final uuid6 = const Uuid().v1();
-          final image6 =
-              await _uploadImageToStorage(uuid6, _colorImage6, webImage6);
-          colorList.add(image6);
-        }
+
+        // Upload selected color images
+        await uploadColorImage(_colorImage1);
+        await uploadColorImage(_colorImage2);
+        await uploadColorImage(_colorImage3);
+        await uploadColorImage(_colorImage4);
+        await uploadColorImage(_colorImage5);
+        await uploadColorImage(_colorImage6);
+
         if (_btn2SelectedVal == null) {
-          errorDialog(
-              subtitle: 'Select the releated Product', context: context);
+          errorDialog(subtitle: 'Select the related Product', context: context);
           return;
         }
         if (releatedButton == null) {
@@ -451,36 +454,22 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           return;
         }
 
-        Map<String, dynamic> myFashionProducts = {};
-        if (_btn2SelectedVal != 'Lightening Deals') {
-          myFashionProducts = {
-            'id': uuid,
-            'title': _titleController.text,
-            'price': _priceController.text,
-            'detail': _detailController.text,
-            'imageUrl': imageUrl,
-            'createdAt': Timestamp.now(),
-            'sellerId': FirebaseAuth.instance.currentUser!.uid,
-            'color': colorList,
-            'size': sizeList,
-            "category": _btn2SelectedVal,
-            'releated': releatedButton,
-          };
-        } else {
-          myFashionProducts = {
-            'id': uuid,
-            'title': _titleController.text,
-            'price': _priceController.text,
-            'detail': _detailController.text,
-            'imageUrl': imageUrl,
-            'createdAt': Timestamp.now(),
-            'sellerId': FirebaseAuth.instance.currentUser!.uid,
-            'color': colorList,
-            'size': sizeList,
-            "category": _btn2SelectedVal,
-            'releated': releatedButton,
-            "discount": _btn2SelectedVal2,
-          };
+        Map<String, dynamic> myFashionProducts = {
+          'id': uuid,
+          'title': _titleController.text,
+          'price': _priceController.text,
+          'detail': _detailController.text,
+          'imageUrl': imageUrl,
+          'createdAt': Timestamp.now(),
+          'sellerId': FirebaseAuth.instance.currentUser!.uid,
+          'color': colorList,
+          'size': sizeList,
+          "category": _btn2SelectedVal,
+          'releated': releatedButton,
+        };
+
+        if (_btn2SelectedVal == 'Lightening Deals') {
+          myFashionProducts['discount'] = _btn2SelectedVal2;
         }
 
         await FirebaseFirestore.instance
@@ -493,9 +482,11 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
             .collection("myFashionProducts")
             .doc(uuid)
             .set(myFashionProducts);
+
+        colorList.clear();
         clearForm();
         Fluttertoast.showToast(
-          msg: "Fashion Product uploaded succefully",
+          msg: "Fashion Product uploaded successfully",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
