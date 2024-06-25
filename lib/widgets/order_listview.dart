@@ -48,7 +48,6 @@ class OrdersList extends StatelessWidget {
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
-                  debugPrint("this is the data:${data}");
                   // Access data like title, price, etc.
                   String title = data['title'];
                   String price = data['salePrice'];
@@ -60,8 +59,7 @@ class OrdersList extends StatelessWidget {
                   String buyyerId = data['buyerId'];
                   String productId = data['productId'];
                   String phone = data['phone'];
-                  String paymentType = "Stripe";
-                  // data['paymentType'];
+                  String paymentType = data['paymentType'];
                   String weight = data['weight'];
                   String uuid = data['uuid'];
                   String size = data['size'];
