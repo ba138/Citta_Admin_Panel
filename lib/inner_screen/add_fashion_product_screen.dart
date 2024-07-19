@@ -113,14 +113,10 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
-  List PickedImages = [];
-  File? _pickedListedImage1;
   Uint8List webListedImage1 = Uint8List(8);
   File? _listedImage1;
-  File? _pickedListedImage2;
   Uint8List webListedImage2 = Uint8List(8);
   File? _listedImage2;
-  File? _pickedListedImage3;
   Uint8List webListedImage3 = Uint8List(8);
   File? _listedImage3;
 
@@ -525,8 +521,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
         });
 
         List<String> colorList = [];
-        final imageUrl =
-            await _uploadImageToStorage(uuid, _pickedImage!, webImage);
+        List<String> listedImages = [];
 
         // Helper function to upload color images and add to colorList
         Future<void> uploadColorImage(File? imageFile) async {
@@ -538,6 +533,15 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           }
         }
 
+        Future<void> ListedImage(File? imageFile) async {
+          if (imageFile != null) {
+            var uuid = const Uuid().v1();
+            final imageUrl =
+                await _uploadImageToStorage(uuid, imageFile, webImage1);
+            listedImages.add(imageUrl);
+          }
+        }
+
         // Upload selected color images
         await uploadColorImage(_colorImage1);
         await uploadColorImage(_colorImage2);
@@ -545,6 +549,9 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
         await uploadColorImage(_colorImage4);
         await uploadColorImage(_colorImage5);
         await uploadColorImage(_colorImage6);
+        await uploadColorImage(_listedImage1);
+        await uploadColorImage(_listedImage2);
+        await uploadColorImage(_listedImage3);
 
         if (_btn2SelectedVal == null) {
           errorDialog(subtitle: 'Select the related Product', context: context);
@@ -561,7 +568,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
-          'imageUrl': imageUrl,
+          'imageUrl': listedImages,
           'createdAt': Timestamp.now(),
           'sellerId': FirebaseAuth.instance.currentUser!.uid,
           'color': colorList,
@@ -623,7 +630,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   @override
   Widget build(BuildContext context) {
     final color = Utils(context).color;
-    Size size = Utils(context).getScreenSize;
 
     return Scaffold(
       backgroundColor: const Color(0xffF8F8F8),
@@ -1517,20 +1523,20 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                           width: 1.0,
                                         ),
                                       ),
-                                      child: _pickedImage == null
+                                      child: _listedImage3 == null
                                           ? DottedBor(
                                               color: color,
-                                              tap: _pickImage,
+                                              tap: _listImage3,
                                             )
                                           : kIsWeb
                                               ? Image.memory(
-                                                  webImage,
+                                                  webListedImage3,
                                                   width: 300,
                                                   height: 300,
                                                   fit: BoxFit.cover,
                                                 )
                                               : Image.file(
-                                                  _pickedImage!,
+                                                  _listedImage3!,
                                                   width: 300,
                                                   height: 300,
                                                   fit: BoxFit.cover,
@@ -1547,28 +1553,28 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                           width: 1.0,
                                         ),
                                       ),
-                                      child: _pickedImage == null
+                                      child: _listedImage1 == null
                                           ? DottedBor(
                                               color: color,
-                                              tap: _pickImage,
+                                              tap: _listImage,
                                             )
                                           : kIsWeb
                                               ? Image.memory(
-                                                  webImage,
+                                                  webListedImage1,
                                                   width: 300,
                                                   height: 300,
                                                   fit: BoxFit.cover,
                                                 )
                                               : Image.file(
-                                                  _pickedImage!,
+                                                  _listedImage1!,
                                                   width: 300,
                                                   height: 300,
                                                   fit: BoxFit.cover,
                                                 ),
                                     ),
                                     Container(
-                                      height: 200,
-                                      width: 200,
+                                      height: 300,
+                                      width: 300,
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(4.0),
@@ -1577,22 +1583,22 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                           width: 1.0,
                                         ),
                                       ),
-                                      child: _pickedImage == null
+                                      child: _listedImage2 == null
                                           ? DottedBor(
                                               color: color,
-                                              tap: _pickImage,
+                                              tap: _listImage2,
                                             )
                                           : kIsWeb
                                               ? Image.memory(
-                                                  webImage,
-                                                  width: 200,
-                                                  height: 200,
+                                                  webListedImage2,
+                                                  width: 300,
+                                                  height: 300,
                                                   fit: BoxFit.cover,
                                                 )
                                               : Image.file(
-                                                  _pickedImage!,
-                                                  width: 200,
-                                                  height: 200,
+                                                  _listedImage2!,
+                                                  width: 300,
+                                                  height: 300,
                                                   fit: BoxFit.cover,
                                                 ),
                                     ),
