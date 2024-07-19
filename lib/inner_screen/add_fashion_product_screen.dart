@@ -113,6 +113,16 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _detailController = TextEditingController();
+  List PickedImages = [];
+  File? _pickedListedImage1;
+  Uint8List webListedImage1 = Uint8List(8);
+  File? _listedImage1;
+  File? _pickedListedImage2;
+  Uint8List webListedImage2 = Uint8List(8);
+  File? _listedImage2;
+  File? _pickedListedImage3;
+  Uint8List webListedImage3 = Uint8List(8);
+  File? _listedImage3;
 
   File? _pickedImage;
   Uint8List webImage = Uint8List(8);
@@ -146,7 +156,9 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
       _pickedImage = null;
       _colorImage1 = null;
       _colorImage2 = null;
-
+      _listedImage1 = null;
+      _listedImage2 = null;
+      _listedImage3 = null;
       _colorImage3 = null;
 
       _colorImage4 = null;
@@ -240,6 +252,96 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
         setState(() {
           webImage6 = f;
           _colorImage6 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _listImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage1 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage1 = f;
+          _listedImage1 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _listImage2() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage2 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage2 = f;
+          _listedImage2 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _listImage3() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage3 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage3 = f;
+          _listedImage3 = File("a");
         });
       } else {
         Fluttertoast.showToast(msg: "No Image has been Picked");
@@ -1400,139 +1502,102 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Container(
-                                  height: size.width > 650
-                                      ? 350
-                                      : size.width * 0.45,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        4.0), // Adjust border radius as needed
-                                    border: Border.all(
-                                      color: AppColor
-                                          .borderColor, // Specify border color
-                                      width: 1.0, // Specify border width
-                                    ),
-                                  ),
-                                  child: _pickedImage == null
-                                      ? DottedBor(
-                                          color: color,
-                                          tap: _pickImage,
-                                        )
-                                      : kIsWeb
-                                          ? Image.memory(
-                                              webImage,
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              fit: BoxFit.fill,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      height: 300,
+                                      width: 300,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        border: Border.all(
+                                          color: AppColor.borderColor,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: _pickedImage == null
+                                          ? DottedBor(
+                                              color: color,
+                                              tap: _pickImage,
                                             )
-                                          : Image.file(
-                                              _pickedImage!,
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              fit: BoxFit.fill,
-                                            ),
+                                          : kIsWeb
+                                              ? Image.memory(
+                                                  webImage,
+                                                  width: 300,
+                                                  height: 300,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.file(
+                                                  _pickedImage!,
+                                                  width: 300,
+                                                  height: 300,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                    ),
+                                    Container(
+                                      height: 300,
+                                      width: 300,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        border: Border.all(
+                                          color: AppColor.borderColor,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: _pickedImage == null
+                                          ? DottedBor(
+                                              color: color,
+                                              tap: _pickImage,
+                                            )
+                                          : kIsWeb
+                                              ? Image.memory(
+                                                  webImage,
+                                                  width: 300,
+                                                  height: 300,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.file(
+                                                  _pickedImage!,
+                                                  width: 300,
+                                                  height: 300,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                    ),
+                                    Container(
+                                      height: 200,
+                                      width: 200,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        border: Border.all(
+                                          color: AppColor.borderColor,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: _pickedImage == null
+                                          ? DottedBor(
+                                              color: color,
+                                              tap: _pickImage,
+                                            )
+                                          : kIsWeb
+                                              ? Image.memory(
+                                                  webImage,
+                                                  width: 200,
+                                                  height: 200,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : Image.file(
+                                                  _pickedImage!,
+                                                  width: 200,
+                                                  height: 200,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                    ),
+                                  ],
                                 ),
-                                // TextWidget(
-                                //   text: 'Product title*',
-                                //   color: color,
-                                //   isTitle: true,
-                                // ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-                                // TextFormField(
-                                //   controller: _titleController,
-                                //   key: const ValueKey('Title'),
-                                //   validator: (value) {
-                                //     if (value!.isEmpty) {
-                                //       return 'Please enter a Title';
-                                //     }
-                                //     return null;
-                                //   },
-                                //   decoration: inputDecoration,
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(14),
-                                //   child: Container(
-                                //     height: size.width > 650
-                                //         ? 350
-                                //         : size.width * 0.45,
-                                //     color: Theme.of(context)
-                                //         .scaffoldBackgroundColor,
-                                //     child: _pickedImage == null
-                                //         ? DottedBor(
-                                //             color: color,
-                                //             tap: _pickImage,
-                                //           )
-                                //         : kIsWeb
-                                //             ? Center(
-                                //                 child: Image.memory(
-                                //                   webImage,
-                                //                   fit: BoxFit.fill,
-                                //                 ),
-                                //               )
-                                //             : Center(
-                                //                 child: Image.file(
-                                //                   _pickedImage!,
-                                //                   fit: BoxFit.fill,
-                                //                 ),
-                                //               ),
-                                //   ),
-                                // ),
-                                // TextWidget(
-                                //   text: 'Product Detail*',
-                                //   color: color,
-                                //   isTitle: true,
-                                // ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-                                // TextField(
-                                //   maxLines: 4,
-                                //   controller: _detailController,
-                                //   decoration: InputDecoration(
-                                //     filled: true,
-                                //     fillColor: scaffoldColor,
-                                //     alignLabelWithHint: true,
-                                //     hintStyle: TextStyle(
-                                //       fontSize: 14,
-                                //       fontWeight: FontWeight.w400,
-                                //       color: color,
-                                //     ),
-                                //     hintText: 'Write details about Product....',
-                                //     border: InputBorder.none,
-                                //     focusedBorder: OutlineInputBorder(
-                                //       borderSide: BorderSide(
-                                //         color: color,
-                                //         width: 1.0,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                // const SizedBox(
-                                //   height: 20,
-                                // ),
-                                // TextWidget(
-                                //   text: 'Product Price*',
-                                //   color: color,
-                                //   isTitle: true,
-                                // ),
-                                // const SizedBox(
-                                //   height: 10,
-                                // ),
-                                // TextFormField(
-                                //   controller: _priceController,
-                                //   key: const ValueKey('Price'),
-                                //   validator: (value) {
-                                //     if (value!.isEmpty) {
-                                //       return 'Please enter a Price';
-                                //     }
-                                //     return null;
-                                //   },
-                                //   decoration: inputDecoration,
-                                // ),
                                 Padding(
                                   padding: const EdgeInsets.all(18.0),
                                   child: Row(
