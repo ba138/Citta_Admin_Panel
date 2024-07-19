@@ -60,7 +60,7 @@ class FashionGrid extends StatelessWidget {
                 return FashionWidget(
                   title: snapshot.data!.docs[index]['title'],
                   price: snapshot.data!.docs[index]['price'],
-                  image: snapshot.data!.docs[index]['imageUrl'],
+                  image: snapshot.data!.docs[index]['imageUrl'][0],
                   fashionProductID: snapshot.data!.docs[index]['id'],
                   detail: snapshot.data!.docs[index]['detail'],
                 ); // Return the widget for each item

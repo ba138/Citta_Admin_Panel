@@ -505,9 +505,22 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
+      List<String> listedImages = [];
+      Future<void> ListedImage(File? imageFile) async {
+        if (imageFile != null) {
+          var uuid = const Uuid().v1();
+          final imageUrl =
+              await _uploadImageToStorage(uuid, imageFile, webImage1);
+          listedImages.add(imageUrl);
+        }
+      }
 
-      if (_pickedImage == null) {
-        errorDialog(subtitle: 'Please pick up an image', context: context);
+      await ListedImage(_listedImage1);
+      await ListedImage(_listedImage2);
+      await ListedImage(_listedImage3);
+      if (listedImages.isEmpty) {
+        errorDialog(
+            subtitle: 'Please pick up at last one Image', context: context);
         return;
       }
       if (sizeList.isEmpty) {
@@ -521,7 +534,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
         });
 
         List<String> colorList = [];
-        List<String> listedImages = [];
 
         // Helper function to upload color images and add to colorList
         Future<void> uploadColorImage(File? imageFile) async {
@@ -530,15 +542,6 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
             final imageUrl =
                 await _uploadImageToStorage(uuid, imageFile, webImage1);
             colorList.add(imageUrl);
-          }
-        }
-
-        Future<void> ListedImage(File? imageFile) async {
-          if (imageFile != null) {
-            var uuid = const Uuid().v1();
-            final imageUrl =
-                await _uploadImageToStorage(uuid, imageFile, webImage1);
-            listedImages.add(imageUrl);
           }
         }
 
