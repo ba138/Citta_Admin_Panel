@@ -284,15 +284,24 @@ class _UploadProductFormState extends State<UploadProductForm> {
       if (listedImages.isEmpty) {
         errorDialog(
             subtitle: 'Please pick up at last one Image', context: context);
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
         errorDialog(subtitle: 'User is not authenticated', context: context);
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       if (releatedButton == null) {
         errorDialog(subtitle: 'Please select the Category', context: context);
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
 

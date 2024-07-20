@@ -316,6 +316,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
       if (listedImages.isEmpty) {
         errorDialog(
             subtitle: 'Please pick up at last one Image', context: context);
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       if (previewImage1 == null &&
@@ -325,6 +328,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           previewImage5 == null &&
           previewImage6 == null) {
         errorDialog(subtitle: 'Please pick up all image', context: context);
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       try {
@@ -414,36 +420,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           isLoading = false;
         });
       }
-    }
-  }
-
-  Future<void> _pickImage() async {
-    if (!kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var selected = File(image.path);
-        setState(() {
-          _coverImage = selected;
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else if (kIsWeb) {
-      final ImagePicker _picker = ImagePicker();
-      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        var f = await image.readAsBytes();
-
-        setState(() {
-          webImage = f;
-          _coverImage = File("a");
-        });
-      } else {
-        Fluttertoast.showToast(msg: "No Image has been Picked");
-      }
-    } else {
-      Fluttertoast.showToast(msg: "Something went wrong");
     }
   }
 

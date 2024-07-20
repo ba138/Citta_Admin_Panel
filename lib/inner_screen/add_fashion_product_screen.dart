@@ -501,7 +501,9 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-
+    setState(() {
+      isLoading = true;
+    });
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
@@ -522,18 +524,20 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
       if (listedImages.isEmpty) {
         errorDialog(
             subtitle: 'Please pick up at last one Image', context: context);
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
       if (sizeList.isEmpty) {
         errorDialog(subtitle: 'Select at least one size', context: context);
+        setState(() {
+          isLoading = false;
+        });
         return;
       }
 
       try {
-        setState(() {
-          isLoading = true;
-        });
-
         List<String> colorList = [];
 
         // Helper function to upload color images and add to colorList
