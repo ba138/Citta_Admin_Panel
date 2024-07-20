@@ -232,14 +232,15 @@ class _UploadProductFormState extends State<UploadProductForm> {
     });
   }
 
-  Future<String> _uploadImageToStorage(String uuid, File? imageFile) async {
+  Future<String> _uploadImageToStorage(
+      String uuid, File? imageFile, webImageListed) async {
     try {
       final storage = FirebaseStorage.instance
           .ref()
           .child('product_images')
           .child('${uuid}jpg');
       if (kIsWeb) {
-        await storage.putData(webImage);
+        await storage.putData(webImageListed);
       } else {
         await storage.putFile(_pickedImage!);
       }
@@ -257,10 +258,22 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   void _uploadForm() async {
     try {
-      if (_pickedImage == null) {
-        errorDialog(subtitle: 'Please pick up an image', context: context);
-        return;
+      List<String> listedImages = [];
+      Future<void> ListedImage(File? imageFile) async {
+        if (imageFile != null) {
+          var uuid = const Uuid().v1();
+          final imageUrl = await _uploadImageToStorage(
+            uuid,
+            imageFile,
+            webImage,
+          );
+          listedImages.add(imageUrl);
+        }
       }
+
+      await ListedImage(_listedImage1);
+      await ListedImage(_listedImage2);
+      await ListedImage(_listedImage3);
 
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
@@ -277,7 +290,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
         isLoading = true;
       });
 
-      final imageUrl = await _uploadImageToStorage(_uuid, _pickedImage!);
       Map<String, dynamic> myProducts = {};
 
       if (_btn2SelectedVal != 'Lightening Deals') {
@@ -287,7 +299,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'price': _priceController.text,
           'detail': _detailController.text,
           "weight": _amountController.text,
-          'imageUrl': imageUrl,
+          'imageUrl': listedImages,
           'isOnSale': false,
           'createdAt': Timestamp.now(),
           "sellerId": user.uid,
@@ -301,7 +313,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
           'price': _priceController.text,
           'detail': _detailController.text,
           "weight": _amountController.text,
-          'imageUrl': imageUrl,
+          'imageUrl': listedImages,
           'isOnSale': true,
           'createdAt': Timestamp.now(),
           "sellerId": user.uid,
