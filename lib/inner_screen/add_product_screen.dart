@@ -39,7 +39,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
     'Hot Selling',
     'Lightening Deals',
   ];
-
+  Uint8List webListedImage1 = Uint8List(8);
+  File? _listedImage1;
+  Uint8List webListedImage2 = Uint8List(8);
+  File? _listedImage2;
+  Uint8List webListedImage3 = Uint8List(8);
+  File? _listedImage3;
   static const menuItems2 = <String>[
     '0',
     '10',
@@ -114,6 +119,95 @@ class _UploadProductFormState extends State<UploadProductForm> {
   Uint8List webImage = Uint8List(8);
   String? _btn2SelectedVal;
   String? _btn2SelectedVal2;
+  Future<void> _listImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage1 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage1 = f;
+          _listedImage1 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _listImage2() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage2 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage2 = f;
+          _listedImage2 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _listImage3() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage3 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage3 = f;
+          _listedImage3 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
 
   @override
   void dispose() {
@@ -780,6 +874,98 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               ),
                             ],
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 300,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.0),
+                                border: Border.all(
+                                  color: AppColor.borderColor,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: _listedImage3 == null
+                                  ? DottedBor(
+                                      color: color,
+                                      tap: _listImage3,
+                                    )
+                                  : kIsWeb
+                                      ? Image.memory(
+                                          webListedImage3,
+                                          width: 300,
+                                          height: 300,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          _listedImage3!,
+                                          width: 300,
+                                          height: 300,
+                                          fit: BoxFit.cover,
+                                        ),
+                            ),
+                            Container(
+                              height: 300,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.0),
+                                border: Border.all(
+                                  color: AppColor.borderColor,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: _listedImage1 == null
+                                  ? DottedBor(
+                                      color: color,
+                                      tap: _listImage,
+                                    )
+                                  : kIsWeb
+                                      ? Image.memory(
+                                          webListedImage1,
+                                          width: 300,
+                                          height: 300,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          _listedImage1!,
+                                          width: 300,
+                                          height: 300,
+                                          fit: BoxFit.cover,
+                                        ),
+                            ),
+                            Container(
+                              height: 300,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4.0),
+                                border: Border.all(
+                                  color: AppColor.borderColor,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: _listedImage2 == null
+                                  ? DottedBor(
+                                      color: color,
+                                      tap: _listImage2,
+                                    )
+                                  : kIsWeb
+                                      ? Image.memory(
+                                          webListedImage2,
+                                          width: 300,
+                                          height: 300,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          _listedImage2!,
+                                          width: 300,
+                                          height: 300,
+                                          fit: BoxFit.cover,
+                                        ),
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20),
