@@ -70,7 +70,7 @@ class ProductGrid extends StatelessWidget {
                     price: price.toStringAsFixed(2), // Original price
                     amount: product['weight'],
                     title: product['title'],
-                    image: product['imageUrl'],
+                    image: snapshot.data!.docs[index]['imageUrl'][1],
                     salePrice: salePrice.toStringAsFixed(2), // Sale price
                     detail: product['detail'],
                   );

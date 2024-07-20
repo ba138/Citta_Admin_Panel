@@ -9,7 +9,6 @@ import 'package:citta_admin_panel/screens/loading.dart';
 import 'package:citta_admin_panel/services/utils.dart';
 import 'package:citta_admin_panel/widgets/buttons.dart';
 import 'package:citta_admin_panel/widgets/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:citta_admin_panel/widgets/side_menu.dart';
@@ -35,6 +34,12 @@ class AddBundlpackScreen extends StatefulWidget {
 }
 
 class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
+  Uint8List webListedImage1 = Uint8List(8);
+  File? _listedImage1;
+  Uint8List webListedImage2 = Uint8List(8);
+  File? _listedImage2;
+  Uint8List webListedImage3 = Uint8List(8);
+  File? _listedImage3;
   final _formKey = GlobalKey<FormState>();
   static const menuItems = <String>[
     'Small',
@@ -167,6 +172,96 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     });
   }
 
+  Future<void> _listImage() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage1 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage1 = f;
+          _listedImage1 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _listImage2() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage2 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage2 = f;
+          _listedImage2 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
+  Future<void> _listImage3() async {
+    if (!kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var selected = File(image.path);
+        setState(() {
+          _listedImage3 = selected;
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else if (kIsWeb) {
+      final ImagePicker _picker = ImagePicker();
+      XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        var f = await image.readAsBytes();
+
+        setState(() {
+          webListedImage3 = f;
+          _listedImage3 = File("a");
+        });
+      } else {
+        Fluttertoast.showToast(msg: "No Image has been Picked");
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Something went wrong");
+    }
+  }
+
   Future<String> _uploadImageToStorage(
       String uuid, File? imageFile, Uint8List webImageCover) async {
     try {
@@ -197,8 +292,28 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
-      if (_coverImage == null &&
-          previewImage1 == null &&
+      List<String> listedImages = [];
+      Future<void> ListedImage(File? imageFile) async {
+        if (imageFile != null) {
+          var uuid = const Uuid().v1();
+          final imageUrl = await _uploadImageToStorage(
+            uuid,
+            imageFile,
+            webImage,
+          );
+          listedImages.add(imageUrl);
+        }
+      }
+
+      await ListedImage(_listedImage1);
+      await ListedImage(_listedImage2);
+      await ListedImage(_listedImage3);
+      if (listedImages.isEmpty) {
+        errorDialog(
+            subtitle: 'Please pick up at last one Image', context: context);
+        return;
+      }
+      if (previewImage1 == null &&
           previewImage2 == null &&
           previewImage3 == null &&
           previewImage4 == null &&
@@ -230,7 +345,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
           'title': _titleController.text,
           'price': _priceController.text,
           'detail': _detailController.text,
-          'imageUrl': coverImageUrl,
+          'imageUrl': listedImages,
           "size": _btn2SelectedVal,
           'weight': _weightController.text,
           'sellerId': FirebaseAuth.instance.currentUser!.uid,
@@ -566,7 +681,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Container(
-                        height: MediaQuery.of(context).size.height / 1.8,
+                        height: MediaQuery.of(context).size.height / 1.4,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -577,7 +692,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             children: [
                               Container(
                                 height:
-                                    MediaQuery.of(context).size.height / 1.8,
+                                    MediaQuery.of(context).size.height / 1.4,
                                 width: 1050,
                                 decoration: BoxDecoration(
                                     color: Colors.transparent,
@@ -737,34 +852,130 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                       const SizedBox(
                                         height: 12,
                                       ),
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: AppColor.borderColor),
-                                            borderRadius:
-                                                BorderRadius.circular(4),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Container(
+                                            height: 300,
+                                            width: 300,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                              border: Border.all(
+                                                color: AppColor.borderColor,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: _listedImage3 == null
+                                                ? DottedBor(
+                                                    color: color,
+                                                    tap: _listImage3,
+                                                  )
+                                                : kIsWeb
+                                                    ? Image.memory(
+                                                        webListedImage3,
+                                                        width: 300,
+                                                        height: 300,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : Image.file(
+                                                        _listedImage3!,
+                                                        width: 300,
+                                                        height: 300,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                           ),
-                                          child: _coverImage == null
-                                              ? DottedBor(
-                                                  color: color,
-                                                  tap: _pickImage,
-                                                )
-                                              : kIsWeb
-                                                  ? Center(
-                                                      child: Image.memory(
-                                                        webImage,
-                                                        fit: BoxFit.fill,
+                                          Container(
+                                            height: 300,
+                                            width: 300,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                              border: Border.all(
+                                                color: AppColor.borderColor,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: _listedImage1 == null
+                                                ? DottedBor(
+                                                    color: color,
+                                                    tap: _listImage,
+                                                  )
+                                                : kIsWeb
+                                                    ? Image.memory(
+                                                        webListedImage1,
+                                                        width: 300,
+                                                        height: 300,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : Image.file(
+                                                        _listedImage1!,
+                                                        width: 300,
+                                                        height: 300,
+                                                        fit: BoxFit.cover,
                                                       ),
-                                                    )
-                                                  : Center(
-                                                      child: Image.file(
-                                                        _coverImage!,
-                                                        fit: BoxFit.fill,
+                                          ),
+                                          Container(
+                                            height: 300,
+                                            width: 300,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                              border: Border.all(
+                                                color: AppColor.borderColor,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: _listedImage2 == null
+                                                ? DottedBor(
+                                                    color: color,
+                                                    tap: _listImage2,
+                                                  )
+                                                : kIsWeb
+                                                    ? Image.memory(
+                                                        webListedImage2,
+                                                        width: 300,
+                                                        height: 300,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : Image.file(
+                                                        _listedImage2!,
+                                                        width: 300,
+                                                        height: 300,
+                                                        fit: BoxFit.cover,
                                                       ),
-                                                    ),
-                                        ),
+                                          ),
+                                        ],
                                       ),
+                                      // Expanded(
+                                      //   child: Container(
+                                      //     decoration: BoxDecoration(
+                                      //       border: Border.all(
+                                      //           color: AppColor.borderColor),
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(4),
+                                      //     ),
+                                      //     child: _coverImage == null
+                                      //         ? DottedBor(
+                                      //             color: color,
+                                      //             tap: _pickImage,
+                                      //           )
+                                      //         : kIsWeb
+                                      //             ? Center(
+                                      //                 child: Image.memory(
+                                      //                   webImage,
+                                      //                   fit: BoxFit.fill,
+                                      //                 ),
+                                      //               )
+                                      //             : Center(
+                                      //                 child: Image.file(
+                                      //                   _coverImage!,
+                                      //                   fit: BoxFit.fill,
+                                      //                 ),
+                                      //               ),
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                 ),

@@ -261,6 +261,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
   void _uploadForm() async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       List<String> listedImages = [];
       Future<void> ListedImage(File? imageFile) async {
         if (imageFile != null) {
@@ -293,9 +296,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
       }
 
       final _uuid = const Uuid().v1();
-      setState(() {
-        isLoading = true;
-      });
 
       Map<String, dynamic> myProducts = {};
 
