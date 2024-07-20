@@ -159,7 +159,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
     _price6.clear();
 
     setState(() {
-      _coverImage = null;
+      _listedImage1 = null;
+      _listedImage2 = null;
+      _listedImage3 = null;
       previewImage1 = null;
       previewImage2 = null;
 
@@ -288,7 +290,9 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
   void _uploadForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-
+    setState(() {
+      isLoading = true;
+    });
     if (isValid) {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
@@ -323,11 +327,6 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
         return;
       }
       try {
-        setState(() {
-          isLoading = true;
-        });
-        final coverImageUrl =
-            await _uploadImageToStorage("${uuid}cover", _coverImage!, webImage);
         final previewImageUrl1 =
             await _uploadImageToStorage("${uuid}1", previewImage1!, webImage1);
         final previewImageUrl2 =
@@ -681,7 +680,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Container(
-                        height: MediaQuery.of(context).size.height / 1.4,
+                        height: MediaQuery.of(context).size.height / 1.2,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -692,7 +691,7 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                             children: [
                               Container(
                                 height:
-                                    MediaQuery.of(context).size.height / 1.4,
+                                    MediaQuery.of(context).size.height / 1.2,
                                 width: 1050,
                                 decoration: BoxDecoration(
                                     color: Colors.transparent,
@@ -850,15 +849,15 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                         ],
                                       ),
                                       const SizedBox(
-                                        height: 12,
+                                        height: 24,
                                       ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Container(
-                                            height: 300,
-                                            width: 300,
+                                            height: 250,
+                                            width: 250,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(4.0),
@@ -875,20 +874,20 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                 : kIsWeb
                                                     ? Image.memory(
                                                         webListedImage3,
-                                                        width: 300,
-                                                        height: 300,
+                                                        width: 250,
+                                                        height: 250,
                                                         fit: BoxFit.cover,
                                                       )
                                                     : Image.file(
                                                         _listedImage3!,
-                                                        width: 300,
-                                                        height: 300,
+                                                        width: 250,
+                                                        height: 250,
                                                         fit: BoxFit.cover,
                                                       ),
                                           ),
                                           Container(
-                                            height: 300,
-                                            width: 300,
+                                            height: 250,
+                                            width: 250,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(4.0),
@@ -905,20 +904,20 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                 : kIsWeb
                                                     ? Image.memory(
                                                         webListedImage1,
-                                                        width: 300,
-                                                        height: 300,
+                                                        width: 250,
+                                                        height: 250,
                                                         fit: BoxFit.cover,
                                                       )
                                                     : Image.file(
                                                         _listedImage1!,
-                                                        width: 300,
-                                                        height: 300,
+                                                        width: 250,
+                                                        height: 250,
                                                         fit: BoxFit.cover,
                                                       ),
                                           ),
                                           Container(
-                                            height: 300,
-                                            width: 300,
+                                            height: 250,
+                                            width: 250,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(4.0),
@@ -935,14 +934,14 @@ class _AddBundlpackScreenFormState extends State<AddBundlpackScreen> {
                                                 : kIsWeb
                                                     ? Image.memory(
                                                         webListedImage2,
-                                                        width: 300,
-                                                        height: 300,
+                                                        width: 250,
+                                                        height: 250,
                                                         fit: BoxFit.cover,
                                                       )
                                                     : Image.file(
                                                         _listedImage2!,
-                                                        width: 300,
-                                                        height: 300,
+                                                        width: 250,
+                                                        height: 250,
                                                         fit: BoxFit.cover,
                                                       ),
                                           ),

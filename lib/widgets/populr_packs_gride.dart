@@ -62,7 +62,8 @@ class PopularPacksGride extends StatelessWidget {
                     title: snapshot.data!.docs[index]["title"],
                     price: snapshot.data!.docs[index]["price"],
                     saleprice: snapshot.data!.docs[index]["salePrice"],
-                    coverimage: snapshot.data!.docs[index]["imageUrl"],
+                    coverimage:
+                        snapshot.data!.docs[index]["imageUrl"][0].toString(),
                     weight: snapshot.data!.docs[index]["weight"],
                     img1: snapshot.data!.docs[index]["product1"]['image'],
                     img2: snapshot.data!.docs[index]["product2"]['image'],
