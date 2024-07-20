@@ -265,21 +265,22 @@ class _UploadProductFormState extends State<UploadProductForm> {
         isLoading = true;
       });
       List<String> listedImages = [];
-      Future<void> ListedImage(File? imageFile) async {
+      Future<void> ListedImage(
+          File? imageFile, Uint8List weblistedImage) async {
         if (imageFile != null) {
           var uuid = const Uuid().v1();
           final imageUrl = await _uploadImageToStorage(
             uuid,
             imageFile,
-            webImage,
+            weblistedImage,
           );
           listedImages.add(imageUrl);
         }
       }
 
-      await ListedImage(_listedImage1);
-      await ListedImage(_listedImage2);
-      await ListedImage(_listedImage3);
+      await ListedImage(_listedImage1, webListedImage1);
+      await ListedImage(_listedImage2, webListedImage2);
+      await ListedImage(_listedImage3, webListedImage3);
       if (listedImages.isEmpty) {
         errorDialog(
             subtitle: 'Please pick up at last one Image', context: context);

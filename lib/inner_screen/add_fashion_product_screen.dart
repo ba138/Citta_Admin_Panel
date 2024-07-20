@@ -506,18 +506,19 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
       _formKey.currentState!.save();
       final uuid = const Uuid().v1();
       List<String> listedImages = [];
-      Future<void> ListedImage(File? imageFile) async {
+      Future<void> ListedImage(
+          File? imageFile, Uint8List weblistedImage) async {
         if (imageFile != null) {
           var uuid = const Uuid().v1();
           final imageUrl =
-              await _uploadImageToStorage(uuid, imageFile, webImage1);
+              await _uploadImageToStorage(uuid, imageFile, weblistedImage);
           listedImages.add(imageUrl);
         }
       }
 
-      await ListedImage(_listedImage1);
-      await ListedImage(_listedImage2);
-      await ListedImage(_listedImage3);
+      await ListedImage(_listedImage1, webListedImage1);
+      await ListedImage(_listedImage2, webListedImage2);
+      await ListedImage(_listedImage3, webListedImage3);
       if (listedImages.isEmpty) {
         errorDialog(
             subtitle: 'Please pick up at last one Image', context: context);
