@@ -229,6 +229,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
       _pickedImage = null;
       _btn2SelectedVal = null;
       _btn2SelectedVal2 = null;
+      _listedImage1 = null;
+      _listedImage2 = null;
+      _listedImage3 = null;
     });
   }
 
@@ -274,7 +277,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
       await ListedImage(_listedImage1);
       await ListedImage(_listedImage2);
       await ListedImage(_listedImage3);
-
+      if (listedImages.isEmpty) {
+        errorDialog(
+            subtitle: 'Please pick up at last one Image', context: context);
+        return;
+      }
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) {
         errorDialog(subtitle: 'User is not authenticated', context: context);
