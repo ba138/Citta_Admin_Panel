@@ -967,39 +967,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Container(
-                            height: size.width > 650 ? 350 : size.width * 0.45,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(
-                                  8.0), // Adjust border radius as needed
-                              border: Border.all(
-                                color: Colors.grey, // Specify border color
-                                width: 1.0, // Specify border width
-                              ),
-                            ),
-                            child: _pickedImage == null
-                                ? DottedBor(
-                                    color: color,
-                                    tap: _pickImage,
-                                  )
-                                : kIsWeb
-                                    ? Image.memory(
-                                        webImage,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        fit: BoxFit.fill,
-                                      )
-                                    : Image.file(
-                                        _pickedImage!,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        fit: BoxFit.fill,
-                                      ),
-                          ),
-                        ),
                         const SizedBox(height: 20),
                         Padding(
                           padding: const EdgeInsets.all(18.0),
