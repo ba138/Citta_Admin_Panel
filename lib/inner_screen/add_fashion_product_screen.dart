@@ -64,7 +64,7 @@ class _UploadFashionProductFormState extends State<UploadFashionProduct> {
     "T-Shirts",
     'Shirts',
     'Sweaters',
-    'Hoodies ',
+    'Hoodies',
     "Jeans",
     'Trousers',
     'Shorts',
